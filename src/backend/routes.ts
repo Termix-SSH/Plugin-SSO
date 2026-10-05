@@ -2,7 +2,7 @@ import type { Request, Response, Router } from "express";
 import {
   LoginMethodError,
   type PluginContext,
-} from "@termix/plugin-sdk/backend";
+} from "@termix-ssh/plugin-sdk/backend";
 import {
   applyProviderDefaults,
   isValidOidcIssuer,

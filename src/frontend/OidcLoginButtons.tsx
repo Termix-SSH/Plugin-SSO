@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "@termix/plugin-sdk/ui";
+import { Button } from "@termix-ssh/plugin-sdk/ui";
 import {
   useTranslation,
   type LoginMethodUIProps,
-} from "@termix/plugin-sdk/frontend";
+} from "@termix-ssh/plugin-sdk/frontend";
 
 /** One button per enabled provider. */
 export function OidcLoginButtons({

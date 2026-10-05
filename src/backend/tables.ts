@@ -6,7 +6,7 @@ import {
   integer,
   text,
   timestamp,
-} from "@termix/plugin-sdk/db";
+} from "@termix-ssh/plugin-sdk/db";
 
 /**
  * Adopted from core's sso_providers, so the column names are the legacy ones

@@ -1,5 +1,5 @@
 import type { Router } from "express";
-import type { PluginContext } from "@termix/plugin-sdk/backend";
+import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import { providers } from "./tables.js";
 import { createProviderStore } from "./providers.js";
 import { createSsoLogin, METHOD_ID } from "./login.js";

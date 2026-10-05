@@ -1,5 +1,5 @@
 import { and, asc, desc, eq } from "drizzle-orm";
-import type { PluginContext } from "@termix/plugin-sdk/backend";
+import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import { applyProviderDefaults, normalizeIssuer } from "./oidc-protocol.js";
 import {
   SSO_PROVIDER_TYPES,

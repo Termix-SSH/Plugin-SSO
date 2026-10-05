@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { validateManifest } from "@termix/plugin-sdk/manifest";
+import { validateManifest } from "@termix-ssh/plugin-sdk/manifest";
 import manifest from "../../manifest.json";
 
 // The 2.8 config URL Termix-Mobile still reads keeps reaching the plugin.
