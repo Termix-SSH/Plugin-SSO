@@ -38,8 +38,6 @@
     "copied": "Copiat",
     "redirectUri": "URI de redirecció",
     "redirectUriDesc": "Registra aquesta URL com a URL de redirecció o de devolució de trucada al teu proveïdor d'identitat.",
-    "legacyCallback": "Mantingueu l'URI de redirecció antiga",
-    "legacyCallbackDesc": "Aquest proveïdor es va configurar abans de Termix 2.9 i encara utilitza l'URI de redirecció antic, que continua funcionant. Per canviar al nou, afegiu primer {{uri}} al vostre proveïdor d'identitat i després desactiveu-lo.",
     "authorizationUrl": "URL d'autorització: {{url}}"
   },
   "fields": {

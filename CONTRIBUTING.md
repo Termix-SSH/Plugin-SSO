@@ -14,7 +14,7 @@ npm run format     # format the code with Prettier
 
 ### Admin
 
-- **Providers:** add a provider, then register the redirect URI it shows with your identity provider. The client secret is stored encrypted. Providers set up before 2.9 keep the old redirect URI until you turn it off
+- **Providers:** add a provider, then register the redirect URI it shows with your identity provider. The client secret is stored encrypted
 - **Sign in with SSO automatically:** skip the login form and go to the first provider. The `OIDC_SILENT_LOGIN_DEFAULT` environment variable overrides this
 
 ## Permissions

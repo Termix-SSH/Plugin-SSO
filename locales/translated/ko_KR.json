@@ -38,8 +38,6 @@
     "copied": "복사됨",
     "redirectUri": "리디렉션 URI",
     "redirectUriDesc": "이 URL을 ID 공급자에서 리디렉션 또는 콜백 URL로 등록하세요.",
-    "legacyCallback": "기존 리디렉션 URI를 유지하세요",
-    "legacyCallbackDesc": "이 공급자는 Termix 2.9 이전에 설정되었으며 여전히 이전 리디렉션 URI를 사용하고 있지만 정상적으로 작동합니다. 새 URI로 전환하려면 먼저 ID 공급자에 {{uri}} 를 추가한 다음 이 기능을 비활성화하십시오.",
     "authorizationUrl": "인증 URL: {{url}}"
   },
   "fields": {

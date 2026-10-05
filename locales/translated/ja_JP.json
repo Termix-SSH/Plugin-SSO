@@ -38,8 +38,6 @@
     "copied": "コピーしました",
     "redirectUri": "リダイレクトURI",
     "redirectUriDesc": "このURLを、ご利用のIDプロバイダーのリダイレクトURLまたはコールバックURLとして登録してください。",
-    "legacyCallback": "古いリダイレクトURIを保持する",
-    "legacyCallbackDesc": "このプロバイダはTermix 2.9より前に設定されたもので、古いリダイレクトURIがまだ使用されていますが、これは引き続き機能します。新しいURIに移行するには、まずIDプロバイダに {{uri}} を追加し、その後この設定を無効にしてください。",
     "authorizationUrl": "認証URL: {{url}}"
   },
   "fields": {

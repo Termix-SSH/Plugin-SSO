@@ -38,8 +38,6 @@
     "copied": "Copiado",
     "redirectUri": "URI de redirección",
     "redirectUriDesc": "Registra esta URL como URL de redireccionamiento o de devolución de llamada en tu proveedor de identidad.",
-    "legacyCallback": "Mantén la URI de redireccionamiento antigua.",
-    "legacyCallbackDesc": "Este proveedor se configuró antes de Termix 2.9 y aún utiliza la URI de redireccionamiento antigua, que sigue funcionando. Para cambiar a la nueva, primero añade {{uri}} a tu proveedor de identidad y luego desactiva esta opción.",
     "authorizationUrl": "URL de autorización: {{url}}"
   },
   "fields": {

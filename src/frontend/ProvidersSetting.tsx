@@ -153,7 +153,6 @@ function ProviderDialog({
   const [name, setName] = useState("");
   const [type, setType] = useState<SsoProviderType>("oidc");
   const [enabled, setEnabled] = useState(true);
-  const [legacyCallback, setLegacyCallback] = useState(false);
   const [fields, setFields] = useState<Fields>(EMPTY_FIELDS);
   const [saving, setSaving] = useState(false);
 
@@ -162,7 +161,6 @@ function ProviderDialog({
     setName(provider?.name ?? "");
     setType(provider?.type ?? "oidc");
     setEnabled(provider?.enabled ?? true);
-    setLegacyCallback(provider?.legacyCallback ?? false);
     const config = provider?.config ?? {};
     const next = { ...EMPTY_FIELDS };
     for (const key of Object.keys(next) as Array<keyof Fields>) {
@@ -191,7 +189,6 @@ function ProviderDialog({
       type,
       enabled,
       config,
-      ...(isEdit ? { legacyCallback } : {}),
     };
     setSaving(true);
     try {
@@ -210,9 +207,6 @@ function ProviderDialog({
   const secretHint = provider?.hasClientSecret
     ? t("fields.secretKeep")
     : undefined;
-  const redirectUri = legacyCallback
-    ? (provider?.redirectUri ?? newRedirectUri)
-    : newRedirectUri;
 
   const text = (
     key: keyof Fields,
@@ -292,26 +286,11 @@ function ProviderDialog({
 
           <Section title={t("providers.redirectUri")}>
             <div className="flex flex-col gap-1.5">
-              <RedirectUri uri={redirectUri} />
+              <RedirectUri uri={newRedirectUri} />
               <p className="text-[10px] text-muted-foreground leading-snug">
                 {t("providers.redirectUriDesc")}
               </p>
             </div>
-            {isEdit && provider.legacyCallback && (
-              <div className="border border-border px-3">
-                <SettingRow
-                  label={t("providers.legacyCallback")}
-                  description={t("providers.legacyCallbackDesc", {
-                    uri: newRedirectUri,
-                  })}
-                >
-                  <FakeSwitch
-                    checked={legacyCallback}
-                    onChange={setLegacyCallback}
-                  />
-                </SettingRow>
-              </div>
-            )}
           </Section>
 
           <Section title={t("providers.sectionCredentials")}>

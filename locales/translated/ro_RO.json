@@ -38,8 +38,6 @@
     "copied": "Copiat",
     "redirectUri": "URI de redirecționare",
     "redirectUriDesc": "Înregistrați această adresă URL ca adresă URL de redirecționare sau de apel invers în furnizorul dvs. de identitate.",
-    "legacyCallback": "Păstrați vechiul URI de redirecționare",
-    "legacyCallbackDesc": "Acest furnizor a fost configurat înainte de Termix 2.9 și folosește în continuare vechiul URI de redirecționare, care funcționează în continuare. Pentru a trece la cel nou, adăugați mai întâi {{uri}} în furnizorul de identitate, apoi dezactivați-l.",
     "authorizationUrl": "URL de autorizare: {{url}}"
   },
   "fields": {

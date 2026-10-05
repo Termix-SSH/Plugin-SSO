@@ -29,8 +29,6 @@ export interface ResolvedProvider {
   type: SsoProviderType;
   /** The row id, or null for the provider configured through OIDC_* env vars. */
   rowId: number | null;
-  /** Sends the 2.8 redirect URI, /users/oidc/callback, which core forwards. */
-  legacyCallback: boolean;
 }
 
 export interface ProviderRow {
@@ -40,7 +38,6 @@ export interface ProviderRow {
   enabled: boolean;
   displayOrder: number;
   config: string;
-  legacyCallback: boolean;
   createdAt: string;
   updatedAt: string;
 }

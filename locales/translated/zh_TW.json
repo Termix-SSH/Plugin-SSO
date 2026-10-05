@@ -38,8 +38,6 @@
     "copied": "已複製",
     "redirectUri": "重定向 URI",
     "redirectUriDesc": "將此 URL 註冊為身分提供者中的重新導向或回調 URL。",
-    "legacyCallback": "保留舊的重定向 URI",
-    "legacyCallbackDesc": "此身分提供者是在 Termix 2.9 版本之前設定的，目前仍使用舊的重定向 URI，該 URI 仍然有效。若要遷移到新的重定向 URI，請先在身分提供者中新增 {{uri}} ，然後再將其關閉。",
     "authorizationUrl": "授權網址： {{url}}"
   },
   "fields": {

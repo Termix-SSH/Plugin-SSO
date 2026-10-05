@@ -38,8 +38,6 @@
     "copied": "Gekopieer",
     "redirectUri": "Herlei URI",
     "redirectUriDesc": "Registreer hierdie URL as die aanstuur- of terugbel-URL in jou identiteitsverskaffer.",
-    "legacyCallback": "Behou die ou aanstuur-URI",
-    "legacyCallbackDesc": "Hierdie verskaffer is voor Termix 2.9 opgestel en gebruik steeds die ou aanstuur-URI, wat steeds werk. Om na die nuwe een oor te skakel, voeg eers {{uri}} by jou identiteitsverskaffer, en skakel dit dan af.",
     "authorizationUrl": "Magtigings-URL: {{url}}"
   },
   "fields": {

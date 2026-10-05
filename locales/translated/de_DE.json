@@ -38,8 +38,6 @@
     "copied": "Kopiert",
     "redirectUri": "Umleitungs-URI",
     "redirectUriDesc": "Registrieren Sie diese URL als Weiterleitungs- oder Rückruf-URL bei Ihrem Identitätsanbieter.",
-    "legacyCallback": "Behalte die alte Umleitungs-URI bei.",
-    "legacyCallbackDesc": "Dieser Anbieter wurde vor Termix 2.9 eingerichtet und verwendet noch die alte Umleitungs-URI, die weiterhin funktioniert. Um zur neuen URI zu wechseln, fügen Sie zunächst {{uri}} in Ihrem Identitätsanbieter hinzu und deaktivieren Sie diese Option anschließend.",
     "authorizationUrl": "Autorisierungs-URL: {{url}}"
   },
   "fields": {

@@ -59,12 +59,9 @@ export function registerSsoRoutes(
       type: row.type,
       enabled: !!row.enabled,
       displayOrder: row.displayOrder,
-      legacyCallback: !!row.legacyCallback,
       config: rest,
       hasClientSecret: typeof secret === "string" && secret.length > 0,
-      redirectUri: redirectUriFor(ctx.http.baseUrl(req), {
-        legacyCallback: !!row.legacyCallback,
-      }),
+      redirectUri: redirectUriFor(ctx.http.baseUrl(req)),
     };
   }
 
@@ -279,9 +276,7 @@ export function registerSsoRoutes(
       const rows = await store.listRows();
       res.json({
         providers: await Promise.all(rows.map((row) => present(req, row))),
-        newRedirectUri: redirectUriFor(ctx.http.baseUrl(req), {
-          legacyCallback: false,
-        }),
+        newRedirectUri: redirectUriFor(ctx.http.baseUrl(req)),
       });
     } catch (error) {
       fail(ctx, res, "Failed to list SSO providers", error);
@@ -368,7 +363,7 @@ export function registerSsoRoutes(
    * /plugin-api/sso/providers/{id}:
    *   put:
    *     summary: Update an SSO provider
-   *     description: Changes a provider. Config fields are merged over the stored ones; an empty client secret keeps the stored secret. legacyCallback false moves it to the new redirect URI. Needs sso.manage.
+   *     description: Changes a provider. Config fields are merged over the stored ones; an empty client secret keeps the stored secret. Needs sso.manage.
    *     tags:
    *       - SSO
    *     parameters:
@@ -395,8 +390,7 @@ export function registerSsoRoutes(
         res.status(404).json({ error: "Provider not found" });
         return;
       }
-      const { name, enabled, displayOrder, config, legacyCallback } =
-        req.body ?? {};
+      const { name, enabled, displayOrder, config } = req.body ?? {};
       const values: Parameters<ProviderStore["update"]>[1] = {};
       if (name !== undefined) {
         if (typeof name !== "string" || !name.trim()) {
@@ -408,9 +402,6 @@ export function registerSsoRoutes(
       if (enabled !== undefined) values.enabled = !!enabled;
       if (displayOrder !== undefined) {
         values.displayOrder = Number(displayOrder) || 0;
-      }
-      if (legacyCallback !== undefined) {
-        values.legacyCallback = !!legacyCallback;
       }
       if (config && typeof config === "object") {
         const incoming = { ...(config as Record<string, unknown>) };

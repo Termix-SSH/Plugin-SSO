@@ -38,8 +38,6 @@
     "copied": "Kopieret",
     "redirectUri": "Omdirigerings-URI",
     "redirectUriDesc": "Registrer denne URL som omdirigerings- eller tilbagekalds-URL i din identitetsudbyder.",
-    "legacyCallback": "Behold den gamle omdirigerings-URI",
-    "legacyCallbackDesc": "Denne udbyder blev oprettet før Termix 2.9 og bruger stadig den gamle omdirigerings-URI, som fortsat fungerer. For at skifte til den nye skal du først tilføje {{uri}} i din identitetsudbyder og derefter slå dette fra.",
     "authorizationUrl": "Autorisations-URL: {{url}}"
   },
   "fields": {

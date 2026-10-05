@@ -38,8 +38,6 @@
     "copied": "Gekopieerd",
     "redirectUri": "Omleidings-URI",
     "redirectUriDesc": "Registreer deze URL als de redirect- of callback-URL in uw identiteitsprovider.",
-    "legacyCallback": "Behoud de oude omleidings-URI",
-    "legacyCallbackDesc": "Deze provider is ingesteld vóór Termix 2.9 en gebruikt nog steeds de oude omleidings-URI, die nog steeds werkt. Om over te stappen naar de nieuwe, voeg eerst {{uri}} toe aan uw identiteitsprovider en schakel dit vervolgens uit.",
     "authorizationUrl": "Autorisatie-URL: {{url}}"
   },
   "fields": {

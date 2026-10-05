@@ -38,8 +38,6 @@
     "copied": "Skopiowano",
     "redirectUri": "Przekieruj URI",
     "redirectUriDesc": "Zarejestruj ten adres URL jako adres przekierowania lub adres URL wywołania zwrotnego u swojego dostawcy tożsamości.",
-    "legacyCallback": "Zachowaj stary adres URI przekierowania",
-    "legacyCallbackDesc": "Ten dostawca został skonfigurowany przed wersją Termix 2.9 i nadal korzysta ze starego adresu URI przekierowania, który nadal działa. Aby przejść na nowy, najpierw dodaj {{uri}} w swoim dostawcy tożsamości, a następnie wyłącz go.",
     "authorizationUrl": "Adres URL autoryzacji: {{url}}"
   },
   "fields": {

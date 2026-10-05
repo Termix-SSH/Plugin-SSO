@@ -38,8 +38,6 @@
     "copied": "Másolva",
     "redirectUri": "Átirányítási URI",
     "redirectUriDesc": "Regisztrálja ezt az URL-címet átirányítási vagy visszahívási URL-címként az identitásszolgáltatójában.",
-    "legacyCallback": "Tartsa meg a régi átirányítási URI-t",
-    "legacyCallbackDesc": "Ez a szolgáltató a Termix 2.9 előtt lett beállítva, és továbbra is a régi átirányítási URI-t használja, amely továbbra is működik. Az újra való áttéréshez először add hozzá a {{uri}} karakterláncot az identitásszolgáltatódhoz, majd kapcsold ki ezt.",
     "authorizationUrl": "Engedélyezési URL: {{url}}"
   },
   "fields": {

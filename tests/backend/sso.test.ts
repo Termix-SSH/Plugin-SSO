@@ -46,16 +46,14 @@ async function beginLogin(s: TestServer, query = "provider=3") {
 }
 
 describe("adopting sso_providers", () => {
-  it("keeps every provider and marks the old ones for the 2.8 redirect URI", async () => {
+  it("keeps every provider and sends the new redirect URI for all of them", async () => {
     const s = await startLegacy();
     const rows = s.db.sqlite
-      .prepare(
-        "SELECT id, type, legacy_callback FROM p_sso_providers ORDER BY id",
-      )
+      .prepare("SELECT id, type FROM p_sso_providers ORDER BY id")
       .all();
     expect(rows).toEqual([
-      { id: 3, type: "oidc", legacy_callback: 1 },
-      { id: 4, type: "ldap", legacy_callback: 1 },
+      { id: 3, type: "oidc" },
+      { id: 4, type: "ldap" },
     ]);
 
     const listed = await s.request("GET", "/providers");
@@ -65,9 +63,8 @@ describe("adopting sso_providers", () => {
     expect(listed.body.providers[0]).toMatchObject({
       id: 3,
       name: "Keycloak",
-      legacyCallback: true,
       hasClientSecret: true,
-      redirectUri: "https://termix.test/users/oidc/callback",
+      redirectUri: "https://termix.test/plugin-api/sso/callback",
     });
     expect(listed.body.providers[0].config.client_secret).toBeUndefined();
     expect(listed.body.newRedirectUri).toBe(
@@ -82,7 +79,6 @@ describe("adopting sso_providers", () => {
     });
     expect(created.status).toBe(201);
     expect(created.body).toMatchObject({
-      legacyCallback: false,
       redirectUri: "https://termix.test/plugin-api/sso/callback",
     });
     const stored = server.db.sqlite
@@ -134,13 +130,12 @@ describe("provider admin routes", () => {
     expect((await s.request("GET", "/config")).status).toBe(200);
   });
 
-  it("keeps a secret that is not sent again and can leave the old redirect URI", async () => {
+  it("keeps a secret that is not sent again", async () => {
     const s = await startLegacy();
     const updated = await s.request("PUT", "/providers/3", {
-      body: { legacyCallback: false, config: { client_secret: "" } },
+      body: { config: { client_secret: "" } },
     });
     expect(updated.body).toMatchObject({
-      legacyCallback: false,
       hasClientSecret: true,
       redirectUri: "https://termix.test/plugin-api/sso/callback",
     });
@@ -223,16 +218,16 @@ describe("the login method", () => {
     ]);
     const url = await beginLogin(server, "provider=0");
     expect(url.searchParams.get("redirect_uri")).toBe(
-      "https://termix.test/users/oidc/callback",
+      "https://termix.test/plugin-api/sso/callback",
     );
   });
 
-  it("starts with PKCE and the redirect URI the provider was set up with", async () => {
+  it("starts with PKCE and the plugin's redirect URI", async () => {
     const s = await startLegacy();
     const url = await beginLogin(s);
     expect(url.origin + url.pathname).toBe("https://idp.example/authorize");
     expect(url.searchParams.get("redirect_uri")).toBe(
-      "https://termix.test/users/oidc/callback",
+      "https://termix.test/plugin-api/sso/callback",
     );
     expect(url.searchParams.get("code_challenge_method")).toBe("S256");
     expect(url.searchParams.get("code_challenge")).toBeTruthy();
@@ -282,7 +277,7 @@ describe("the callback", () => {
 
     const token = idp.tokenRequests[0];
     expect(token.get("redirect_uri")).toBe(
-      "https://termix.test/users/oidc/callback",
+      "https://termix.test/plugin-api/sso/callback",
     );
     expect(token.get("code_verifier")).toBeTruthy();
     // The state is used up.

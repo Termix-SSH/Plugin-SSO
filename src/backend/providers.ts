@@ -65,8 +65,7 @@ export function isEnvOverrideEnabled(): boolean {
 }
 
 function envProvider(config: OidcConfig): ResolvedProvider {
-  // Env providers were set up against the 2.8 callback and cannot be edited.
-  return { config, type: "oidc", rowId: null, legacyCallback: true };
+  return { config, type: "oidc", rowId: null };
 }
 
 export type ProviderStore = ReturnType<typeof createProviderStore>;
@@ -148,7 +147,6 @@ export function createProviderStore(ctx: PluginContext, table: Table) {
       config,
       type,
       rowId: row.id,
-      legacyCallback: !!row.legacyCallback,
     };
   }
 
@@ -230,7 +228,6 @@ export function createProviderStore(ctx: PluginContext, table: Table) {
         enabled: input.enabled,
         displayOrder: input.displayOrder,
         config: await sealConfig(input.config),
-        legacyCallback: false,
         createdAt: now,
         updatedAt: now,
       });
@@ -252,7 +249,6 @@ export function createProviderStore(ctx: PluginContext, table: Table) {
         enabled: boolean;
         displayOrder: number;
         config: Record<string, unknown>;
-        legacyCallback: boolean;
       }>,
     ): Promise<ProviderRow | null> {
       const drizzle = await client();

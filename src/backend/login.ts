@@ -32,8 +32,6 @@ import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
 export const CALLBACK_PATH = "/plugin-api/sso/callback";
-/** The redirect URI identity providers were set up with before 2.9. */
-export const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
@@ -72,11 +70,8 @@ function header(request: PluginLoginRequest, name: string): string {
     : "";
 }
 
-export function redirectUriFor(
-  baseUrl: string,
-  provider: Pick<ResolvedProvider, "legacyCallback">,
-): string {
-  return `${baseUrl}${provider.legacyCallback ? LEGACY_CALLBACK_PATH : CALLBACK_PATH}`;
+export function redirectUriFor(baseUrl: string): string {
+  return `${baseUrl}${CALLBACK_PATH}`;
 }
 
 export type SsoLogin = ReturnType<typeof createSsoLogin>;
@@ -159,7 +154,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     if (!provider) throw new LoginMethodError("OIDC not configured", 404);
 
     const baseUrl = ctx.http.baseUrl(request);
-    const backendCallback = redirectUriFor(baseUrl, provider);
+    const backendCallback = redirectUriFor(baseUrl);
     const frontendOrigin = frontendOriginFor(request, baseUrl);
     const state = crypto.randomUUID();
     const nonce = crypto.randomUUID();

@@ -38,8 +38,6 @@
     "copied": "Kopioitu",
     "redirectUri": "Uudelleenohjauksen URI",
     "redirectUriDesc": "Rekisteröi tämä URL-osoite uudelleenohjaus- tai takaisinkutsuosoitteeksi identiteetintarjoajassasi.",
-    "legacyCallback": "Säilytä vanha uudelleenohjaus-URI",
-    "legacyCallbackDesc": "Tämä palveluntarjoaja määritettiin ennen Termix 2.9:ää ja käyttää edelleen vanhaa uudelleenohjaus-URI:a, joka toimii edelleen. Siirry uuteen lisäämällä ensin {{uri}} identiteetintarjoajaasi ja poistamalla tämä sitten käytöstä.",
     "authorizationUrl": "Valtuutus-URL-osoite: {{url}}"
   },
   "fields": {

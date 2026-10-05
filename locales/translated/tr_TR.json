@@ -38,8 +38,6 @@
     "copied": "Kopyalandı",
     "redirectUri": "Yönlendirme URI'si",
     "redirectUriDesc": "Bu URL'yi kimlik sağlayıcınızda yönlendirme veya geri çağırma URL'si olarak kaydedin.",
-    "legacyCallback": "Eski yönlendirme URI'sini koruyun.",
-    "legacyCallbackDesc": "Bu sağlayıcı Termix 2.9'dan önce kuruldu ve hala çalışmaya devam eden eski yönlendirme URI'sini kullanıyor. Yenisine geçmek için önce kimlik sağlayıcınıza {{uri}} ekleyin, ardından bunu devre dışı bırakın.",
     "authorizationUrl": "Yetkilendirme URL'si: {{url}}"
   },
   "fields": {

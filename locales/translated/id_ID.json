@@ -38,8 +38,6 @@
     "copied": "Disalin",
     "redirectUri": "URI Pengalihan",
     "redirectUriDesc": "Daftarkan URL ini sebagai URL pengalihan atau panggilan balik di penyedia identitas Anda.",
-    "legacyCallback": "Pertahankan URI pengalihan lama.",
-    "legacyCallbackDesc": "Penyedia ini diatur sebelum Termix 2.9 dan masih menggunakan URI pengalihan lama, yang masih berfungsi. Untuk beralih ke yang baru, tambahkan {{uri}} di penyedia identitas Anda terlebih dahulu, lalu matikan ini.",
     "authorizationUrl": "URL Otorisasi: {{url}}"
   },
   "fields": {
