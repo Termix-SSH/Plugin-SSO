@@ -3,11 +3,6 @@ import { Copy, Pencil, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   Button,
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   FakeSwitch,
   Input,
   PasswordInput,
@@ -15,6 +10,8 @@ import {
   SettingRow,
   Textarea,
   copyToClipboard,
+  useConfirm,
+  InlineView,
 } from "@termix/plugin-sdk/ui";
 import { usePluginApi, useTranslation } from "@termix/plugin-sdk/frontend";
 import {
@@ -224,188 +221,184 @@ function ProviderDialog({
   );
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex flex-col gap-0 p-0 overflow-hidden w-[calc(100vw-2rem)] sm:max-w-xl max-h-[calc(100dvh-2rem)]">
-        <DialogHeader className="px-4 pt-4 pb-3 pr-10 border-b border-border shrink-0">
-          <DialogTitle className="text-lg font-bold">
-            {isEdit ? t("providers.edit") : t("providers.add")}
-          </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground">
-            {t("providers.dialogDesc")}{" "}
-            <a
-              href={
-                simplified
-                  ? "https://docs.termix.site/features/authentication/github-google"
-                  : "https://docs.termix.site/features/authentication/oidc"
-              }
-              target="_blank"
-              rel="noreferrer"
-              className="text-accent-brand hover:underline"
-            >
-              {t("providers.docsLink")}
-            </a>
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col gap-6">
-          <Section title={t("providers.sectionGeneral")}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <Field label={t("providers.name")} required>
-                <Input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t("providers.namePlaceholder")}
-                />
-              </Field>
-              <Field label={t("providers.type")}>
-                <Select2
-                  value={type}
-                  disabled={isEdit}
-                  onChange={(e) => setType(e.target.value as SsoProviderType)}
-                  className="w-full"
-                >
-                  {(Object.keys(TYPE_LABELS) as SsoProviderType[]).map(
-                    (value) => (
-                      <option key={value} value={value}>
-                        {TYPE_LABELS[value]}
-                      </option>
-                    ),
-                  )}
-                </Select2>
-              </Field>
-            </div>
-            <div className="border border-border px-3">
-              <SettingRow
-                label={t("providers.enabled")}
-                description={t("providers.enabledDesc")}
-              >
-                <FakeSwitch checked={enabled} onChange={setEnabled} />
-              </SettingRow>
-            </div>
-          </Section>
-
-          <Section title={t("providers.redirectUri")}>
-            <div className="flex flex-col gap-1.5">
-              <RedirectUri uri={newRedirectUri} />
-              <p className="text-[10px] text-muted-foreground leading-snug">
-                {t("providers.redirectUriDesc")}
-              </p>
-            </div>
-          </Section>
-
-          <Section title={t("providers.sectionCredentials")}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {text("client_id", t("fields.clientId"), "your-client-id", {
-                required: true,
-              })}
-              <Field
-                label={t("fields.clientSecret")}
-                required={!provider?.hasClientSecret}
-                hint={secretHint}
-              >
-                <PasswordInput
-                  value={fields.client_secret}
-                  onChange={(e) => set("client_secret")(e.target.value)}
-                  placeholder="your-client-secret"
-                />
-              </Field>
-            </div>
-            {simplified ? (
-              <p className="text-[10px] text-muted-foreground break-all">
-                {t("providers.authorizationUrl", {
-                  url: AUTHORIZATION_URLS[type as "github" | "google"],
-                })}
-              </p>
-            ) : (
-              <>
-                {text("issuer_url", t("fields.issuerUrl"), "https://provider", {
-                  required: true,
-                })}
-                {text(
-                  "authorization_url",
-                  t("fields.authUrl"),
-                  "https://provider/oauth2/auth",
-                  { required: true },
-                )}
-                {text(
-                  "token_url",
-                  t("fields.tokenUrl"),
-                  "https://provider/oauth2/token",
-                  { required: true },
-                )}
-                {text(
-                  "userinfo_url",
-                  t("fields.userinfoUrl"),
-                  "https://provider/oauth2/userinfo",
-                )}
-              </>
-            )}
-          </Section>
-
-          {!simplified && (
-            <Section title={t("providers.sectionClaims")}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {text("identifier_path", t("fields.userIdentifier"), "sub", {
-                  required: true,
-                })}
-                {text("name_path", t("fields.displayName"), "name", {
-                  required: true,
-                })}
-              </div>
-              {text("scopes", t("fields.scopes"), "openid email profile", {
-                required: true,
-              })}
-              {text("group_claim", t("fields.groupClaim"), "groups", {
-                hint: t("fields.groupClaimDesc"),
-              })}
-            </Section>
-          )}
-
-          <Section title={t("providers.sectionAccess")}>
-            <Field
-              label={t("fields.allowedUsers")}
-              hint={t("fields.allowedUsersDesc")}
-            >
-              <Textarea
-                value={fields.allowed_users}
-                onChange={(e) => set("allowed_users")(e.target.value)}
-                placeholder={"user@example.com\nanother@example.com"}
-                rows={3}
-                className="font-mono resize-y"
+    <InlineView
+      open={open}
+      onOpenChange={onOpenChange}
+      title={isEdit ? t("providers.edit") : t("providers.add")}
+    >
+      <p className="text-xs text-muted-foreground">
+        {t("providers.dialogDesc")}{" "}
+        <a
+          href={
+            simplified
+              ? "https://docs.termix.site/features/authentication/github-google"
+              : "https://docs.termix.site/features/authentication/oidc"
+          }
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent-brand hover:underline"
+        >
+          {t("providers.docsLink")}
+        </a>
+      </p>
+      <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col gap-6">
+        <Section title={t("providers.sectionGeneral")}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Field label={t("providers.name")} required>
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={t("providers.namePlaceholder")}
               />
             </Field>
-            {text("admin_group", t("fields.adminGroup"), "admin", {
-              hint: t("fields.adminGroupDesc"),
+            <Field label={t("providers.type")}>
+              <Select2
+                value={type}
+                disabled={isEdit}
+                onChange={(e) => setType(e.target.value as SsoProviderType)}
+                className="w-full"
+              >
+                {(Object.keys(TYPE_LABELS) as SsoProviderType[]).map(
+                  (value) => (
+                    <option key={value} value={value}>
+                      {TYPE_LABELS[value]}
+                    </option>
+                  ),
+                )}
+              </Select2>
+            </Field>
+          </div>
+          <div className="border border-border px-3">
+            <SettingRow
+              label={t("providers.enabled")}
+              description={t("providers.enabledDesc")}
+            >
+              <FakeSwitch checked={enabled} onChange={setEnabled} />
+            </SettingRow>
+          </div>
+        </Section>
+
+        <Section title={t("providers.redirectUri")}>
+          <div className="flex flex-col gap-1.5">
+            <RedirectUri uri={newRedirectUri} />
+            <p className="text-[10px] text-muted-foreground leading-snug">
+              {t("providers.redirectUriDesc")}
+            </p>
+          </div>
+        </Section>
+
+        <Section title={t("providers.sectionCredentials")}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {text("client_id", t("fields.clientId"), "your-client-id", {
+              required: true,
             })}
-            <Field label={t("fields.caCert")} hint={t("fields.caCertDesc")}>
-              <Textarea
-                value={fields.ca_cert}
-                onChange={(e) => set("ca_cert")(e.target.value)}
-                placeholder={
-                  "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
-                }
-                rows={4}
-                className="font-mono resize-y"
+            <Field
+              label={t("fields.clientSecret")}
+              required={!provider?.hasClientSecret}
+              hint={secretHint}
+            >
+              <PasswordInput
+                value={fields.client_secret}
+                onChange={(e) => set("client_secret")(e.target.value)}
+                placeholder="your-client-secret"
               />
             </Field>
-          </Section>
-        </div>
+          </div>
+          {simplified ? (
+            <p className="text-[10px] text-muted-foreground break-all">
+              {t("providers.authorizationUrl", {
+                url: AUTHORIZATION_URLS[type as "github" | "google"],
+              })}
+            </p>
+          ) : (
+            <>
+              {text("issuer_url", t("fields.issuerUrl"), "https://provider", {
+                required: true,
+              })}
+              {text(
+                "authorization_url",
+                t("fields.authUrl"),
+                "https://provider/oauth2/auth",
+                { required: true },
+              )}
+              {text(
+                "token_url",
+                t("fields.tokenUrl"),
+                "https://provider/oauth2/token",
+                { required: true },
+              )}
+              {text(
+                "userinfo_url",
+                t("fields.userinfoUrl"),
+                "https://provider/oauth2/userinfo",
+              )}
+            </>
+          )}
+        </Section>
 
-        <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-border shrink-0">
-          <Button variant="ghost" onClick={() => onOpenChange(false)}>
-            {t("providers.cancel")}
-          </Button>
-          <Button
-            variant="outline"
-            className="border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
-            onClick={save}
-            disabled={saving}
+        {!simplified && (
+          <Section title={t("providers.sectionClaims")}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {text("identifier_path", t("fields.userIdentifier"), "sub", {
+                required: true,
+              })}
+              {text("name_path", t("fields.displayName"), "name", {
+                required: true,
+              })}
+            </div>
+            {text("scopes", t("fields.scopes"), "openid email profile", {
+              required: true,
+            })}
+            {text("group_claim", t("fields.groupClaim"), "groups", {
+              hint: t("fields.groupClaimDesc"),
+            })}
+          </Section>
+        )}
+
+        <Section title={t("providers.sectionAccess")}>
+          <Field
+            label={t("fields.allowedUsers")}
+            hint={t("fields.allowedUsersDesc")}
           >
-            {saving ? t("providers.saving") : t("providers.save")}
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+            <Textarea
+              value={fields.allowed_users}
+              onChange={(e) => set("allowed_users")(e.target.value)}
+              placeholder={"user@example.com\nanother@example.com"}
+              rows={3}
+              className="font-mono resize-y"
+            />
+          </Field>
+          {text("admin_group", t("fields.adminGroup"), "admin", {
+            hint: t("fields.adminGroupDesc"),
+          })}
+          <Field label={t("fields.caCert")} hint={t("fields.caCertDesc")}>
+            <Textarea
+              value={fields.ca_cert}
+              onChange={(e) => set("ca_cert")(e.target.value)}
+              placeholder={
+                "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+              }
+              rows={4}
+              className="font-mono resize-y"
+            />
+          </Field>
+        </Section>
+      </div>
+
+      <div className="flex items-center justify-end gap-2 px-4 py-3 border-t border-border shrink-0">
+        <Button variant="ghost" onClick={() => onOpenChange(false)}>
+          {t("providers.cancel")}
+        </Button>
+        <Button
+          variant="outline"
+          className="border-accent-brand/40 text-accent-brand hover:bg-accent-brand/10 hover:text-accent-brand"
+          onClick={save}
+          disabled={saving}
+        >
+          {saving ? t("providers.saving") : t("providers.save")}
+        </Button>
+      </div>
+    </InlineView>
   );
 }
 
@@ -415,6 +408,7 @@ function ProviderDialog({
  */
 export function ProvidersSetting() {
   const { t } = useTranslation();
+  const confirm = useConfirm();
   const api = createSsoApi(usePluginApi());
   const [providers, setProviders] = useState<SsoProvider[] | null>(null);
   const [newRedirectUri, setNewRedirectUri] = useState("");
@@ -448,7 +442,11 @@ export function ProvidersSetting() {
   }
 
   async function remove(provider: SsoProvider) {
-    if (!window.confirm(t("providers.deleteConfirm"))) return;
+    const ok = await confirm({
+      title: t("providers.deleteConfirm"),
+      confirmLabel: t("common.delete"),
+    });
+    if (!ok) return;
     try {
       await api.remove(provider.id);
       toast.success(t("providers.deleted"));
