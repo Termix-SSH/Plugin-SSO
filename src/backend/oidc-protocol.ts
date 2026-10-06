@@ -54,7 +54,7 @@ export function describeFetchFailure(error: unknown): string {
   return cause ? `${error.message}: ${String(cause)}` : error.message;
 }
 
-export function getOidcConfigFromEnv(): OidcConfig | null {
+function getOidcConfigFromEnv(): OidcConfig | null {
   const client_id = process.env.OIDC_CLIENT_ID;
   const client_secret = process.env.OIDC_CLIENT_SECRET;
   const issuer_url = process.env.OIDC_ISSUER_URL;
@@ -88,7 +88,7 @@ export function getOidcConfigFromEnv(): OidcConfig | null {
   };
 }
 
-export function isOIDCEnvOverrideEnabled(): boolean {
+function isOIDCEnvOverrideEnabled(): boolean {
   return process.env.OIDC_ENV_OVERRIDE?.toLowerCase() === "true";
 }
 

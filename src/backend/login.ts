@@ -31,13 +31,13 @@ import {
 import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
-export const CALLBACK_PATH = "/plugin-api/sso/callback";
+const CALLBACK_PATH = "/plugin-api/sso/callback";
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
 
 /** An error raised after the return address is known redirects there. */
-export class RedirectLoginError extends LoginMethodError {
+class RedirectLoginError extends LoginMethodError {
   constructor(
     message: string,
     readonly returnTo: string,
