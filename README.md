@@ -16,12 +16,6 @@ Single sign-on lets people sign in to Termix with an identity provider instead o
 
 <br />
 
-## Install
-
-Single sign-on ships with [Termix](https://github.com/Termix-SSH/Termix). Admins can turn it on or off, update it or install it again from the Plugins tab. Want to see it first? Try the [demo](https://demo.termix.site/), any username and password works.
-
-<br />
-
 ## Features
 
 - Any OpenID Connect provider, plus GitHub and Google
