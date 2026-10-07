@@ -10,6 +10,13 @@
   "repository": "https://github.com/Termix-SSH/Plugin-SSO",
   "category": "Access & Security",
   "icon": "KeyRound",
+  "features": [
+    "Any OpenID Connect provider, plus GitHub and Google",
+    "More than one provider, each with its own login button",
+    "Make members of an admin group Termix admins",
+    "Limit sign in to certain users",
+    "Back-channel logout"
+  ],
   "engine": {
     "termix": ">=26.10.0",
     "api": "1"
