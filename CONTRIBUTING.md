@@ -10,13 +10,6 @@ npm run validate   # check manifest.json
 npm run format     # format the code with Prettier
 ```
 
-## Settings
+## Docs
 
-### Admin
-
-- **Providers:** add a provider, then register the redirect URI it shows with your identity provider. The client secret is stored encrypted
-- **Sign in with SSO automatically:** skip the login form and go to the first provider. The `OIDC_SILENT_LOGIN_DEFAULT` environment variable overrides this
-
-## Permissions
-
-- `sso.manage`: add, edit and remove SSO providers. Only admins have it by default.
+The docs for this plugin are in [docs/](docs/) and are published at https://docs.termix.site/plugins/sso. Settings, permissions, services, environment variables and the API reference are made from `manifest.json` and the `@openapi` comments in the code, so keep those up to date instead of writing them by hand. See [writing docs](https://docs.termix.site/develop/docs).

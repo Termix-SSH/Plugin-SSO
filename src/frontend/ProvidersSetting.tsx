@@ -20,6 +20,7 @@ import {
   type SsoProviderInput,
   type SsoProviderType,
 } from "./sso-api";
+import { docsUrl } from "./docs";
 
 const TYPE_LABELS: Record<SsoProviderType, string> = {
   oidc: "OIDC",
@@ -231,8 +232,8 @@ function ProviderDialog({
         <a
           href={
             simplified
-              ? "https://docs.termix.site/features/authentication/github-google"
-              : "https://docs.termix.site/features/authentication/oidc"
+              ? docsUrl("", "add-a-provider")
+              : docsUrl("", "oidc-fields")
           }
           target="_blank"
           rel="noreferrer"
@@ -462,7 +463,7 @@ export function ProvidersSetting() {
     <div className="flex flex-col gap-3 py-3 border-b border-border last:border-0">
       <span className="text-[10px] text-muted-foreground">
         <a
-          href="https://docs.termix.site/features/authentication/sso-providers"
+          href={docsUrl()}
           target="_blank"
           rel="noreferrer"
           className="text-accent-brand hover:underline"

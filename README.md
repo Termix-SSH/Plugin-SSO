@@ -14,6 +14,8 @@
 
 Single sign-on lets people sign in to Termix with an identity provider instead of a password.
 
+Read the [docs](https://docs.termix.site/plugins/sso) to set it up and use it.
+
 <br />
 
 ## Features
