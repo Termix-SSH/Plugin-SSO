@@ -18,6 +18,13 @@ afterEach(async () => {
   rendered = null;
 });
 
+const OIDC_FIELDS = {
+  client_id: "termix",
+  issuer_url: "https://idp.example",
+  authorization_url: "https://idp.example/authorize",
+  token_url: "https://idp.example/token",
+};
+
 const providers = {
   providers: [
     {
@@ -51,9 +58,9 @@ describe(`${manifest.id} activate`, () => {
       ],
       startRedirect,
     });
-    fireEvent.click(screen.getByText("Login with Google"));
+    fireEvent.click(screen.getByText("Sign in with Google"));
     await waitFor(() => expect(startRedirect).toHaveBeenCalledWith("5"));
-    expect(screen.getByText("Login with Keycloak")).toBeTruthy();
+    expect(screen.getByText("Sign in with Keycloak")).toBeTruthy();
   });
 
   it("lists providers with the redirect URI to register", async () => {
@@ -99,6 +106,40 @@ describe(`${manifest.id} activate`, () => {
     expect(path).toBe("/providers");
     expect(body).toMatchObject({ name: "Corp", type: "oidc" });
     expect(body.config.client_id).toBe("termix");
+    expect(body.config).not.toHaveProperty("client_secret");
+  });
+
+  it("sends cleared fields so they are cleared on the server", async () => {
+    const withAdminGroup = {
+      ...providers,
+      providers: [
+        {
+          ...providers.providers[0],
+          config: { ...OIDC_FIELDS, admin_group: "admins" },
+        },
+      ],
+    };
+    const get = vi.fn(async () => ({ data: withAdminGroup }));
+    const put = vi.fn(async () => ({ data: {} }));
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: { get, put } as never,
+    });
+    rendered.renderSettingsComponent("providers");
+    fireEvent.click(await screen.findByTitle(locales.providers.edit));
+    fireEvent.change(await screen.findByDisplayValue("admins"), {
+      target: { value: "" },
+    });
+    fireEvent.click(screen.getByText(locales.providers.save));
+    await waitFor(() => expect(put).toHaveBeenCalled());
+    const [path, body] = put.mock.calls[0] as unknown as [
+      string,
+      { config: Record<string, string> },
+    ];
+    expect(path).toBe("/providers/3");
+    expect(body.config.admin_group).toBe("");
+    expect(body.config.issuer_url).toBe(OIDC_FIELDS.issuer_url);
     expect(body.config).not.toHaveProperty("client_secret");
   });
 

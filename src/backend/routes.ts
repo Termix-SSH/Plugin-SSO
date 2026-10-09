@@ -27,6 +27,16 @@ const REQUIRED_OIDC_FIELDS = [
   "authorization_url",
   "token_url",
 ] as const;
+const URL_FIELDS = ["authorization_url", "token_url", "userinfo_url"] as const;
+
+function isHttpUrl(value: unknown): boolean {
+  if (typeof value !== "string") return false;
+  try {
+    return ["http:", "https:"].includes(new URL(value).protocol);
+  } catch {
+    return false;
+  }
+}
 
 function fail(
   ctx: PluginContext,
@@ -77,6 +87,12 @@ export function registerSsoRoutes(
     }
     if (config.issuer_url && !isValidOidcIssuer(config.issuer_url)) {
       return "Issuer URL must be an HTTP(S) issuer and not a userinfo endpoint";
+    }
+    for (const field of URL_FIELDS) {
+      const value = config[field];
+      if (value && !isHttpUrl(value)) {
+        return `${field} must be an HTTP(S) URL`;
+      }
     }
     return null;
   }

@@ -54,44 +54,6 @@ export function describeFetchFailure(error: unknown): string {
   return cause ? `${error.message}: ${String(cause)}` : error.message;
 }
 
-function getOidcConfigFromEnv(): OidcConfig | null {
-  const client_id = process.env.OIDC_CLIENT_ID;
-  const client_secret = process.env.OIDC_CLIENT_SECRET;
-  const issuer_url = process.env.OIDC_ISSUER_URL;
-  const authorization_url = process.env.OIDC_AUTHORIZATION_URL;
-  const token_url = process.env.OIDC_TOKEN_URL;
-
-  if (
-    !client_id ||
-    !client_secret ||
-    !issuer_url ||
-    !authorization_url ||
-    !token_url
-  ) {
-    return null;
-  }
-
-  return {
-    client_id,
-    client_secret,
-    issuer_url,
-    authorization_url,
-    token_url,
-    userinfo_url: process.env.OIDC_USERINFO_URL || "",
-    identifier_path: process.env.OIDC_IDENTIFIER_PATH || "sub",
-    name_path: process.env.OIDC_NAME_PATH || "name",
-    scopes: process.env.OIDC_SCOPES || "openid email profile",
-    allowed_users: process.env.OIDC_ALLOWED_USERS || "",
-    admin_group: process.env.OIDC_ADMIN_GROUP || "",
-    group_claim: process.env.OIDC_GROUP_CLAIM || "",
-    role_map: process.env.OIDC_ROLE_MAP || "",
-  };
-}
-
-function isOIDCEnvOverrideEnabled(): boolean {
-  return process.env.OIDC_ENV_OVERRIDE?.toLowerCase() === "true";
-}
-
 /**
  * Normalizes a group name for comparison. Providers are inconsistent about
  * whether they emit bare names (`devops-interns`) or full paths

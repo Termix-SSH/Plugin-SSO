@@ -36,13 +36,33 @@ async function startLegacy(options: Parameters<typeof startServer>[0] = {}) {
   return server;
 }
 
+const bindingCookies = new WeakMap<TestServer, string>();
+
 /** Runs /start and returns the state the provider would echo back. */
 async function beginLogin(s: TestServer, query = "provider=3") {
   const started = await s.request("GET", `/start?${query}`, {
-    headers: { referer: "https://app.termix.test/login" },
+    headers: { referer: "https://termix.test/login" },
   });
   expect(started.status).toBe(302);
+  const cookie = started.setCookie.find((c) =>
+    c.startsWith("termix_sso_binding="),
+  );
+  if (cookie) bindingCookies.set(s, cookie.split(";")[0]);
   return new URL(started.location!);
+}
+
+/** The provider's callback, from the browser that started the login. */
+function finish(
+  s: TestServer,
+  method: string,
+  path: string,
+  options: Parameters<TestServer["request"]>[2] = {},
+) {
+  const cookie = bindingCookies.get(s);
+  return s.request(method, path, {
+    ...options,
+    headers: { ...(cookie ? { cookie } : {}), ...options.headers },
+  });
 }
 
 describe("adopting sso_providers", () => {
@@ -107,7 +127,8 @@ describe("adopting sso_providers", () => {
     idp.claims = { sub: "sub-1" };
     const url = await beginLogin(server, "provider=1");
     idp.claims.nonce = url.searchParams.get("nonce");
-    await server.request(
+    await finish(
+      server,
       "GET",
       `/callback?code=c&state=${url.searchParams.get("state")}`,
     );
@@ -155,6 +176,14 @@ describe("provider admin routes", () => {
       },
     });
     expect(userinfo.status).toBe(400);
+    const script = await s.request("POST", "/providers", {
+      body: {
+        name: "X",
+        type: "oidc",
+        config: { ...OIDC_CONFIG, authorization_url: "javascript:alert(1)" },
+      },
+    });
+    expect(script.status).toBe(400);
     const ldap = await s.request("POST", "/providers", {
       body: { name: "X", type: "ldap", config: {} },
     });
@@ -244,6 +273,26 @@ describe("the login method", () => {
   });
 });
 
+describe("webReturnTo", () => {
+  it("only returns to this server", async () => {
+    const { webReturnTo } = await import("../../src/backend/login.js");
+    const base = "https://termix.test/app";
+    expect(webReturnTo("https://termix.test/app/login", base)).toBe(
+      "https://termix.test/app/",
+    );
+    expect(webReturnTo("http://termix.test/login", base)).toBe(
+      "http://termix.test/app/",
+    );
+    expect(webReturnTo("https://evil.example/", base)).toBe(
+      "https://termix.test/app/",
+    );
+    expect(webReturnTo("javascript:alert(1)", base)).toBe(
+      "https://termix.test/app/",
+    );
+    expect(webReturnTo("", "https://termix.test")).toBe("https://termix.test/");
+  });
+});
+
 describe("the callback", () => {
   it("verifies the id token and hands core the identity", async () => {
     const s = await startLegacy();
@@ -257,7 +306,8 @@ describe("the callback", () => {
       groups: ["termix-admins", "ops-team"],
     };
 
-    const callback = await s.request(
+    const callback = await finish(
+      s,
       "GET",
       `/callback?code=abc&state=${url.searchParams.get("state")}`,
     );
@@ -272,7 +322,7 @@ describe("the callback", () => {
       roles: { desired: ["ops"], managed: ["ops"] },
       logoutClaims: { providerId: 3, sub: "sub-1", sid: "sid-1" },
       legacy: { identifier: "sub-1", providerRowId: 3 },
-      returnTo: "https://app.termix.test",
+      returnTo: "https://termix.test/",
     });
 
     const token = idp.tokenRequests[0];
@@ -289,7 +339,7 @@ describe("the callback", () => {
     const idp = await installIdp();
     const url = await beginLogin(s);
     idp.claims = { sub: "sub-1", nonce: url.searchParams.get("nonce") };
-    const callback = await s.request("POST", "/callback", {
+    const callback = await finish(s, "POST", "/callback", {
       form: { code: "abc", state: url.searchParams.get("state")! },
     });
     expect(callback.body.identity.subject).toBe("sub-1");
@@ -300,13 +350,65 @@ describe("the callback", () => {
     const idp = await installIdp();
     const url = await beginLogin(s);
     idp.claims = { sub: "sub-1", nonce: "someone-elses" };
-    const callback = await s.request(
+    const callback = await finish(
+      s,
       "GET",
       `/callback?code=abc&state=${url.searchParams.get("state")}`,
     );
     expect(callback.status).toBe(302);
-    expect(callback.location).toMatch(/^https:\/\/app\.termix\.test\/\?error=/);
+    expect(callback.location).toMatch(/^https:\/\/termix\.test\/\?error=/);
     expect(s.mock.auth.completedLogins).toHaveLength(0);
+  });
+
+  it("refuses userinfo for a different subject than the id token", async () => {
+    const s = await startLegacy();
+    const idp = await installIdp();
+    const url = await beginLogin(s);
+    idp.claims = { sub: "sub-1", nonce: url.searchParams.get("nonce") };
+    idp.routes.set("https://idp.example/userinfo", () =>
+      Response.json({ sub: "someone-else", email: "eve@example.com" }),
+    );
+    const callback = await finish(
+      s,
+      "GET",
+      `/callback?code=abc&state=${url.searchParams.get("state")}`,
+    );
+    expect(callback.status).toBe(302);
+    expect(callback.location).toMatch(/\?error=/);
+    expect(s.mock.auth.completedLogins).toHaveLength(0);
+  });
+
+  it("refuses a callback from a browser that did not start the login", async () => {
+    const s = await startLegacy();
+    const idp = await installIdp();
+    const url = await beginLogin(s);
+    idp.claims = { sub: "sub-1", nonce: url.searchParams.get("nonce") };
+    const state = url.searchParams.get("state");
+    const elsewhere = await s.request(
+      "GET",
+      `/callback?code=abc&state=${state}`,
+      { headers: { cookie: "termix_sso_binding=someone-else" } },
+    );
+    expect(elsewhere.status).toBe(302);
+    expect(elsewhere.location).toMatch(/\?error=/);
+    expect(s.mock.auth.completedLogins).toHaveLength(0);
+  });
+
+  it("does not bind app logins, which finish in the system browser", async () => {
+    const s = await startLegacy();
+    const idp = await installIdp();
+    const started = await s.request(
+      "GET",
+      "/start?provider=3&appCallbackUrl=termix-mobile://callback",
+    );
+    expect(started.setCookie).toHaveLength(0);
+    const url = new URL(started.location!);
+    idp.claims = { sub: "sub-1", nonce: url.searchParams.get("nonce") };
+    const callback = await s.request(
+      "GET",
+      `/callback?code=abc&state=${url.searchParams.get("state")}`,
+    );
+    expect(callback.body.identity.returnTo).toBe("termix-mobile://callback");
   });
 
   it("refuses an unknown or replayed state", async () => {
@@ -316,10 +418,10 @@ describe("the callback", () => {
     idp.claims = { sub: "sub-1", nonce: url.searchParams.get("nonce") };
     const state = url.searchParams.get("state");
     expect(
-      (await s.request("GET", `/callback?code=a&state=${state}`)).status,
+      (await finish(s, "GET", `/callback?code=a&state=${state}`)).status,
     ).toBe(200);
     expect(
-      (await s.request("GET", `/callback?code=a&state=${state}`)).status,
+      (await finish(s, "GET", `/callback?code=a&state=${state}`)).status,
     ).toBe(400);
     expect((await s.request("GET", "/callback?code=a&state=nope")).status).toBe(
       400,
@@ -348,7 +450,8 @@ describe("the callback", () => {
       ]),
     );
     const url = await beginLogin(server, `provider=${created.body.id}`);
-    const callback = await server.request(
+    const callback = await finish(
+      server,
       "GET",
       `/callback?code=abc&state=${url.searchParams.get("state")}`,
     );

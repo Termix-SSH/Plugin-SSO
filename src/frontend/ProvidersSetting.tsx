@@ -65,6 +65,17 @@ const EMPTY_FIELDS: Fields = {
   ca_cert: "",
 };
 
+const OIDC_ONLY_FIELDS: Array<keyof Fields> = [
+  "issuer_url",
+  "authorization_url",
+  "token_url",
+  "userinfo_url",
+  "identifier_path",
+  "name_path",
+  "scopes",
+  "group_claim",
+];
+
 function errorMessage(error: unknown, fallback: string): string {
   const err = error as {
     response?: { data?: { error?: string } };
@@ -178,9 +189,16 @@ function ProviderDialog({
       toast.error(t("providers.nameRequired"));
       return;
     }
+    // Empty fields are sent so a cleared value is cleared on the server, but
+    // an empty secret is left out to keep the stored one. GitHub and Google
+    // get their own endpoints and scopes, so the OIDC fields stay blank.
     const config: Record<string, string> = {};
     for (const [key, value] of Object.entries(fields)) {
-      if (value.trim()) config[key] = value.trim();
+      if (key === "client_secret" && !value.trim()) continue;
+      config[key] =
+        simplified && OIDC_ONLY_FIELDS.includes(key as keyof Fields)
+          ? ""
+          : value.trim();
     }
     const input: SsoProviderInput = {
       name: name.trim(),

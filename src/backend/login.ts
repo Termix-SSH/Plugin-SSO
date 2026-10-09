@@ -35,6 +35,14 @@ const CALLBACK_PATH = "/plugin-api/sso/callback";
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
+/** Ties a web login's state to the browser that started it. */
+export const BINDING_COOKIE = "termix_sso_binding";
+
+/** The express response behind a request, when core passed the real one. */
+interface CookieResponse {
+  cookie: (name: string, value: string, options: object) => unknown;
+  clearCookie: (name: string, options: object) => unknown;
+}
 
 /** An error raised after the return address is known redirects there. */
 class RedirectLoginError extends LoginMethodError {
@@ -56,6 +64,8 @@ interface PendingState {
   rememberMe: boolean;
   providerId: number | null;
   codeVerifier: string;
+  /** sha256 of the binding cookie; null for app flows, which finish elsewhere. */
+  bindingHash: string | null;
   createdAt: number;
 }
 
@@ -72,6 +82,55 @@ function header(request: PluginLoginRequest, name: string): string {
 
 export function redirectUriFor(baseUrl: string): string {
   return `${baseUrl}${CALLBACK_PATH}`;
+}
+
+function sha256(value: string): string {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+function readCookie(request: PluginLoginRequest, name: string): string {
+  for (const part of header(request, "cookie").split(";")) {
+    const [key, ...rest] = part.trim().split("=");
+    if (key === name) {
+      try {
+        return decodeURIComponent(rest.join("="));
+      } catch {
+        return "";
+      }
+    }
+  }
+  return "";
+}
+
+function responseOf(request: PluginLoginRequest): CookieResponse | null {
+  const res = (request as { res?: Partial<CookieResponse> }).res;
+  return typeof res?.cookie === "function" &&
+    typeof res.clearCookie === "function"
+    ? (res as CookieResponse)
+    : null;
+}
+
+/**
+ * Where a web login returns to: the page's own address when it is this
+ * server (a proxy may hide the scheme), otherwise this server's root. Never
+ * another site.
+ */
+export function webReturnTo(referer: string, baseUrl: string): string {
+  const base = new URL(baseUrl);
+  const root = `${base.origin}${base.pathname.replace(/\/$/, "")}/`;
+  if (!referer) return root;
+  try {
+    const from = new URL(referer);
+    if (
+      (from.protocol === "https:" || from.protocol === "http:") &&
+      from.host === base.host
+    ) {
+      return `${from.protocol}//${base.host}${base.pathname.replace(/\/$/, "")}/`;
+    }
+  } catch {
+    // fall through to the root
+  }
+  return root;
 }
 
 export type SsoLogin = ReturnType<typeof createSsoLogin>;
@@ -98,17 +157,18 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     return Date.now() - entry.createdAt > STATE_TTL_MS ? null : entry;
   }
 
+  /** Where the login returns to, and whether it finishes in this browser. */
   function frontendOriginFor(
     request: PluginLoginRequest,
     baseUrl: string,
-  ): string {
+  ): { returnTo: string; sameBrowser: boolean } {
     const { desktopCallbackPort, appCallbackUrl } = request.query;
     if (desktopCallbackPort !== undefined && desktopCallbackPort !== "") {
       const url = getDesktopCallbackUrl(desktopCallbackPort);
       if (!url) {
         throw new LoginMethodError("Invalid desktop callback port", 400);
       }
-      return url;
+      return { returnTo: url, sameBrowser: false };
     }
     if (typeof appCallbackUrl === "string" && appCallbackUrl) {
       let callbackUrl: URL;
@@ -120,18 +180,12 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       if (callbackUrl.protocol !== "termix-mobile:") {
         throw new LoginMethodError("Unsupported app callback URL", 400);
       }
-      return callbackUrl.toString();
+      return { returnTo: callbackUrl.toString(), sameBrowser: false };
     }
-    const referer = header(request, "referer");
-    if (referer) {
-      try {
-        const refererUrl = new URL(referer);
-        return `${refererUrl.protocol}//${refererUrl.host}`;
-      } catch {
-        // fall through to the request's own origin
-      }
-    }
-    return new URL(baseUrl).origin;
+    return {
+      returnTo: webReturnTo(header(request, "referer"), baseUrl),
+      sameBrowser: true,
+    };
   }
 
   async function start(
@@ -155,10 +209,31 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
 
     const baseUrl = ctx.http.baseUrl(request);
     const backendCallback = redirectUriFor(baseUrl);
-    const frontendOrigin = frontendOriginFor(request, baseUrl);
+    const { returnTo: frontendOrigin, sameBrowser } = frontendOriginFor(
+      request,
+      baseUrl,
+    );
     const state = crypto.randomUUID();
     const nonce = crypto.randomUUID();
     const codeVerifier = generatePkceCodeVerifier();
+
+    // The desktop and mobile apps start here but sign in through the system
+    // browser, which never sees this cookie, so only web logins are bound.
+    let bindingHash: string | null = null;
+    const response = sameBrowser ? responseOf(request) : null;
+    if (response) {
+      const binding = crypto.randomBytes(32).toString("base64url");
+      bindingHash = sha256(binding);
+      response.cookie(BINDING_COOKIE, binding, {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: baseUrl.startsWith("https:"),
+        path: `${new URL(baseUrl).pathname.replace(/\/$/, "")}${CALLBACK_PATH}`,
+        maxAge: STATE_TTL_MS,
+      });
+    } else if (sameBrowser) {
+      ctx.log.warn("SSO login started without a response to bind it to");
+    }
 
     await saveState(state, {
       nonce,
@@ -167,6 +242,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       rememberMe: String(request.query.rememberMe) === "true",
       providerId: provider.rowId,
       codeVerifier,
+      bindingHash,
       createdAt: Date.now(),
     });
 
@@ -243,7 +319,8 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
 
     const emailResponse = await fetch("https://api.github.com/user/emails", {
       headers,
-    });
+      ...fetchOptions,
+    } as RequestInit);
     if (emailResponse.ok) {
       const emails = (await emailResponse.json()) as Array<{
         email: string;
@@ -318,11 +395,21 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         } as RequestInit);
         if (response.ok) {
           const fetched = (await response.json()) as Record<string, unknown>;
+          // Userinfo for someone other than the id token's subject is a
+          // token substitution, not a sparse answer.
+          if (
+            userInfo?.sub !== undefined &&
+            fetched.sub !== undefined &&
+            String(fetched.sub) !== String(userInfo.sub)
+          ) {
+            throw new LoginMethodError("Userinfo subject mismatch", 401);
+          }
           claimSources.push(fetched);
           return { ...userInfo, ...fetched };
         }
         ctx.log.warn(`Userinfo endpoint ${url} answered ${response.status}`);
       } catch (error) {
+        if (error instanceof LoginMethodError) throw error;
         ctx.log.warn(`Userinfo endpoint ${url} failed: ${String(error)}`);
       }
     }
@@ -448,6 +535,25 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     }
     const pending = await takeState(state);
     if (!pending) throw new LoginMethodError("Invalid state parameter", 400);
+    if (pending.bindingHash) {
+      const binding = readCookie(request, BINDING_COOKIE);
+      const given = Buffer.from(binding ? sha256(binding) : "");
+      const expected = Buffer.from(pending.bindingHash);
+      responseOf(request)?.clearCookie(BINDING_COOKIE, {
+        path: new URL(pending.backendCallback).pathname,
+      });
+      if (
+        given.length !== expected.length ||
+        !crypto.timingSafeEqual(given, expected)
+      ) {
+        ctx.log.warn("SSO callback came from a browser that did not start it");
+        throw new RedirectLoginError(
+          "Login was started in another browser",
+          pending.frontendOrigin,
+          400,
+        );
+      }
+    }
 
     try {
       const provider = await store.resolve(pending.providerId);

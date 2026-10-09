@@ -1,6 +1,6 @@
 {
   "loginWithSso": "Sign in with SSO",
-  "loginWithProvider": "Login with {{name}}",
+  "loginWithProvider": "Sign in with {{name}}",
   "loading": "Loading...",
   "permissions": {
     "manage": {
@@ -14,7 +14,7 @@
     "add": "Add Provider",
     "edit": "Edit Provider",
     "delete": "Delete Provider",
-    "deleteConfirm": "Delete this provider? Associated users will be unable to login.",
+    "deleteConfirm": "Delete this provider? Its users will not be able to sign in with it.",
     "name": "Display Name",
     "namePlaceholder": "My SSO provider",
     "nameRequired": "A display name is required",

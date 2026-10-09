@@ -43,7 +43,13 @@ export interface TestServer {
     },
     // Route bodies vary per test; asserting on them is the point.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => Promise<{ status: number; body: any; location: string | null }>;
+  ) => Promise<{
+    status: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    body: any;
+    location: string | null;
+    setCookie: string[];
+  }>;
   close: () => Promise<void>;
 }
 
@@ -133,6 +139,7 @@ export async function startServer(
         status: response.status,
         body: parsed,
         location: response.headers.get("location"),
+        setCookie: response.headers.getSetCookie(),
       };
     },
     async close() {
