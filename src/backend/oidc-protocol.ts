@@ -292,7 +292,7 @@ const GOOGLE_DEFAULTS = {
   token_url: "https://oauth2.googleapis.com/token",
   userinfo_url: "https://openidconnect.googleapis.com/v1/userinfo",
   identifier_path: "sub",
-  name_path: "name",
+  name_path: "email",
   scopes: "openid email profile",
 };
 
@@ -302,7 +302,7 @@ const GITHUB_DEFAULTS = {
   token_url: "https://github.com/login/oauth/access_token",
   userinfo_url: "https://api.github.com/user",
   identifier_path: "id",
-  name_path: "name",
+  name_path: "login",
   scopes: "read:user user:email",
 };
 

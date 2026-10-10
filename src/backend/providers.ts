@@ -51,7 +51,7 @@ export function getOidcConfigFromEnv(): OidcConfig | null {
     token_url,
     userinfo_url: process.env.OIDC_USERINFO_URL || "",
     identifier_path: process.env.OIDC_IDENTIFIER_PATH || "sub",
-    name_path: process.env.OIDC_NAME_PATH || "name",
+    name_path: process.env.OIDC_NAME_PATH || "preferred_username",
     scopes: process.env.OIDC_SCOPES || "openid email profile",
     allowed_users: process.env.OIDC_ALLOWED_USERS || "",
     admin_group: process.env.OIDC_ADMIN_GROUP || "",

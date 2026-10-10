@@ -48,7 +48,7 @@
     "authUrl": "Authorization URL",
     "tokenUrl": "Token URL",
     "userIdentifier": "User Identifier Path",
-    "displayName": "Display Name Path",
+    "displayName": "Username Path",
     "scopes": "Scopes",
     "userinfoUrl": "Override Userinfo URL",
     "groupClaim": "Group Claim",

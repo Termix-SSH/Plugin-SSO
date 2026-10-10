@@ -294,6 +294,30 @@ describe("webReturnTo", () => {
 });
 
 describe("the callback", () => {
+  it("uses the login name when the username claim is missing", async () => {
+    const saved = OIDC_CONFIG.name_path;
+    OIDC_CONFIG.name_path = "nickname";
+    try {
+      const s = await startLegacy();
+      const idp = await installIdp();
+      const url = await beginLogin(s);
+      idp.claims = {
+        sub: "sub-2",
+        name: "Alice Example",
+        preferred_username: "alice",
+        nonce: url.searchParams.get("nonce"),
+      };
+      const callback = await finish(
+        s,
+        "GET",
+        `/callback?code=abc&state=${url.searchParams.get("state")}`,
+      );
+      expect(callback.body.identity).toMatchObject({ name: "alice" });
+    } finally {
+      OIDC_CONFIG.name_path = saved;
+    }
+  });
+
   it("verifies the id token and hands core the identity", async () => {
     const s = await startLegacy();
     const idp = await installIdp();

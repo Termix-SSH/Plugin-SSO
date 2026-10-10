@@ -57,7 +57,7 @@ const EMPTY_FIELDS: Fields = {
   token_url: "",
   userinfo_url: "",
   identifier_path: "sub",
-  name_path: "name",
+  name_path: "preferred_username",
   scopes: "openid email profile",
   allowed_users: "",
   admin_group: "",
@@ -361,9 +361,14 @@ function ProviderDialog({
               {text("identifier_path", t("fields.userIdentifier"), "sub", {
                 required: true,
               })}
-              {text("name_path", t("fields.displayName"), "name", {
-                required: true,
-              })}
+              {text(
+                "name_path",
+                t("fields.displayName"),
+                "preferred_username",
+                {
+                  required: true,
+                },
+              )}
             </div>
             {text("scopes", t("fields.scopes"), "openid email profile", {
               required: true,

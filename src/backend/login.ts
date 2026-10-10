@@ -466,8 +466,10 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       userInfo.sub ||
       userInfo.email ||
       userInfo.preferred_username) as string;
+    // This becomes the Termix username, so a login name beats a full name.
     const name = (getNestedValue(userInfo, config.name_path) ||
       userInfo[config.name_path] ||
+      userInfo.preferred_username ||
       userInfo.name ||
       userInfo.given_name ||
       identifier) as string;

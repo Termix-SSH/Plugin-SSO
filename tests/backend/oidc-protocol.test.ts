@@ -242,7 +242,7 @@ describe("getOIDCConfigFromEnv", () => {
     expect(config).not.toBeNull();
     expect(config?.client_id).toBe("id");
     expect(config?.identifier_path).toBe("sub");
-    expect(config?.name_path).toBe("name");
+    expect(config?.name_path).toBe("preferred_username");
     expect(config?.scopes).toBe("openid email profile");
     expect(config?.userinfo_url).toBe("");
   });
