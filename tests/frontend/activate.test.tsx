@@ -143,6 +143,37 @@ describe(`${manifest.id} activate`, () => {
     expect(body.config).not.toHaveProperty("client_secret");
   });
 
+  it("saves an edited allowed users list", async () => {
+    const withAllowed = {
+      ...providers,
+      providers: [
+        {
+          ...providers.providers[0],
+          config: { ...OIDC_FIELDS, allowed_users: "a@x.test\nb@x.test" },
+        },
+      ],
+    };
+    const get = vi.fn(async () => ({ data: withAllowed }));
+    const put = vi.fn(async () => ({ data: {} }));
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: { get, put } as never,
+    });
+    rendered.renderSettingsComponent("providers");
+    fireEvent.click(await screen.findByTitle(locales.providers.edit));
+    fireEvent.change(await screen.findByDisplayValue(/a@x.test/), {
+      target: { value: "a@x.test" },
+    });
+    fireEvent.click(screen.getByText(locales.providers.save));
+    await waitFor(() => expect(put).toHaveBeenCalled());
+    const [, body] = put.mock.calls[0] as unknown as [
+      string,
+      { config: Record<string, string> },
+    ];
+    expect(body.config.allowed_users).toBe("a@x.test");
+  });
+
   it("removes everything on deactivate", async () => {
     const app = await renderWithApp(plugin, { manifest, locales });
     await app.deactivate();
