@@ -12,6 +12,10 @@ You can add several providers. Each gets its own button on the sign in page.
 
 GitHub and Google only need a **Client ID** and **Client Secret**. Termix knows their URLs.
 
+## Upgrading from before 2.9
+
+Providers set up before Termix 2.9 keep the old redirect URI, `https://termix.example.com/users/oidc/callback`, so your identity provider needs no change. To move one to the new URI, add the new one in your identity provider first, then open the provider and turn off **Keep the old redirect URI**. A provider set through `OIDC_*` environment variables uses the old URI unless `OIDC_LEGACY_CALLBACK` is `false`.
+
 ## OIDC fields
 
 | Field                                | What it is                                                                                              |

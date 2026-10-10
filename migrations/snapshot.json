@@ -39,6 +39,11 @@
           "type": "timestamp",
           "notNull": true,
           "defaultNow": true
+        },
+        "legacyCallback": {
+          "type": "boolean",
+          "notNull": true,
+          "defaultValue": false
         }
       },
       "indexes": [],

@@ -33,9 +33,10 @@ const providers = {
       type: "oidc",
       enabled: true,
       displayOrder: 0,
+      legacyCallback: true,
       config: { client_id: "termix" },
       hasClientSecret: true,
-      redirectUri: "https://termix.test/plugin-api/sso/callback",
+      redirectUri: "https://termix.test/users/oidc/callback",
     },
   ],
   newRedirectUri: "https://termix.test/plugin-api/sso/callback",
@@ -73,7 +74,7 @@ describe(`${manifest.id} activate`, () => {
     rendered.renderSettingsComponent("providers");
     expect(await screen.findByText("Keycloak")).toBeTruthy();
     expect(
-      screen.getByText("https://termix.test/plugin-api/sso/callback"),
+      screen.getByText("https://termix.test/users/oidc/callback"),
     ).toBeTruthy();
     expect(get).toHaveBeenCalledWith("/providers");
   });

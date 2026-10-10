@@ -24,6 +24,8 @@ export const providers = adoptLegacyTable(
     config: text().notNull(),
     createdAt: timestamp().notNull().defaultNow(),
     updatedAt: timestamp().notNull().defaultNow(),
+    // Providers from before 2.9 keep sending the old redirect URI.
+    legacyCallback: boolean().notNull().default(false),
   }),
 );
 

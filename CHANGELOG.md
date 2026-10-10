@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1
+
+### Fixed
+
+- Providers set up before 2.9 send the old redirect URI again, so identity providers stop rejecting sign in
+- The old callback and back-channel logout URLs work again
+
 ## 1.0.0
 
 ### Added

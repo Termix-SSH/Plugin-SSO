@@ -38,6 +38,8 @@
     "copied": "Copied",
     "redirectUri": "Redirect URI",
     "redirectUriDesc": "Register this URL as the redirect or callback URL in your identity provider.",
+    "legacyCallback": "Keep the old redirect URI",
+    "legacyCallbackDesc": "This provider was set up before Termix 2.9 and still uses the old redirect URI, which keeps working. To move to the new one, add {{uri}} in your identity provider first, then turn this off.",
     "authorizationUrl": "Authorization URL: {{url}}"
   },
   "fields": {

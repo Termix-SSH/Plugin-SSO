@@ -8,6 +8,7 @@ export interface SsoProvider {
   type: SsoProviderType;
   enabled: boolean;
   displayOrder: number;
+  legacyCallback: boolean;
   config: Record<string, unknown>;
   hasClientSecret: boolean;
   redirectUri: string;
@@ -17,6 +18,7 @@ export interface SsoProviderInput {
   name?: string;
   type?: SsoProviderType;
   enabled?: boolean;
+  legacyCallback?: boolean;
   config?: Record<string, unknown>;
 }
 

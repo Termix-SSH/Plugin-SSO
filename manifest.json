@@ -1,7 +1,7 @@
 {
   "id": "sso",
   "name": "Single sign-on",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sign in with any OpenID Connect provider, GitHub or Google.",
   "author": {
     "name": "Termix"
@@ -81,6 +81,11 @@
       "default": "false"
     },
     {
+      "name": "OIDC_LEGACY_CALLBACK",
+      "description": "false makes the provider above send the new redirect URI, /plugin-api/sso/callback, instead of the 2.8 one, /users/oidc/callback.",
+      "default": "true"
+    },
+    {
       "name": "OIDC_SILENT_LOGIN_DEFAULT",
       "description": "true or false. Sends visitors straight to SSO, and locks the setting."
     }
@@ -132,6 +137,16 @@
         {
           "from": "/users/oidc-config",
           "to": "/config"
+        },
+        {
+          "from": "/users/oidc/callback",
+          "to": "/callback",
+          "status": 308
+        },
+        {
+          "from": "/users/oidc/backchannel-logout",
+          "to": "/backchannel-logout",
+          "status": 308
         }
       ]
     }

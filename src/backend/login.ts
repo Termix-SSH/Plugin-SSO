@@ -32,6 +32,8 @@ import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
 const CALLBACK_PATH = "/plugin-api/sso/callback";
+/** The redirect URI identity providers were set up with before 2.9. */
+const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
@@ -80,8 +82,11 @@ function header(request: PluginLoginRequest, name: string): string {
     : "";
 }
 
-export function redirectUriFor(baseUrl: string): string {
-  return `${baseUrl}${CALLBACK_PATH}`;
+export function redirectUriFor(
+  baseUrl: string,
+  provider: Pick<ResolvedProvider, "legacyCallback">,
+): string {
+  return `${baseUrl}${provider.legacyCallback ? LEGACY_CALLBACK_PATH : CALLBACK_PATH}`;
 }
 
 function sha256(value: string): string {
@@ -131,6 +136,15 @@ export function webReturnTo(referer: string, baseUrl: string): string {
     // fall through to the root
   }
   return root;
+}
+
+/** The old callback redirects here, so the cookie always lives on this path. */
+function bindingCookiePath(backendCallback: string): string {
+  const path = new URL(backendCallback).pathname;
+  const suffix = path.endsWith(LEGACY_CALLBACK_PATH)
+    ? LEGACY_CALLBACK_PATH
+    : CALLBACK_PATH;
+  return `${path.slice(0, -suffix.length)}${CALLBACK_PATH}`;
 }
 
 export type SsoLogin = ReturnType<typeof createSsoLogin>;
@@ -208,7 +222,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     if (!provider) throw new LoginMethodError("OIDC not configured", 404);
 
     const baseUrl = ctx.http.baseUrl(request);
-    const backendCallback = redirectUriFor(baseUrl);
+    const backendCallback = redirectUriFor(baseUrl, provider);
     const { returnTo: frontendOrigin, sameBrowser } = frontendOriginFor(
       request,
       baseUrl,
@@ -228,7 +242,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         httpOnly: true,
         sameSite: "lax",
         secure: baseUrl.startsWith("https:"),
-        path: `${new URL(baseUrl).pathname.replace(/\/$/, "")}${CALLBACK_PATH}`,
+        path: bindingCookiePath(backendCallback),
         maxAge: STATE_TTL_MS,
       });
     } else if (sameBrowser) {
@@ -542,7 +556,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       const given = Buffer.from(binding ? sha256(binding) : "");
       const expected = Buffer.from(pending.bindingHash);
       responseOf(request)?.clearCookie(BINDING_COOKIE, {
-        path: new URL(pending.backendCallback).pathname,
+        path: bindingCookiePath(pending.backendCallback),
       });
       if (
         given.length !== expected.length ||
