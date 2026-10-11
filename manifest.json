@@ -104,18 +104,14 @@
   ],
   "contributes": {
     "auth": {
-      "loginMethods": [
-        "oidc"
-      ]
+      "loginMethods": ["oidc"]
     },
     "permissions": [
       {
         "name": "manage",
         "titleKey": "permissions.manage.title",
         "descriptionKey": "permissions.manage.description",
-        "defaultRoles": [
-          "admin"
-        ]
+        "defaultRoles": ["admin"]
       }
     ],
     "settings": {
@@ -156,10 +152,6 @@
     }
   },
   "locales": "locales",
-  "platforms": [
-    "linux",
-    "win32",
-    "darwin"
-  ],
+  "platforms": ["linux", "win32", "darwin"],
   "desktop": "server"
 }
