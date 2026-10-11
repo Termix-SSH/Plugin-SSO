@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Prijava z SSO",
+  "loginWithProvider": "Prijava z {{name}}",
+  "loading": "Nalaganje...",
+  "permissions": {
+    "manage": {
+      "title": "Upravljanje ponudnikov SSO",
+      "description": "Dodajajte, spreminjajte in odstranjujte ponudnike SSO, s katerimi se lahko uporabniki prijavijo."
+    }
+  },
+  "providers": {
+    "docsLink": "Ogled dokumentacije",
+    "none": "Noben ponudnik SSO ni konfiguriran.",
+    "add": "Dodaj ponudnika",
+    "edit": "Uredi ponudnika",
+    "delete": "Izbriši ponudnika",
+    "deleteConfirm": "Izbrisati tega ponudnika? Njegovi uporabniki se ne bodo mogli več prijaviti z njim.",
+    "name": "Prikazno ime",
+    "namePlaceholder": "Moj ponudnik SSO",
+    "nameRequired": "Prikazno ime je obvezno",
+    "type": "Vrsta ponudnika",
+    "enabled": "Omogočeno",
+    "enabledDesc": "Prikaži gumb za prijavo s tem ponudnikom na zaslonu za prijavo.",
+    "dialogDesc": "Povežite ponudnika identitete, da se lahko uporabniki prijavijo z njim.",
+    "sectionGeneral": "Splošno",
+    "sectionCredentials": "Odjemalec",
+    "sectionClaims": "Trditve",
+    "sectionAccess": "Dostop",
+    "save": "Shrani ponudnika",
+    "saving": "Shranjevanje...",
+    "saved": "Shranjeno",
+    "saveFailed": "Shranjevanje ni uspelo",
+    "deleted": "Izbrisano",
+    "deleteFailed": "Izbris ni uspel",
+    "loadFailed": "Nalaganje ponudnikov SSO ni uspelo",
+    "cancel": "Prekliči",
+    "copy": "Kopiraj",
+    "copied": "Kopirano",
+    "redirectUri": "URI za preusmeritev",
+    "redirectUriDesc": "Zapišite ta URL kot URL za preusmeritev ali povratni klic pri svojem ponudniku identitete.",
+    "legacyCallback": "Ohrani stari URI za preusmeritev",
+    "legacyCallbackDesc": "Ta ponudnik je bil nastavljen pred Termix 2.9 in še vedno uporablja stari URI za preusmeritev, ki še vedno deluje. Za preklop na novega najprej dodajte {{uri}} pri svojem ponudniku identitete, nato to onemogočite.",
+    "authorizationUrl": "URL za avtorizacijo: {{url}}"
+  },
+  "fields": {
+    "clientId": "ID odjemalca",
+    "clientSecret": "Skrivnost odjemalca",
+    "secretKeep": "Skrivnost je shranjena. Pustite prazno, da jo ohranite.",
+    "issuerUrl": "URL izdajatelja",
+    "authUrl": "URL za avtorizacijo",
+    "tokenUrl": "URL žetona",
+    "userIdentifier": "Pot do identifikatorja uporabnika",
+    "displayName": "Pot do uporabniškega imena",
+    "scopes": "Območja",
+    "userinfoUrl": "Ponastavi URL za podatke o uporabniku",
+    "groupClaim": "Trditev o skupini",
+    "groupClaimDesc": "Neobvezno. Pot do trditve, ki vsebuje uporabnikove skupine. Privzeto so groups, roles, nato group. Uporabite to za ponudnike s prilagojeno trditvijo (npr. Zitadel).",
+    "allowedUsers": "Dovoljeni uporabniki",
+    "allowedUsersDesc": "En e-naslov na vrstico. Pustite prazno, da dovolite vsem.",
+    "adminGroup": "Skupina skrbnikov",
+    "adminGroupDesc": "Uporabniki v tej skupini dobijo skrbniške pravice. Pustite prazno, da onemogočite sinhronizacijo skupin.",
+    "caCert": "Prilagojeno CA potrdilo",
+    "caCertDesc": "Neobvezno. PEM-kodirano CA potrdilo za ponudnike OIDC, ki uporabljajo zasebno ali samopodpisano CA. Pustite prazno, da uporabite sistemsko zaupno shrambo."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Samodejna prijava z SSO",
+      "description": "Obiskovalce neposredno pošljite k prvemu ponudniku SSO namesto prikaza obrazca za prijavo. Spremenljivka okolja OIDC_SILENT_LOGIN_DEFAULT to nadpiše."
+    }
+  },
+  "plugin": {
+    "name": "Enotna prijava"
+  }
+}

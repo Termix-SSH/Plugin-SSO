@@ -1,31 +1,31 @@
 {
-  "loginWithSso": "Zaloguj się za pomocą SSO",
-  "loginWithProvider": "Zaloguj się za pomocą {{name}}",
+  "loginWithSso": "Zaloguj się przez SSO",
+  "loginWithProvider": "Zaloguj się przez {{name}}",
   "loading": "Ładowanie...",
   "permissions": {
     "manage": {
       "title": "Zarządzaj dostawcami SSO",
-      "description": "Dodaj, zmień i usuń dostawców SSO, u których użytkownicy mogą się logować."
+      "description": "Dodawaj, zmieniaj i usuwaj dostawców SSO, których mogą używać użytkownicy do logowania."
     }
   },
   "providers": {
     "docsLink": "Zobacz dokumentację",
-    "none": "Nie skonfigurowano dostawców SSO.",
+    "none": "Nie skonfigurowano żadnych dostawców SSO.",
     "add": "Dodaj dostawcę",
     "edit": "Edytuj dostawcę",
     "delete": "Usuń dostawcę",
-    "deleteConfirm": "Usunąć tego dostawcę? Powiązani użytkownicy nie będą mogli się zalogować.",
+    "deleteConfirm": "Usunąć tego dostawcę? Jego użytkownicy nie będą mogli się nim logować.",
     "name": "Nazwa wyświetlana",
     "namePlaceholder": "Mój dostawca SSO",
-    "nameRequired": "Wymagana jest nazwa wyświetlana",
+    "nameRequired": "Nazwa wyświetlana jest wymagana",
     "type": "Typ dostawcy",
-    "enabled": "Włączona",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "enabled": "Włączony",
+    "enabledDesc": "Wyświetl przycisk logowania dla tego dostawcy na ekranie logowania.",
+    "dialogDesc": "Połącz dostawcę tożsamości, aby użytkownicy mogli się nim logować.",
+    "sectionGeneral": "Ogólne",
+    "sectionCredentials": "Klient",
+    "sectionClaims": "Claimy",
+    "sectionAccess": "Dostęp",
     "save": "Zapisz dostawcę",
     "saving": "Zapisywanie...",
     "saved": "Zapisano",
@@ -36,37 +36,39 @@
     "cancel": "Anuluj",
     "copy": "Kopiuj",
     "copied": "Skopiowano",
-    "redirectUri": "Przekieruj URI",
-    "redirectUriDesc": "Zarejestruj ten adres URL jako adres przekierowania lub adres URL wywołania zwrotnego u swojego dostawcy tożsamości.",
-    "authorizationUrl": "Adres URL autoryzacji: {{url}}"
+    "redirectUri": "URI przekierowania",
+    "redirectUriDesc": "Zarejestruj ten adres URL jako adres przekierowania lub wywołania zwrotnego w swoim dostawcy tożsamości.",
+    "legacyCallback": "Zachowaj stary URI przekierowania",
+    "legacyCallbackDesc": "Ten dostawca został skonfigurowany przed Termix 2.9 i nadal używa starego URI przekierowania, który nadal działa. Aby przejść na nowy, najpierw dodaj {{uri}} w swoim dostawcy tożsamości, a następnie wyłącz tę opcję.",
+    "authorizationUrl": "URL autoryzacji: {{url}}"
   },
   "fields": {
-    "clientId": "Identyfikator klienta",
-    "clientSecret": "Sekret klienta",
-    "secretKeep": "Sekret został zapisany. Pozostaw to pole puste, aby go zachować.",
-    "issuerUrl": "Adres URL wystawcy",
-    "authUrl": "Adres URL autoryzacji",
-    "tokenUrl": "Adres URL tokena",
+    "clientId": "ID klienta",
+    "clientSecret": "Tajny klucz klienta",
+    "secretKeep": "Tajny klucz jest zapisany. Pozostaw puste, aby go zachować.",
+    "issuerUrl": "URL wydawcy",
+    "authUrl": "URL autoryzacji",
+    "tokenUrl": "URL tokena",
     "userIdentifier": "Ścieżka identyfikatora użytkownika",
-    "displayName": "Ścieżka nazwy wyświetlanej",
+    "displayName": "Ścieżka nazwy użytkownika",
     "scopes": "Zakresy",
-    "userinfoUrl": "Zastąp adres URL informacji o użytkowniku",
+    "userinfoUrl": "Nadpisz URL UserInfo",
     "groupClaim": "Claim grupy",
-    "groupClaimDesc": "Opcjonalnie. Ścieżka claimu zawierającego grupy użytkownika. Domyślnie: groups, roles, potem group. Użyj tego dla dostawców z niestandardowym claimem (np. Zitadel).",
+    "groupClaimDesc": "Opcjonalnie. Ścieżka claimu zawierająca grupy użytkownika. Domyślnie: groups, roles, a następnie group. Użyj tego dla dostawców z niestandardowym claimem (np. Zitadel).",
     "allowedUsers": "Dozwoleni użytkownicy",
-    "allowedUsersDesc": "Jeden adres e-mail w każdym wierszu. Pozostaw puste, aby zezwolić na wszystkie.",
+    "allowedUsersDesc": "Jeden adres e-mail w wierszu. Pozostaw puste, aby zezwolić wszystkim.",
     "adminGroup": "Grupa administratorów",
-    "adminGroupDesc": "Użytkownicy w tej grupie otrzymują uprawnienia administratora. Pozostaw puste, aby wyłączyć synchronizację grupy.",
+    "adminGroupDesc": "Użytkownicy w tej grupie otrzymują uprawnienia administratora. Pozostaw puste, aby wyłączyć synchronizację grup.",
     "caCert": "Niestandardowy certyfikat CA",
-    "caCertDesc": "Opcjonalnie. Certyfikat CA w formacie PEM dla dostawców OIDC korzystających z prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufanych certyfikatów."
+    "caCertDesc": "Opcjonalnie. Certyfikat CA zakodowany w formacie PEM dla dostawców OIDC używających prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufania."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Zaloguj się automatycznie za pomocą SSO",
-      "description": "Zamiast wyświetlać formularz logowania, przekieruj odwiedzających bezpośrednio do pierwszego dostawcy SSO. Zmienna środowiskowa OIDC_SILENT_LOGIN_DEFAULT zastępuje to ustawienie."
+      "label": "Automatyczne logowanie przez SSO",
+      "description": "Przekieruj odwiedzających bezpośrednio do pierwszego dostawcy SSO zamiast wyświetlać formularz logowania. Zmienna środowiskowa OIDC_SILENT_LOGIN_DEFAULT nadpisuje tę ustawienie."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Logowanie jednokrotne"
   }
 }

@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Prihlásiť sa cez SSO",
+  "loginWithProvider": "Prihlásiť sa cez {{name}}",
+  "loading": "Načítava sa...",
+  "permissions": {
+    "manage": {
+      "title": "Spravovať poskytovateľov SSO",
+      "description": "Pridávajte, meníte a odstraňujte poskytovateľov SSO, ktorými sa môžu používatelia prihlásiť."
+    }
+  },
+  "providers": {
+    "docsLink": "Zobraziť dokumentáciu",
+    "none": "Nie sú nakonfigurovaní žiadni poskytovatelia SSO.",
+    "add": "Pridať poskytovateľa",
+    "edit": "Upraviť poskytovateľa",
+    "delete": "Odstrániť poskytovateľa",
+    "deleteConfirm": "Odstrániť tohto poskytovateľa? Jeho používatelia sa už nebudú môcť prihlásiť cez neho.",
+    "name": "Zobrazované meno",
+    "namePlaceholder": "Môj poskytovateľ SSO",
+    "nameRequired": "Zobrazované meno je povinné",
+    "type": "Typ poskytovateľa",
+    "enabled": "Povolené",
+    "enabledDesc": "Zobraziť tlačidlo na prihlásenie pre tohto poskytovateľa na prihlasovacej obrazovke.",
+    "dialogDesc": "Pripojte poskytovateľa identity, aby sa používatelia mohli prihlásiť cez neho.",
+    "sectionGeneral": "Všeobecné",
+    "sectionCredentials": "Klient",
+    "sectionClaims": "Claims",
+    "sectionAccess": "Prístup",
+    "save": "Uložiť poskytovateľa",
+    "saving": "Ukladá sa...",
+    "saved": "Uložené",
+    "saveFailed": "Uloženie zlyhalo",
+    "deleted": "Odstránené",
+    "deleteFailed": "Odstránenie zlyhalo",
+    "loadFailed": "Načítanie poskytovateľov SSO zlyhalo",
+    "cancel": "Zrušiť",
+    "copy": "Kopírovať",
+    "copied": "Skopírované",
+    "redirectUri": "URI presmerovania",
+    "redirectUriDesc": "Zaregistrujte túto URL ako adresu presmerovania alebo spätného volania vo vašom poskytovateľovi identity.",
+    "legacyCallback": "Ponechať starý URI presmerovania",
+    "legacyCallbackDesc": "Tento poskytovateľ bol nastavený pred Termix 2.9 a stále používa starý URI presmerovania, ktorý stále funguje. Pre prechod na nový najprv pridajte {{uri}} vo vašom poskytovateľovi identity a potom túto možnosť vypnite.",
+    "authorizationUrl": "URL autorizácie: {{url}}"
+  },
+  "fields": {
+    "clientId": "ID klienta",
+    "clientSecret": "Tajný kľúč klienta",
+    "secretKeep": "Tajný kľúč je uložený. Ak ho chcete ponechať, nechajte toto pole prázdne.",
+    "issuerUrl": "URL vydavateľa",
+    "authUrl": "URL autorizácie",
+    "tokenUrl": "URL tokenu",
+    "userIdentifier": "Cesta k identifikátoru používateľa",
+    "displayName": "Cesta k používateľskému menu",
+    "scopes": "Scopes",
+    "userinfoUrl": "Prepísať URL userinfo",
+    "groupClaim": "Claim skupiny",
+    "groupClaimDesc": "Voliteľné. Cesta k claimu, ktorý obsahuje skupiny používateľa. Predvolené hodnoty sú groups, roles a potom group. Použite to pre poskytovateľov s vlastným claimom (napr. Zitadel).",
+    "allowedUsers": "Povolení používatelia",
+    "allowedUsersDesc": "Jeden e-mail na riadok. Ak chcete povoliť všetkých, nechajte prázdne.",
+    "adminGroup": "Skupina administrátorov",
+    "adminGroupDesc": "Používatelia v tejto skupine získajú práva administrátora. Ak chcete vypnúť synchronizáciu skupín, nechajte prázdne.",
+    "caCert": "Vlastný certifikát CA",
+    "caCertDesc": "Voliteľné. Certifikát CA v kódovaní PEM pre poskytovateľov OIDC používajúcich súkromnú alebo samopodpísanú CA. Ak chcete použiť systémový úložník dôveryhodných certifikátov, nechajte prázdne."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Automatické prihlásenie cez SSO",
+      "description": "Presmerovať návštevníkov priamo na prvý poskytovateľa SSO namiesto zobrazenia prihlasovacieho formulára. Premenná prostredia OIDC_SILENT_LOGIN_DEFAULT túto možnosť prepíše."
+    }
+  },
+  "plugin": {
+    "name": "Jednorazové prihlásenie"
+  }
+}

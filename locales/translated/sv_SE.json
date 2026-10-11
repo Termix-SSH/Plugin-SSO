@@ -1,72 +1,74 @@
 {
   "loginWithSso": "Logga in med SSO",
   "loginWithProvider": "Logga in med {{name}}",
-  "loading": "Belastning...",
+  "loading": "Laddar...",
   "permissions": {
     "manage": {
       "title": "Hantera SSO-leverantörer",
-      "description": "Lägg till, ändra och ta bort de SSO-leverantörer som personer kan logga in med."
+      "description": "Lägg till, ändra och ta bort de SSO-leverantörer som användare kan logga in med."
     }
   },
   "providers": {
-    "docsLink": "Visa dokument",
-    "none": "Inga SSO-leverantörer har konfigurerats.",
+    "docsLink": "Visa dokumentation",
+    "none": "Inga SSO-leverantörer är konfigurerade.",
     "add": "Lägg till leverantör",
     "edit": "Redigera leverantör",
     "delete": "Ta bort leverantör",
-    "deleteConfirm": "Vill du ta bort den här leverantören? Associerade användare kommer inte att kunna logga in.",
+    "deleteConfirm": "Ta bort denna leverantör? Dess användare kommer inte att kunna logga in med den.",
     "name": "Visningsnamn",
     "namePlaceholder": "Min SSO-leverantör",
     "nameRequired": "Ett visningsnamn krävs",
     "type": "Leverantörstyp",
     "enabled": "Aktiverad",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
+    "enabledDesc": "Visa en inloggningsknapp för denna leverantör på inloggningsskärmen.",
+    "dialogDesc": "Anslut en identitetsleverantör så att användare kan logga in med den.",
+    "sectionGeneral": "Allmänt",
+    "sectionCredentials": "Klient",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Åtkomst",
     "save": "Spara leverantör",
-    "saving": "Sparande...",
+    "saving": "Sparar...",
     "saved": "Sparad",
-    "saveFailed": "Misslyckades med att spara",
+    "saveFailed": "Kunde inte spara",
     "deleted": "Borttagen",
-    "deleteFailed": "Misslyckades med att radera",
-    "loadFailed": "Det gick inte att läsa in SSO-leverantörer",
-    "cancel": "Avboka",
+    "deleteFailed": "Kunde inte ta bort",
+    "loadFailed": "Kunde inte ladda SSO-leverantörer",
+    "cancel": "Avbryt",
     "copy": "Kopiera",
     "copied": "Kopierad",
     "redirectUri": "Omdirigerings-URI",
-    "redirectUriDesc": "Registrera den här URL:en som omdirigerings- eller återuppringnings-URL i din identitetsleverantör.",
+    "redirectUriDesc": "Registrera denna URL som omdirigerings- eller callback-URL i din identitetsleverantör.",
+    "legacyCallback": "Behåll den gamla omdirigerings-URI:n",
+    "legacyCallbackDesc": "Denna leverantör konfigurerades innan Termix 2.9 och använder fortfarande den gamla omdirigerings-URI:n, som fortfarande fungerar. För att byta till den nya, lägg först till {{uri}} i din identitetsleverantör och stäng sedan av detta.",
     "authorizationUrl": "Auktoriserings-URL: {{url}}"
   },
   "fields": {
     "clientId": "Klient-ID",
     "clientSecret": "Klienthemlighet",
     "secretKeep": "En hemlighet är sparad. Lämna detta tomt för att behålla den.",
-    "issuerUrl": "Utgivarens URL",
+    "issuerUrl": "Issuer-URL",
     "authUrl": "Auktoriserings-URL",
     "tokenUrl": "Token-URL",
-    "userIdentifier": "Sökväg till användaridentifierare",
-    "displayName": "Sökväg för visningsnamn",
+    "userIdentifier": "Sökväg för användaridentifierare",
+    "displayName": "Sökväg för användarnamn",
     "scopes": "Omfattningar",
-    "userinfoUrl": "Åsidosätt användarinformations-URL",
-    "groupClaim": "Gruppanspråk",
-    "groupClaimDesc": "Valfritt. Anspråkssökvägen som innehåller användarens grupper. Standardinställningen är grupper, roller och sedan grupp. Använd detta för leverantörer med ett anpassat anspråk (t.ex. Zitadel).",
+    "userinfoUrl": "Ersätt Userinfo-URL",
+    "groupClaim": "Gruppclaim",
+    "groupClaimDesc": "Valfritt. Sökvägen till claimen som innehåller användarens grupper. Standardvärdena är groups, roles och sedan group. Använd detta för leverantörer med en anpassad claim (t.ex. Zitadel).",
     "allowedUsers": "Tillåtna användare",
-    "allowedUsersDesc": "Ett e-postmeddelande per rad. Lämna tomt för att tillåta alla.",
+    "allowedUsersDesc": "En e-postadress per rad. Lämna tomt för att tillåta alla.",
     "adminGroup": "Administratörsgrupp",
-    "adminGroupDesc": "Användare i den här gruppen har administratörsrättigheter. Lämna tomt för att inaktivera gruppsynkronisering.",
+    "adminGroupDesc": "Användare i denna grupp får administratörsrättigheter. Lämna tomt för att inaktivera grupp-synkronisering.",
     "caCert": "Anpassat CA-certifikat",
-    "caCertDesc": "Valfritt. PEM-kodat CA-certifikat för OIDC-leverantörer som använder en privat eller självsignerad CA. Lämna tomt för att använda systemets förtroendearkiv."
+    "caCertDesc": "Valfritt. PEM-kodat CA-certifikat för OIDC-leverantörer som använder en privat eller självsignerad CA. Lämna tomt för att använda systemets certifikatbutik."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Logga in med SSO automatiskt",
+      "label": "Logga in automatiskt med SSO",
       "description": "Skicka besökare direkt till den första SSO-leverantören istället för att visa inloggningsformuläret. Miljövariabeln OIDC_SILENT_LOGIN_DEFAULT åsidosätter detta."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Enkel inloggning"
   }
 }

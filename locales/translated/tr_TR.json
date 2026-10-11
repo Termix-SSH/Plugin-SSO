@@ -1,72 +1,74 @@
 {
-  "loginWithSso": "SSO ile giriş yapın",
+  "loginWithSso": "SSO ile giriş yap",
   "loginWithProvider": "{{name}} ile giriş yap",
   "loading": "Yükleniyor...",
   "permissions": {
     "manage": {
-      "title": "SSO sağlayıcılarını yönetin",
-      "description": "Kullanıcıların oturum açabileceği SSO sağlayıcılarını ekleyin, değiştirin ve kaldırın."
+      "title": "SSO sağlayıcılarını yönet",
+      "description": "Kullanıcıların giriş yapabileceği SSO sağlayıcılarını ekle, değiştir ve kaldır."
     }
   },
   "providers": {
-    "docsLink": "Belgelere bak",
-    "none": "Hiçbir SSO sağlayıcısı yapılandırılmamış.",
+    "docsLink": "Dokümanları görüntüle",
+    "none": "Hiçbir SSO sağlayıcısı yapılandırılmadı.",
     "add": "Sağlayıcı Ekle",
     "edit": "Sağlayıcıyı Düzenle",
     "delete": "Sağlayıcıyı Sil",
-    "deleteConfirm": "Bu sağlayıcı silinsin mi? İlişkili kullanıcılar oturum açamaz.",
-    "name": "Görünen Ad",
+    "deleteConfirm": "Bu sağlayıcı silinsin mi? Kullanıcılar artık bununla giriş yapamayacak.",
+    "name": "Görüntüleme Adı",
     "namePlaceholder": "SSO sağlayıcım",
-    "nameRequired": "Görünen ad gereklidir.",
+    "nameRequired": "Bir görüntüleme adı gereklidir",
     "type": "Sağlayıcı Türü",
     "enabled": "Etkin",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "enabledDesc": "Giriş ekranında bu sağlayıcı için bir giriş butonu göster.",
+    "dialogDesc": "Kullanıcıların giriş yapabilmesi için bir kimlik sağlayıcısı bağla.",
+    "sectionGeneral": "Genel",
+    "sectionCredentials": "İstemci",
+    "sectionClaims": "İddialar",
+    "sectionAccess": "Erişim",
     "save": "Sağlayıcıyı Kaydet",
     "saving": "Kaydediliyor...",
     "saved": "Kaydedildi",
-    "saveFailed": "Kaydedilemedi",
+    "saveFailed": "Kaydetme başarısız oldu",
     "deleted": "Silindi",
-    "deleteFailed": "Silinemedi",
-    "loadFailed": "SSO sağlayıcıları yüklenemedi.",
+    "deleteFailed": "Silme başarısız oldu",
+    "loadFailed": "SSO sağlayıcıları yüklenemedi",
     "cancel": "İptal",
     "copy": "Kopyala",
     "copied": "Kopyalandı",
     "redirectUri": "Yönlendirme URI'si",
     "redirectUriDesc": "Bu URL'yi kimlik sağlayıcınızda yönlendirme veya geri çağırma URL'si olarak kaydedin.",
+    "legacyCallback": "Eski yönlendirme URI'sini koru",
+    "legacyCallbackDesc": "Bu sağlayıcı Termix 2.9'dan önce yapılandırıldı ve hala eski yönlendirme URI'sini kullanıyor, bu da çalışmaya devam ediyor. Yeni URI'ye geçmek için önce kimlik sağlayıcınıza {{uri}} ekleyin, ardından bunu kapatın.",
     "authorizationUrl": "Yetkilendirme URL'si: {{url}}"
   },
   "fields": {
     "clientId": "İstemci Kimliği",
     "clientSecret": "İstemci Sırrı",
-    "secretKeep": "Bir sır saklanıyor. Sırrı korumak için burayı boş bırakın.",
-    "issuerUrl": "Sağlayıcı URL'si",
+    "secretKeep": "Bir sır kaydedildi. Korumak için bu alanı boş bırakın.",
+    "issuerUrl": "Yayımcı URL'si",
     "authUrl": "Yetkilendirme URL'si",
     "tokenUrl": "Belirteç URL'si",
-    "userIdentifier": "Kullanıcı Tanımlayıcı Yolu",
-    "displayName": "Görünen Ad Yolu",
+    "userIdentifier": "Kullanıcı Kimliği Yolu",
+    "displayName": "Kullanıcı Adı Yolu",
     "scopes": "Kapsamlar",
-    "userinfoUrl": "Userinfo URL'sini Geçersiz Kıl",
-    "groupClaim": "Grup Talebi",
-    "groupClaimDesc": "İsteğe bağlı. Kullanıcının gruplarını içeren talep yolu. Varsayılan olarak groups, roles, ardından group kullanılır. Özel talep kullanan sağlayıcılar için bunu kullanın (örn. Zitadel).",
+    "userinfoUrl": "Kullanıcı Bilgisi URL'sini Geçersiz Kıl",
+    "groupClaim": "Grup İddiası",
+    "groupClaimDesc": "İsteğe bağlı. Kullanıcının gruplarını içeren iddia yolu. Varsayılan olarak groups, roles ve sonra group kullanılır. Özel bir iddiası olan sağlayıcılar için bunu kullanın (örn. Zitadel).",
     "allowedUsers": "İzin Verilen Kullanıcılar",
-    "allowedUsersDesc": "Her satıra bir e-posta. Tümüne izin vermek için boş bırakın.",
+    "allowedUsersDesc": "Her satıra bir e-posta adresi. Tümünü izin vermek için boş bırakın.",
     "adminGroup": "Yönetici Grubu",
     "adminGroupDesc": "Bu gruptaki kullanıcılara yönetici yetkisi verilir. Grup eşitlemeyi devre dışı bırakmak için boş bırakın.",
     "caCert": "Özel CA Sertifikası",
-    "caCertDesc": "İsteğe bağlı. Özel veya kendinden imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın."
+    "caCertDesc": "İsteğe bağlı. Özel veya kendi kendine imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "SSO ile otomatik olarak giriş yap",
-      "description": "Ziyaretçileri giriş formunu göstermek yerine doğrudan ilk SSO sağlayıcısına yönlendirin. OIDC_SILENT_LOGIN_DEFAULT ortam değişkeni bunu geçersiz kılar."
+      "label": "SSO ile otomatik giriş yap",
+      "description": "Ziyaretçileri giriş formunu göstermek yerine doğrudan ilk SSO sağlayıcısına yönlendir. OIDC_SILENT_LOGIN_DEFAULT ortam değişkeni bunu geçersiz kılar."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Tek oturum açma"
   }
 }

@@ -5,29 +5,29 @@
   "permissions": {
     "manage": {
       "title": "管理 SSO 提供者",
-      "description": "新增、變更和刪除使用者可用於登入的 SSO 提供者。"
+      "description": "新增、變更或移除使用者可使用的 SSO 提供者。"
     }
   },
   "providers": {
-    "docsLink": "檢視文件",
-    "none": "尚未設定 SSO 提供者。",
+    "docsLink": "查看說明文件",
+    "none": "未設定任何 SSO 提供者。",
     "add": "新增提供者",
     "edit": "編輯提供者",
     "delete": "刪除提供者",
-    "deleteConfirm": "刪除此提供者？相關使用者將無法登入。",
+    "deleteConfirm": "確定要刪除此提供者嗎？其使用者將無法再透過它登入。",
     "name": "顯示名稱",
     "namePlaceholder": "我的 SSO 提供者",
-    "nameRequired": "必須填寫顯示名稱。",
+    "nameRequired": "必須填寫顯示名稱",
     "type": "提供者類型",
     "enabled": "已啟用",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "enabledDesc": "在登入畫面顯示此提供者的登入按鈕。",
+    "dialogDesc": "連接身分提供者，讓使用者可以透過它登入。",
+    "sectionGeneral": "一般",
+    "sectionCredentials": "用戶端",
+    "sectionClaims": "宣告",
+    "sectionAccess": "存取",
     "save": "儲存提供者",
-    "saving": "儲存中…",
+    "saving": "儲存中...",
     "saved": "已儲存",
     "saveFailed": "儲存失敗",
     "deleted": "已刪除",
@@ -36,37 +36,39 @@
     "cancel": "取消",
     "copy": "複製",
     "copied": "已複製",
-    "redirectUri": "重定向 URI",
-    "redirectUriDesc": "將此 URL 註冊為身分提供者中的重新導向或回調 URL。",
-    "authorizationUrl": "授權網址： {{url}}"
+    "redirectUri": "重新導向 URI",
+    "redirectUriDesc": "在您的身分提供者中，將此 URL 註冊為重新導向或回呼 URL。",
+    "legacyCallback": "保留舊版重新導向 URI",
+    "legacyCallbackDesc": "此提供者是在 Termix 2.9 之前設定的，仍使用舊版重新導向 URI，目前仍可正常運作。若要遷移至新版，請先在您的身分提供者中加入 {{uri}}，然後關閉此選項。",
+    "authorizationUrl": "授權 URL：{{url}}"
   },
   "fields": {
     "clientId": "用戶端 ID",
     "clientSecret": "用戶端密鑰",
-    "secretKeep": "一個秘密被保守。留空即可保密。",
+    "secretKeep": "已儲存密鑰。留空即可保留現有密鑰。",
     "issuerUrl": "發行者 URL",
     "authUrl": "授權 URL",
     "tokenUrl": "權杖 URL",
     "userIdentifier": "使用者識別碼路徑",
-    "displayName": "顯示名稱路徑",
+    "displayName": "使用者名稱路徑",
     "scopes": "範圍",
-    "userinfoUrl": "覆寫使用者資訊 URL",
+    "userinfoUrl": "覆寫 Userinfo URL",
     "groupClaim": "群組宣告",
-    "groupClaimDesc": "選用。包含使用者群組的宣告路徑。預設為 groups、roles、group。用於自訂宣告的提供者（例如 Zitadel）。",
+    "groupClaimDesc": "選填。包含使用者群組的宣告路徑。預設依序檢查 groups、roles 與 group。適用於具有自訂宣告的提供者（例如 Zitadel）。",
     "allowedUsers": "允許的使用者",
-    "allowedUsersDesc": "每行一個電子郵件。留空以允許全部。",
+    "allowedUsersDesc": "每行一個電子郵件地址。留空表示允許所有使用者。",
     "adminGroup": "管理員群組",
-    "adminGroupDesc": "此群組中的使用者將被授予管理員權限。留空以停用群組同步。",
+    "adminGroupDesc": "此群組中的使用者將被賦予管理員權限。留空表示停用群組同步。",
     "caCert": "自訂 CA 憑證",
-    "caCertDesc": "選用。PEM 編碼的 CA 憑證，用於使用私有或自簽 CA 的 OIDC 提供者。留空以使用系統信任儲存區。"
+    "caCertDesc": "選填。用於使用私人或自簽 CA 的 OIDC 提供者之 PEM 編碼 CA 憑證。留空表示使用系統信任儲存區。"
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "使用 SSO 自動登入",
-      "description": "將訪客直接引導至第一個單一登入 (SSO) 供應商，而不是顯示登入表單。環境變數 OIDC_SILENT_LOGIN_DEFAULT 會覆寫此設定。"
+      "label": "自動使用 SSO 登入",
+      "description": "直接將訪客導向第一個 SSO 提供者，而非顯示登入表單。OIDC_SILENT_LOGIN_DEFAULT 環境變數會覆寫此設定。"
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "單一登入"
   }
 }

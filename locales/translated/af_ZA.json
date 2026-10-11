@@ -4,69 +4,71 @@
   "loading": "Laai tans...",
   "permissions": {
     "manage": {
-      "title": "Bestuur SSO-verskaffers",
-      "description": "Voeg die SSO-verskaffers by, verander en verwyder waarmee mense kan aanmeld."
+      "title": "Bestuur SSO-lewerders",
+      "description": "Voeg SSO-lewerders by, verander hulle of verwyder hulle sodat mense daarmee kan aanmeld."
     }
   },
   "providers": {
-    "docsLink": "Bekyk dokumente",
-    "none": "Geen SSO-verskaffers gekonfigureer nie.",
-    "add": "Voeg Verskaffer by",
-    "edit": "Wysig Verskaffer",
-    "delete": "Vee Verskaffer uit",
-    "deleteConfirm": "Vee hierdie verskaffer uit? Geassosieerde gebruikers sal nie kan aanmeld nie.",
+    "docsLink": "Bekyk dokumentasie",
+    "none": "Geen SSO-lewerders is geïmplementeer nie.",
+    "add": "Voeg lewerder by",
+    "edit": "Wysig lewerder",
+    "delete": "Verwyder lewerder",
+    "deleteConfirm": "Verwyder hierdie lewerder? Sy gebruikers sal nie meer daarmee kan aanmeld nie.",
     "name": "Vertoonnaam",
-    "namePlaceholder": "My SSO-verskaffer",
-    "nameRequired": "'n Vertoonnaam word vereis",
-    "type": "Verskaffertipe",
+    "namePlaceholder": "My SSO-lewerder",
+    "nameRequired": "'n Vertoonnaam is verpligtend",
+    "type": "Lewerder-tipe",
     "enabled": "Geaktiveer",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
-    "save": "Stoor Verskaffer",
-    "saving": "Stoor...",
+    "enabledDesc": "Wys 'n aanmeldknoppie vir hierdie lewerder op die aanmeldskerm.",
+    "dialogDesc": "Koppel 'n identiteitslewerder sodat gebruikers daarmee kan aanmeld.",
+    "sectionGeneral": "Algemeen",
+    "sectionCredentials": "Kliënt",
+    "sectionClaims": "Aansprake",
+    "sectionAccess": "Toegang",
+    "save": "Stoor lewerder",
+    "saving": "Stoor tans...",
     "saved": "Gestoor",
     "saveFailed": "Kon nie stoor nie",
     "deleted": "Verwyder",
     "deleteFailed": "Kon nie verwyder nie",
-    "loadFailed": "Kon nie SSO-verskaffers laai nie",
+    "loadFailed": "Kon nie SSO-lewerders laai nie",
     "cancel": "Kanselleer",
     "copy": "Kopieer",
     "copied": "Gekopieer",
-    "redirectUri": "Herlei URI",
-    "redirectUriDesc": "Registreer hierdie URL as die aanstuur- of terugbel-URL in jou identiteitsverskaffer.",
-    "authorizationUrl": "Magtigings-URL: {{url}}"
+    "redirectUri": "Herlei-URI",
+    "redirectUriDesc": "Registreer hierdie URL as die herlei- of terugbels-URL in jou identiteitslewerder.",
+    "legacyCallback": "Behou die ou herlei-URI",
+    "legacyCallbackDesc": "Hierdie lewerder is voor Termix 2.9 opgestel en gebruik steeds die ou herlei-URI, wat steeds werk. Om na die nuwe een te skuif, voeg eers {{uri}} by in jou identiteitslewerder, en skakel dan hierdie opsie af.",
+    "authorizationUrl": "Otoriserings-URL: {{url}}"
   },
   "fields": {
     "clientId": "Kliënt-ID",
     "clientSecret": "Kliëntgeheim",
-    "secretKeep": "'n Geheim is gestoor. Los dit leeg om dit te behou.",
-    "issuerUrl": "Uitreiker-URL",
-    "authUrl": "Magtigings-URL",
-    "tokenUrl": "Teken-URL",
-    "userIdentifier": "Gebruikersidentifiseerderpad",
-    "displayName": "Vertoonnaampad",
-    "scopes": "Omvangsgebiede",
-    "userinfoUrl": "Oorskryf Gebruikersinligting URL",
-    "groupClaim": "Groep Eis",
-    "groupClaimDesc": "Opsioneel. Die eispad wat die gebruiker se groepe bevat. Standaard is groepe, rolle, dan groep. Gebruik dit vir verskaffers met 'n persoonlike eis (bv. Zitadel).",
-    "allowedUsers": "Toegelate Gebruikers",
-    "allowedUsersDesc": "Een e-pos per reël. Los leeg om alles toe te laat.",
-    "adminGroup": "Admingroep",
-    "adminGroupDesc": "Gebruikers in hierdie groep kry administrasie. Los leeg om groepsinchronisasie te deaktiveer.",
-    "caCert": "Pasgemaakte CA-sertifikaat",
-    "caCertDesc": "Opsioneel. PEM-geënkodeerde CA-sertifikaat vir OIDC-verskaffers wat 'n private of selfgetekende CA gebruik. Los leeg om die stelselvertrouensberging te gebruik."
+    "secretKeep": "'n Geheim is gestoor. Laat dit leeg om dit te behou.",
+    "issuerUrl": "Uitgewer-URL",
+    "authUrl": "Otoriserings-URL",
+    "tokenUrl": "Teeken-URL",
+    "userIdentifier": "Gebruiker-identifiseerder-pad",
+    "displayName": "Gebruikersnaam-pad",
+    "scopes": "Reikwydtes",
+    "userinfoUrl": "Oorskryf Gebruikersinligting-URL",
+    "groupClaim": "Groep-aanspraak",
+    "groupClaimDesc": "Opsioneel. Die aanspraakpad wat die gebruiker se groepe bevat. Standaard is groups, roles, dan group. Gebruik dit vir lewerders met 'n aangepaste aanspraak (bv. Zitadel).",
+    "allowedUsers": "Toegelaatde gebruikers",
+    "allowedUsersDesc": "Een e-pos per lyn. Laat leeg om almal toe te laat.",
+    "adminGroup": "Admin-groep",
+    "adminGroupDesc": "Gebruikers in hierdie groep kry admin-toegang. Laat leeg om groep-sinchronisering uit te skakel.",
+    "caCert": "Aangepaste CA-sertifikaat",
+    "caCertDesc": "Opsioneel. PEM-gekodeerde CA-sertifikaat vir OIDC-lewerders wat 'n privaat of self-ondertekende CA gebruik. Laat leeg om die stelsel se vertrouensberging te gebruik."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Meld outomaties aan met SSO",
-      "description": "Stuur besoekers direk na die eerste SSO-verskaffer in plaas daarvan om die aanmeldvorm te wys. Die OIDC_SILENT_LOGIN_DEFAULT omgewingveranderlike oorskryf dit."
+      "label": "Teken outomaties aan met SSO",
+      "description": "Stuur besoekers direk na die eerste SSO-lewerder in plaas daarvan om die aanmeldformulier te wys. Die OIDC_SILENT_LOGIN_DEFAULT-omgewingsveranderlike oorskryf dit."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Enkele aanmelding"
   }
 }

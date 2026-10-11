@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Logi sisse SSO-ga",
+  "loginWithProvider": "Logi sisse {{name}}-ga",
+  "loading": "Laadimine...",
+  "permissions": {
+    "manage": {
+      "title": "SSO-pakkujate haldamine",
+      "description": "Lisa, muuda ja eemalda SSO-pakkujaid, mille kaudu kasutajad saavad sisse logida."
+    }
+  },
+  "providers": {
+    "docsLink": "Vaata dokumentatsiooni",
+    "none": "SSO-pakkujaid pole konfigureeritud.",
+    "add": "Lisa pakkuja",
+    "edit": "Muuda pakkuja",
+    "delete": "Kustuta pakkuja",
+    "deleteConfirm": "Kas kustutada see pakkuja? Selle kasutajad ei saa enam sellega sisse logida.",
+    "name": "Kuvamise nimi",
+    "namePlaceholder": "Minu SSO-pakkuja",
+    "nameRequired": "Kuvamise nimi on kohustuslik",
+    "type": "Pakkuja tüüp",
+    "enabled": "Lubatud",
+    "enabledDesc": "Kuva selle pakkuja sisselogimisnupp sisselogimise ekraanil.",
+    "dialogDesc": "Ühenda identiteedipakkuja, et kasutajad saaksid sellega sisse logida.",
+    "sectionGeneral": "Üldine",
+    "sectionCredentials": "Klient",
+    "sectionClaims": "Nõuded",
+    "sectionAccess": "Juurdepääs",
+    "save": "Salvesta pakkuja",
+    "saving": "Salvestamine...",
+    "saved": "Salvestatud",
+    "saveFailed": "Salvestamine ebaõnnestus",
+    "deleted": "Kustutatud",
+    "deleteFailed": "Kustutamine ebaõnnestus",
+    "loadFailed": "SSO-pakkujate laadimine ebaõnnestus",
+    "cancel": "Tühista",
+    "copy": "Kopeeri",
+    "copied": "Kopeeritud",
+    "redirectUri": "Ümbersuunamise URI",
+    "redirectUriDesc": "Registreeri see URL oma identiteedipakkuja ümbersuunamis- või tagasihelistamis-URL-ina.",
+    "legacyCallback": "Hoia vana ümbersuunamise URI",
+    "legacyCallbackDesc": "See pakkuja seati üles enne Termixi versiooni 2.9 ja kasutab endiselt vanat ümbersuunamise URI-d, mis töötab edasi. Uuele üleminekuks lisa {{uri}} oma identiteedipakkuja juurde ja lülita see seejärel välja.",
+    "authorizationUrl": "Autoriseerimise URL: {{url}}"
+  },
+  "fields": {
+    "clientId": "Kliendi ID",
+    "clientSecret": "Kliendi saladus",
+    "secretKeep": "Saladus on salvestatud. Jäta see tühjaks, et seda säilitada.",
+    "issuerUrl": "Väljaandja URL",
+    "authUrl": "Autoriseerimise URL",
+    "tokenUrl": "Tokeni URL",
+    "userIdentifier": "Kasutaja identifikaatori tee",
+    "displayName": "Kasutajanime tee",
+    "scopes": "Ulatused",
+    "userinfoUrl": "Kirjuta üle Userinfo URL",
+    "groupClaim": "Grupi nõue",
+    "groupClaimDesc": "Valikuline. Nõude tee, mis sisaldab kasutaja gruppe. Vaikimisi kasutatakse groups, roles ja seejärel group. Kasuta seda pakkujate puhul, millel on kohandatud nõue (nt Zitadel).",
+    "allowedUsers": "Lubatud kasutajad",
+    "allowedUsersDesc": "Üks e-posti aadress rida. Jäta tühjaks, et lubada kõik.",
+    "adminGroup": "Administraatorite grupp",
+    "adminGroupDesc": "Sellesse gruppi kuuluvatele kasutajatele antakse administraatori õigused. Jäta tühjaks, et keelata grupi sünkroonimine.",
+    "caCert": "Kohandatud CA-sertifikaat",
+    "caCertDesc": "Valikuline. PEM-kodeeritud CA-sertifikaat OIDC-pakkujatele, kes kasutavad privaatset või isesertifitseeritud CA-d. Jäta tühjaks, et kasutada süsteemi usalduskaupa."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Logi SSO-ga automaatselt sisse",
+      "description": "Suuna külastajad otse esimesse SSO-pakkuja juurde, mitte näita sisselogimisvormi. Keskkonnamuutuja OIDC_SILENT_LOGIN_DEFAULT ületab selle seadistuse."
+    }
+  },
+  "plugin": {
+    "name": "Üksik sisselogimine"
+  }
+}

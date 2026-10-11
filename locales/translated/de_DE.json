@@ -1,33 +1,33 @@
 {
   "loginWithSso": "Mit SSO anmelden",
-  "loginWithProvider": "Anmeldung mit {{name}}",
-  "loading": "Laden...",
+  "loginWithProvider": "Mit {{name}} anmelden",
+  "loading": "Wird geladen...",
   "permissions": {
     "manage": {
       "title": "SSO-Anbieter verwalten",
-      "description": "Fügen Sie SSO-Anbieter hinzu, ändern oder entfernen Sie diese, mit denen sich Benutzer anmelden können."
+      "description": "Fügen Sie SSO-Anbieter hinzu, ändern oder entfernen Sie sie, damit sich Benutzer damit anmelden können."
     }
   },
   "providers": {
-    "docsLink": "Dokumentation ansehen",
+    "docsLink": "Dokumentation anzeigen",
     "none": "Keine SSO-Anbieter konfiguriert.",
     "add": "Anbieter hinzufügen",
     "edit": "Anbieter bearbeiten",
     "delete": "Anbieter löschen",
-    "deleteConfirm": "Diesen Anbieter löschen? Zugehörige Benutzer können sich nicht mehr anmelden.",
+    "deleteConfirm": "Diesen Anbieter löschen? Seine Benutzer können sich dann nicht mehr damit anmelden.",
     "name": "Anzeigename",
     "namePlaceholder": "Mein SSO-Anbieter",
-    "nameRequired": "Ein Anzeigename ist erforderlich.",
+    "nameRequired": "Ein Anzeigename ist erforderlich",
     "type": "Anbietertyp",
     "enabled": "Aktiviert",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
+    "enabledDesc": "Zeigt einen Anmeldebutton für diesen Anbieter auf der Anmeldeseite an.",
+    "dialogDesc": "Verbinden Sie einen Identitätsanbieter, damit sich Benutzer damit anmelden können.",
+    "sectionGeneral": "Allgemein",
     "sectionCredentials": "Client",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Zugriff",
     "save": "Anbieter speichern",
-    "saving": "Wird gespeichert …",
+    "saving": "Wird gespeichert...",
     "saved": "Gespeichert",
     "saveFailed": "Speichern fehlgeschlagen",
     "deleted": "Gelöscht",
@@ -36,37 +36,39 @@
     "cancel": "Abbrechen",
     "copy": "Kopieren",
     "copied": "Kopiert",
-    "redirectUri": "Umleitungs-URI",
-    "redirectUriDesc": "Registrieren Sie diese URL als Weiterleitungs- oder Rückruf-URL bei Ihrem Identitätsanbieter.",
+    "redirectUri": "Weiterleitungs-URI",
+    "redirectUriDesc": "Registrieren Sie diese URL als Weiterleitungs- oder Callback-URL bei Ihrem Identitätsanbieter.",
+    "legacyCallback": "Alte Weiterleitungs-URI beibehalten",
+    "legacyCallbackDesc": "Dieser Anbieter wurde vor Termix 2.9 eingerichtet und verwendet weiterhin die alte Weiterleitungs-URI, die weiterhin funktioniert. Um zur neuen zu wechseln, fügen Sie zuerst {{uri}} bei Ihrem Identitätsanbieter hinzu und deaktivieren Sie diese Option dann.",
     "authorizationUrl": "Autorisierungs-URL: {{url}}"
   },
   "fields": {
     "clientId": "Client-ID",
-    "clientSecret": "Client-Secret",
-    "secretKeep": "Ein Geheimnis ist gewahrt. Lassen Sie dieses Feld leer, um es zu bewahren.",
+    "clientSecret": "Client-Geheimnis",
+    "secretKeep": "Ein Geheimnis ist gespeichert. Lassen Sie dieses Feld leer, um es beizubehalten.",
     "issuerUrl": "Issuer-URL",
     "authUrl": "Autorisierungs-URL",
     "tokenUrl": "Token-URL",
-    "userIdentifier": "Benutzerkennungspfad",
-    "displayName": "Anzeigename-Pfad",
-    "scopes": "Scopes",
+    "userIdentifier": "Pfad zur Benutzerkennung",
+    "displayName": "Pfad zum Benutzernamen",
+    "scopes": "Bereiche",
     "userinfoUrl": "Userinfo-URL überschreiben",
     "groupClaim": "Gruppen-Claim",
-    "groupClaimDesc": "Optional. Der Claim-Pfad, der die Gruppen des Benutzers enthält. Standardmäßig groups, roles, dann group. Verwenden Sie dies für Anbieter mit einem benutzerdefinierten Claim (z. B. Zitadel).",
-    "allowedUsers": "Zugelassene Benutzer",
-    "allowedUsersDesc": "Eine E-Mail pro Zeile. Leer lassen, um alle zuzulassen.",
+    "groupClaimDesc": "Optional. Der Claim-Pfad, der die Gruppen des Benutzers enthält. Standardmäßig werden groups, roles und dann group verwendet. Verwenden Sie dies für Anbieter mit einem benutzerdefinierten Claim (z. B. Zitadel).",
+    "allowedUsers": "Erlaubte Benutzer",
+    "allowedUsersDesc": "Eine E-Mail-Adresse pro Zeile. Leer lassen, um alle zu erlauben.",
     "adminGroup": "Admin-Gruppe",
-    "adminGroupDesc": "Benutzer in dieser Gruppe erhalten Admin-Berechtigungen. Leer lassen, um die Gruppensynchronisierung zu deaktivieren.",
+    "adminGroupDesc": "Benutzer in dieser Gruppe erhalten Admin-Rechte. Leer lassen, um die Gruppen-Synchronisierung zu deaktivieren.",
     "caCert": "Benutzerdefiniertes CA-Zertifikat",
-    "caCertDesc": "Optional. PEM-kodiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte Zertifizierungsstelle verwenden. Leer lassen, um den System-Vertrauensspeicher zu verwenden."
+    "caCertDesc": "Optional. PEM-codiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte CA verwenden. Leer lassen, um den System-Truststore zu verwenden."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Automatische Anmeldung mit SSO",
-      "description": "Besucher werden direkt zum ersten SSO-Anbieter weitergeleitet, anstatt das Anmeldeformular anzuzeigen. Die Umgebungsvariable OIDC_SILENT_LOGIN_DEFAULT überschreibt dies."
+      "label": "Automatisch mit SSO anmelden",
+      "description": "Leiten Sie Besucher direkt zum ersten SSO-Anbieter weiter, anstatt das Anmeldeformular anzuzeigen. Die Umgebungsvariable OIDC_SILENT_LOGIN_DEFAULT überschreibt diese Einstellung."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Single Sign-On"
   }
 }

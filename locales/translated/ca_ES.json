@@ -1,72 +1,74 @@
 {
-  "loginWithSso": "Inicia la sessió amb SSO",
-  "loginWithProvider": "Inicia la sessió amb {{name}}",
+  "loginWithSso": "Inicia sessió amb SSO",
+  "loginWithProvider": "Inicia sessió amb {{name}}",
   "loading": "S'està carregant...",
   "permissions": {
     "manage": {
-      "title": "Gestionar proveïdors d'SSO",
-      "description": "Afegiu, canvieu i elimineu els proveïdors d'SSO amb què els usuaris poden iniciar la sessió."
+      "title": "Gestiona els proveïdors SSO",
+      "description": "Afegeix, modifica i elimina els proveïdors SSO amb què les persones poden iniciar sessió."
     }
   },
   "providers": {
-    "docsLink": "Veure documents",
-    "none": "No hi ha cap proveïdor d'SSO configurat.",
+    "docsLink": "Visualitza la documentació",
+    "none": "No hi ha cap proveïdor SSO configurat.",
     "add": "Afegeix un proveïdor",
     "edit": "Edita el proveïdor",
-    "delete": "Suprimeix el proveïdor",
-    "deleteConfirm": "Voleu suprimir aquest proveïdor? Els usuaris associats no podran iniciar la sessió.",
-    "name": "Nom de visualització",
-    "namePlaceholder": "El meu proveïdor d'SSO",
-    "nameRequired": "Cal un nom de visualització",
+    "delete": "Elimina el proveïdor",
+    "deleteConfirm": "Vols eliminar aquest proveïdor? Els seus usuaris no podran iniciar sessió amb ell.",
+    "name": "Nom per mostrar",
+    "namePlaceholder": "El meu proveïdor SSO",
+    "nameRequired": "Cal indicar un nom per mostrar",
     "type": "Tipus de proveïdor",
-    "enabled": "Activat",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
+    "enabled": "Habilitat",
+    "enabledDesc": "Mostra un botó d'inici de sessió per a aquest proveïdor a la pantalla d'inici de sessió.",
+    "dialogDesc": "Connecta un proveïdor d'identitat perquè els usuaris puguin iniciar sessió amb ell.",
     "sectionGeneral": "General",
     "sectionCredentials": "Client",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Accés",
     "save": "Desa el proveïdor",
-    "saving": "Desant...",
+    "saving": "S'està desant...",
     "saved": "Desat",
     "saveFailed": "No s'ha pogut desar",
-    "deleted": "Suprimit",
-    "deleteFailed": "No s'ha pogut suprimir",
-    "loadFailed": "No s'han pogut carregar els proveïdors d'SSO",
+    "deleted": "Eliminat",
+    "deleteFailed": "No s'ha pogut eliminar",
+    "loadFailed": "No s'han pogut carregar els proveïdors SSO",
     "cancel": "Cancel·la",
-    "copy": "Còpia",
+    "copy": "Copia",
     "copied": "Copiat",
     "redirectUri": "URI de redirecció",
-    "redirectUriDesc": "Registra aquesta URL com a URL de redirecció o de devolució de trucada al teu proveïdor d'identitat.",
+    "redirectUriDesc": "Registra aquesta URL com a URL de redirecció o de retorn al teu proveïdor d'identitat.",
+    "legacyCallback": "Mantén l'URI de redirecció antiga",
+    "legacyCallbackDesc": "Aquest proveïdor es va configurar abans de Termix 2.9 i encara utilitza l'URI de redirecció antiga, que continua funcionant. Per passar a la nova, afegeix {{uri}} al teu proveïdor d'identitat primer i, després, desactiva aquesta opció.",
     "authorizationUrl": "URL d'autorització: {{url}}"
   },
   "fields": {
-    "clientId": "ID de client",
+    "clientId": "ID del client",
     "clientSecret": "Secret del client",
-    "secretKeep": "S'ha desat un secret. Deixa aquest espai buit per conservar-lo.",
+    "secretKeep": "S'ha desat un secret. Deixa-ho buit per mantenir-lo.",
     "issuerUrl": "URL de l'emissor",
     "authUrl": "URL d'autorització",
-    "tokenUrl": "URL del testimoni",
-    "userIdentifier": "Ruta d'identificació d'usuari",
-    "displayName": "Camí del nom de visualització",
+    "tokenUrl": "URL del token",
+    "userIdentifier": "Camí de l'identificador d'usuari",
+    "displayName": "Camí del nom d'usuari",
     "scopes": "Àmbits",
-    "userinfoUrl": "Substitueix l'URL d'informació de l'usuari",
-    "groupClaim": "Reclamació de grup",
-    "groupClaimDesc": "Opcional. La ruta de reclamació que conté els grups de l'usuari. Per defecte, s'utilitzen grups, rols i, a continuació, grup. Feu servir això per a proveïdors amb una reclamació personalitzada (per exemple, Zitadel).",
+    "userinfoUrl": "Substitueix l'URL de Userinfo",
+    "groupClaim": "Claim de grup",
+    "groupClaimDesc": "Opcional. El camí del claim que conté els grups de l'usuari. Per defecte, utilitza groups, roles i, finalment, group. Utilitza-ho per a proveïdors amb un claim personalitzat (p. ex., Zitadel).",
     "allowedUsers": "Usuaris permesos",
-    "allowedUsersDesc": "Un correu electrònic per línia. Deixeu-ho en blanc per permetre-ho tot.",
+    "allowedUsersDesc": "Un correu electrònic per línia. Deixa-ho buit per permetre tots.",
     "adminGroup": "Grup d'administradors",
-    "adminGroupDesc": "Els usuaris d'aquest grup tenen dret d'administrador. Deixeu-ho en blanc per desactivar la sincronització del grup.",
+    "adminGroupDesc": "Els usuaris d'aquest grup rebran permisos d'administrador. Deixa-ho buit per desactivar la sincronització de grups.",
     "caCert": "Certificat CA personalitzat",
-    "caCertDesc": "Opcional. Certificat CA codificat amb PEM per a proveïdors OIDC que utilitzen una CA privada o autosignada. Deixeu-ho en blanc per utilitzar el magatzem de confiança del sistema."
+    "caCertDesc": "Opcional. Certificat CA codificat en PEM per a proveïdors OIDC que utilitzen una CA privada o autofirmada. Deixa-ho buit per utilitzar el magatzem de confiança del sistema."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Inicia la sessió amb SSO automàticament",
-      "description": "Envia els visitants directament al primer proveïdor d'SSO en comptes de mostrar el formulari d'inici de sessió. La variable d'entorn OIDC_SILENT_LOGIN_DEFAULT ho anul·la."
+      "label": "Inicia sessió amb SSO automàticament",
+      "description": "Envia els visitants directament al primer proveïdor SSO en lloc de mostrar el formulari d'inici de sessió. La variable d'entorn OIDC_SILENT_LOGIN_DEFAULT anul·la aquesta configuració."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Inici de sessió únic"
   }
 }

@@ -1,72 +1,74 @@
 {
-  "loginWithSso": "Kirjaudu sisään kertakirjautumisella",
-  "loginWithProvider": "Kirjaudu sisään tunnuksella {{name}}",
+  "loginWithSso": "Kirjaudu sisään SSO:lla",
+  "loginWithProvider": "Kirjaudu sisään palvelulla {{name}}",
   "loading": "Ladataan...",
   "permissions": {
     "manage": {
-      "title": "Hallinnoi kertakirjautumispalveluntarjoajia",
-      "description": "Lisää, muuta ja poista kertakirjautumisen tarjoajia, joilla käyttäjät voivat kirjautua sisään."
+      "title": "SSO-palveluiden hallinta",
+      "description": "Lisää, muokkaa ja poista SSO-palveluita, joilla käyttäjät voivat kirjautua sisään."
     }
   },
   "providers": {
-    "docsLink": "Näytä dokumentit",
-    "none": "SSO-palveluntarjoajia ei ole määritetty.",
-    "add": "Lisää palveluntarjoaja",
-    "edit": "Muokkaa palveluntarjoajaa",
-    "delete": "Poista palveluntarjoaja",
-    "deleteConfirm": "Poistetaanko tämä palveluntarjoaja? Liitännäiset käyttäjät eivät voi kirjautua sisään.",
+    "docsLink": "Näytä dokumentaatio",
+    "none": "SSO-palveluita ei ole määritetty.",
+    "add": "Lisää palvelu",
+    "edit": "Muokkaa palvelua",
+    "delete": "Poista palvelu",
+    "deleteConfirm": "Haluatko poistaa tämän palvelun? Sen käyttäjät eivät voi enää kirjautua sisään sillä.",
     "name": "Näyttönimi",
-    "namePlaceholder": "SSO-palveluntarjoajani",
+    "namePlaceholder": "Oma SSO-palveluni",
     "nameRequired": "Näyttönimi on pakollinen",
-    "type": "Palveluntarjoajan tyyppi",
+    "type": "Palvelun tyyppi",
     "enabled": "Käytössä",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
-    "save": "Tallenna palveluntarjoaja",
+    "enabledDesc": "Näytä kirjautumisnappi tälle palvelulle kirjautumisnäytössä.",
+    "dialogDesc": "Yhdistä identiteettipalvelu, jotta käyttäjät voivat kirjautua sisään sillä.",
+    "sectionGeneral": "Yleiset",
+    "sectionCredentials": "Asiakas",
+    "sectionClaims": "Väitteet",
+    "sectionAccess": "Pääsy",
+    "save": "Tallenna palvelu",
     "saving": "Tallennetaan...",
     "saved": "Tallennettu",
     "saveFailed": "Tallennus epäonnistui",
     "deleted": "Poistettu",
-    "deleteFailed": "Poistaminen epäonnistui",
-    "loadFailed": "SSO-palveluntarjoajien lataaminen epäonnistui",
-    "cancel": "Peruuttaa",
-    "copy": "Kopioida",
+    "deleteFailed": "Poisto epäonnistui",
+    "loadFailed": "SSO-palveluiden lataus epäonnistui",
+    "cancel": "Peruuta",
+    "copy": "Kopioi",
     "copied": "Kopioitu",
-    "redirectUri": "Uudelleenohjauksen URI",
-    "redirectUriDesc": "Rekisteröi tämä URL-osoite uudelleenohjaus- tai takaisinkutsuosoitteeksi identiteetintarjoajassasi.",
-    "authorizationUrl": "Valtuutus-URL-osoite: {{url}}"
+    "redirectUri": "Uudelleenohjaus-URI",
+    "redirectUriDesc": "Rekisteröi tämä URL-osoite uudelleenohjaus- tai kutsutakaisin-osoitteeksi identiteettipalvelussasi.",
+    "legacyCallback": "Säilytä vanha uudelleenohjaus-URI",
+    "legacyCallbackDesc": "Tämä palvelu on määritetty ennen Termix 2.9:ää ja käyttää edelleen vanhaa uudelleenohjaus-URI:ta, joka toimii edelleen. Siirtyäksesi uuteen, lisää {{uri}} identiteettipalveluusi ensin ja poista tämä käytöstä.",
+    "authorizationUrl": "Valtuutusosoite: {{url}}"
   },
   "fields": {
     "clientId": "Asiakastunnus",
-    "clientSecret": "Asiakkaan salaisuus",
-    "secretKeep": "Salaisuus on tallennettu. Jätä tämä tyhjäksi, jos haluat sen säilyvän.",
-    "issuerUrl": "Liikkeeseenlaskijan URL-osoite",
-    "authUrl": "Valtuutus-URL-osoite",
-    "tokenUrl": "Tunnuksen URL-osoite",
-    "userIdentifier": "Käyttäjätunnisteen polku",
-    "displayName": "Näyttönimen polku",
-    "scopes": "Laajuusalueet",
-    "userinfoUrl": "Käyttäjätietojen URL-osoitteen ohitus",
-    "groupClaim": "Ryhmävaatimus",
-    "groupClaimDesc": "Valinnainen. Vaatimuspolku, joka sisältää käyttäjän ryhmät. Oletusarvo on ryhmät, roolit ja lopuksi ryhmä. Käytä tätä palveluntarjoajille, joilla on mukautettu vaatimus (esim. Zitadel).",
+    "clientSecret": "Asiakassalaisuus",
+    "secretKeep": "Salaisuus on tallennettu. Jätä tämä tyhjäksi säilyttääksesi sen.",
+    "issuerUrl": "Lähettäjän URL-osoite",
+    "authUrl": "Valtuutusosoite",
+    "tokenUrl": "Token-osoite",
+    "userIdentifier": "Käyttäjän tunnistimen polku",
+    "displayName": "Käyttäjänimen polku",
+    "scopes": "Alueet",
+    "userinfoUrl": "Korvaa userinfo-osoite",
+    "groupClaim": "Ryhmäväite",
+    "groupClaimDesc": "Valinnainen. Väitteen polku, joka sisältää käyttäjän ryhmät. Oletuksena groups, roles ja sitten group. Käytä tätä palveluissa, joissa on mukautettu väite (esim. Zitadel).",
     "allowedUsers": "Sallitut käyttäjät",
-    "allowedUsersDesc": "Yksi sähköpostiosoite riviä kohden. Jätä tyhjäksi salliaksesi kaikki.",
-    "adminGroup": "Hallintaryhmä",
-    "adminGroupDesc": "Tämän ryhmän käyttäjille on myönnetty järjestelmänvalvojan oikeudet. Jätä tyhjäksi, jos haluat poistaa ryhmän synkronoinnin käytöstä.",
+    "allowedUsersDesc": "Yksi sähköpostiosoite per rivi. Jätä tyhjäksi salliakset kaikki.",
+    "adminGroup": "Ylläpitäjäryhmä",
+    "adminGroupDesc": "Tähän ryhmään kuuluvat käyttäjät saavat ylläpitäjäoikeudet. Jätä tyhjäksi poistaaksesi ryhmäsynkronoinnin käytöstä.",
     "caCert": "Mukautettu CA-varmenne",
-    "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluntarjoajille, jotka käyttävät yksityistä tai itse allekirjoitettua CA:ta. Jätä tyhjäksi, jos haluat käyttää järjestelmän luotettavuussäilöä."
+    "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluille, jotka käyttävät yksityistä tai itseallekirjoitettua CA:ta. Jätä tyhjäksi käyttääksesi järjestelmän luottamusvarastoa."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Kirjaudu sisään automaattisesti kertakirjautumisella",
-      "description": "Ohjaa kävijät suoraan ensimmäiselle SSO-palveluntarjoajalle kirjautumislomakkeen näyttämisen sijaan. OIDC_SILENT_LOGIN_DEFAULT-ympäristömuuttuja korvaa tämän."
+      "label": "Kirjaudu sisään SSO:lla automaattisesti",
+      "description": "Ohjaa vieraat suoraan ensimmäiseen SSO-palveluun sen sijaan, että näytetään kirjautumislomake. OIDC_SILENT_LOGIN_DEFAULT-ympäristömuuttuja ohittaa tämän."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Yksittäinen kirjautuminen"
   }
 }

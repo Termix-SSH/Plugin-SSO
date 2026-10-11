@@ -1,11 +1,11 @@
 {
-  "loginWithSso": "Se connecter avec l'authentification unique",
+  "loginWithSso": "Se connecter avec SSO",
   "loginWithProvider": "Se connecter avec {{name}}",
   "loading": "Chargement...",
   "permissions": {
     "manage": {
       "title": "Gérer les fournisseurs SSO",
-      "description": "Ajouter, modifier et supprimer les fournisseurs d'authentification unique (SSO) avec lesquels les utilisateurs peuvent se connecter."
+      "description": "Ajouter, modifier et supprimer les fournisseurs SSO avec lesquels les utilisateurs peuvent se connecter."
     }
   },
   "providers": {
@@ -14,20 +14,20 @@
     "add": "Ajouter un fournisseur",
     "edit": "Modifier le fournisseur",
     "delete": "Supprimer le fournisseur",
-    "deleteConfirm": "Supprimer ce fournisseur ? Les utilisateurs associés ne pourront plus se connecter.",
-    "name": "Nom affiché",
+    "deleteConfirm": "Supprimer ce fournisseur ? Ses utilisateurs ne pourront plus se connecter avec celui-ci.",
+    "name": "Nom d'affichage",
     "namePlaceholder": "Mon fournisseur SSO",
-    "nameRequired": "Un nom d'affichage est requis.",
+    "nameRequired": "Un nom d'affichage est requis",
     "type": "Type de fournisseur",
     "enabled": "Activé",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
+    "enabledDesc": "Afficher un bouton de connexion pour ce fournisseur sur l'écran de connexion.",
+    "dialogDesc": "Connectez un fournisseur d'identité pour permettre aux utilisateurs de se connecter avec celui-ci.",
+    "sectionGeneral": "Général",
     "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionClaims": "Assertions",
+    "sectionAccess": "Accès",
     "save": "Enregistrer le fournisseur",
-    "saving": "Enregistrement…",
+    "saving": "Enregistrement...",
     "saved": "Enregistré",
     "saveFailed": "Échec de l'enregistrement",
     "deleted": "Supprimé",
@@ -37,36 +37,38 @@
     "copy": "Copier",
     "copied": "Copié",
     "redirectUri": "URI de redirection",
-    "redirectUriDesc": "Enregistrez cette URL comme URL de redirection ou de rappel auprès de votre fournisseur d'identité.",
-    "authorizationUrl": "URL d'autorisation : {{url}}"
+    "redirectUriDesc": "Enregistrez cette URL comme URL de redirection ou de rappel dans votre fournisseur d'identité.",
+    "legacyCallback": "Conserver l'ancien URI de redirection",
+    "legacyCallbackDesc": "Ce fournisseur a été configuré avant Termix 2.9 et utilise toujours l'ancien URI de redirection, qui continue de fonctionner. Pour passer au nouveau, ajoutez {{uri}} dans votre fournisseur d'identité, puis désactivez cette option.",
+    "authorizationUrl": "URL d'autorisation : {{url}}"
   },
   "fields": {
     "clientId": "ID client",
     "clientSecret": "Secret client",
-    "secretKeep": "Un secret est préservé. Laissez cet emplacement vide pour le conserver.",
+    "secretKeep": "Un secret est enregistré. Laissez ce champ vide pour le conserver.",
     "issuerUrl": "URL de l'émetteur",
     "authUrl": "URL d'autorisation",
     "tokenUrl": "URL du jeton",
     "userIdentifier": "Chemin de l'identifiant utilisateur",
-    "displayName": "Chemin du nom affiché",
-    "scopes": "Scopes",
-    "userinfoUrl": "URL Userinfo personnalisée",
-    "groupClaim": "Revendication de groupe",
-    "groupClaimDesc": "Facultatif. Chemin de la revendication contenant les groupes de l'utilisateur. Par défaut : groups, roles, puis group. Utilisez ce champ pour les fournisseurs avec une revendication personnalisée (ex. Zitadel).",
+    "displayName": "Chemin du nom d'utilisateur",
+    "scopes": "Étendues",
+    "userinfoUrl": "Remplacer l'URL Userinfo",
+    "groupClaim": "Assertion de groupe",
+    "groupClaimDesc": "Facultatif. Le chemin de l'assertion contenant les groupes de l'utilisateur. Par défaut : groups, roles, puis group. Utilisez ceci pour les fournisseurs avec une assertion personnalisée (ex. Zitadel).",
     "allowedUsers": "Utilisateurs autorisés",
-    "allowedUsersDesc": "Une adresse e-mail par ligne. Laissez vide pour autoriser tout le monde.",
-    "adminGroup": "Groupe administrateur",
-    "adminGroupDesc": "Les utilisateurs de ce groupe ont les droits administrateur. Laissez vide pour désactiver la synchronisation de groupe.",
+    "allowedUsersDesc": "Un e-mail par ligne. Laissez vide pour autoriser tout le monde.",
+    "adminGroup": "Groupe d'administrateurs",
+    "adminGroupDesc": "Les utilisateurs de ce groupe obtiennent les droits d'administrateur. Laissez vide pour désactiver la synchronisation des groupes.",
     "caCert": "Certificat CA personnalisé",
-    "caCertDesc": "Facultatif. Certificat CA au format PEM pour les fournisseurs OIDC utilisant une CA privée ou auto-signée. Laissez vide pour utiliser le magasin de confiance du système."
+    "caCertDesc": "Facultatif. Certificat CA encodé en PEM pour les fournisseurs OIDC utilisant une CA privée ou autosignée. Laissez vide pour utiliser le magasin de confiance du système."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Connectez-vous automatiquement avec l'authentification unique (SSO).",
-      "description": "Dirigez les visiteurs directement vers le premier fournisseur d'authentification unique (SSO) au lieu d'afficher le formulaire de connexion. La variable d'environnement OIDC_SILENT_LOGIN_DEFAULT remplace ce comportement."
+      "label": "Se connecter automatiquement avec SSO",
+      "description": "Rediriger les visiteurs directement vers le premier fournisseur SSO au lieu d'afficher le formulaire de connexion. La variable d'environnement OIDC_SILENT_LOGIN_DEFAULT remplace ce paramètre."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Connexion unique"
   }
 }

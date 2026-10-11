@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Log masuk dengan SSO",
+  "loginWithProvider": "Log masuk dengan {{name}}",
+  "loading": "Memuatkan...",
+  "permissions": {
+    "manage": {
+      "title": "Urus penyedia SSO",
+      "description": "Tambah, ubah, dan buang penyedia SSO yang boleh digunakan oleh pengguna untuk log masuk."
+    }
+  },
+  "providers": {
+    "docsLink": "Lihat dokumentasi",
+    "none": "Tiada penyedia SSO dikonfigurasi.",
+    "add": "Tambah Penyedia",
+    "edit": "Sunting Penyedia",
+    "delete": "Buang Penyedia",
+    "deleteConfirm": "Buang penyedia ini? Pengguna tidak akan dapat log masuk dengannya.",
+    "name": "Nama Paparan",
+    "namePlaceholder": "Penyedia SSO saya",
+    "nameRequired": "Nama paparan diperlukan",
+    "type": "Jenis Penyedia",
+    "enabled": "Dilayakan",
+    "enabledDesc": "Paparkan butang log masuk untuk penyedia ini pada skrin log masuk.",
+    "dialogDesc": "Sambungkan penyedia identiti supaya pengguna boleh log masuk dengannya.",
+    "sectionGeneral": "Umum",
+    "sectionCredentials": "Pelanggan",
+    "sectionClaims": "Tuntutan",
+    "sectionAccess": "Akses",
+    "save": "Simpan Penyedia",
+    "saving": "Menyimpan...",
+    "saved": "Disimpan",
+    "saveFailed": "Gagal menyimpan",
+    "deleted": "Dibuang",
+    "deleteFailed": "Gagal membuang",
+    "loadFailed": "Gagal memuatkan penyedia SSO",
+    "cancel": "Batal",
+    "copy": "Salin",
+    "copied": "Disalin",
+    "redirectUri": "URI Pengalihan",
+    "redirectUriDesc": "Daftarkan URL ini sebagai URL pengalihan atau callback dalam penyedia identiti anda.",
+    "legacyCallback": "Kekalkan URI pengalihan lama",
+    "legacyCallbackDesc": "Penyedia ini ditetapkan sebelum Termix 2.9 dan masih menggunakan URI pengalihan lama, yang masih berfungsi. Untuk beralih ke yang baru, tambahkan {{uri}} dalam penyedia identiti anda terlebih dahulu, kemudian matikan ini.",
+    "authorizationUrl": "URL Pengesahan: {{url}}"
+  },
+  "fields": {
+    "clientId": "ID Pelanggan",
+    "clientSecret": "Rahsia Pelanggan",
+    "secretKeep": "Rahsia telah disimpan. Kosongkan ini untuk mengekalkannya.",
+    "issuerUrl": "URL Penerbit",
+    "authUrl": "URL Pengesahan",
+    "tokenUrl": "URL Token",
+    "userIdentifier": "Laluan Pengenal Pengguna",
+    "displayName": "Laluan Nama Pengguna",
+    "scopes": "Skop",
+    "userinfoUrl": "Tindas URL Maklumat Pengguna",
+    "groupClaim": "Tuntutan Kumpulan",
+    "groupClaimDesc": "Pilihan. Laluan tuntutan yang mengandungi kumpulan pengguna. Lalai kepada groups, roles, kemudian group. Gunakan ini untuk penyedia dengan tuntutan tersuai (cth. Zitadel).",
+    "allowedUsers": "Pengguna Dibenarkan",
+    "allowedUsersDesc": "Satu e-mel setiap baris. Kosongkan untuk membenarkan semua.",
+    "adminGroup": "Kumpulan Pentadbir",
+    "adminGroupDesc": "Pengguna dalam kumpulan ini diberi hak pentadbir. Kosongkan untuk melaraskan penyegerakan kumpulan.",
+    "caCert": "Sijil CA Tersuai",
+    "caCertDesc": "Pilihan. Sijil CA yang dikodkan PEM untuk penyedia OIDC yang menggunakan CA peribadi atau tandatangan sendiri. Kosongkan untuk menggunakan stor percayaan sistem."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Log masuk dengan SSO secara automatik",
+      "description": "Hantar pengunjung terus ke penyedia SSO pertama daripada memaparkan borang log masuk. Pembolehubah persekitaran OIDC_SILENT_LOGIN_DEFAULT mengatasi ini."
+    }
+  },
+  "plugin": {
+    "name": "Log masuk tunggal"
+  }
+}

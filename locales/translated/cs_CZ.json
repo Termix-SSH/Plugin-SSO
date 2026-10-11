@@ -1,72 +1,74 @@
 {
   "loginWithSso": "Přihlásit se pomocí SSO",
-  "loginWithProvider": "Přihlaste se pomocí {{name}}",
+  "loginWithProvider": "Přihlásit se pomocí {{name}}",
   "loading": "Načítání...",
   "permissions": {
     "manage": {
-      "title": "Správa poskytovatelů jednotného přihlašování (SSO)",
-      "description": "Přidávat, měnit a odebírat poskytovatele SSO, přes které se lidé mohou přihlašovat."
+      "title": "Spravovat poskytovatele SSO",
+      "description": "Přidávejte, měňte a odebírejte poskytovatele SSO, pomocí kterých se mohou uživatelé přihlašovat."
     }
   },
   "providers": {
-    "docsLink": "Zobrazit dokumenty",
-    "none": "Nejsou nakonfigurováni žádní poskytovatelé jednotného přihlašování (SSO).",
+    "docsLink": "Zobrazit dokumentaci",
+    "none": "Nejsou nakonfigurováni žádní poskytovatelé SSO.",
     "add": "Přidat poskytovatele",
     "edit": "Upravit poskytovatele",
     "delete": "Smazat poskytovatele",
-    "deleteConfirm": "Smazat tohoto poskytovatele? Přidružení uživatelé se nebudou moci přihlásit.",
+    "deleteConfirm": "Smazat tohoto poskytovatele? Jeho uživatelé se již nebudou moci přihlašovat pomocí něj.",
     "name": "Zobrazovaný název",
     "namePlaceholder": "Můj poskytovatel SSO",
-    "nameRequired": "Je vyžadováno zobrazované jméno",
+    "nameRequired": "Zobrazovaný název je povinný",
     "type": "Typ poskytovatele",
     "enabled": "Povoleno",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
+    "enabledDesc": "Zobrazit tlačítko pro přihlášení tímto poskytovatelem na přihlašovací obrazovce.",
+    "dialogDesc": "Připojte poskytovatele identity, aby se uživatelé mohli přihlašovat pomocí něj.",
+    "sectionGeneral": "Obecné",
+    "sectionCredentials": "Klient",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Přístup",
     "save": "Uložit poskytovatele",
-    "saving": "Ukládání…",
+    "saving": "Ukládání...",
     "saved": "Uloženo",
     "saveFailed": "Uložení se nezdařilo",
     "deleted": "Smazáno",
     "deleteFailed": "Smazání se nezdařilo",
     "loadFailed": "Načtení poskytovatelů SSO se nezdařilo",
     "cancel": "Zrušit",
-    "copy": "Kopie",
+    "copy": "Kopírovat",
     "copied": "Zkopírováno",
-    "redirectUri": "URI přesměrování",
-    "redirectUriDesc": "Zaregistrujte tuto URL adresu jako URL adresu pro přesměrování nebo zpětné volání u svého poskytovatele identity.",
-    "authorizationUrl": "Autorizační URL: {{url}}"
+    "redirectUri": "URI pro přesměrování",
+    "redirectUriDesc": "Zaregistrujte tuto adresu URL jako adresu pro přesměrování nebo zpětné volání ve vašem poskytovateli identity.",
+    "legacyCallback": "Ponechat staré URI pro přesměrování",
+    "legacyCallbackDesc": "Tento poskytovatel byl nastaven před verzí Termix 2.9 a stále používá staré URI pro přesměrování, které stále funguje. Chcete-li přejít na nové, nejprve přidejte {{uri}} ve vašem poskytovateli identity a poté tuto možnost vypněte.",
+    "authorizationUrl": "URL pro autorizaci: {{url}}"
   },
   "fields": {
     "clientId": "ID klienta",
-    "clientSecret": "Tajemství klienta",
-    "secretKeep": "Tajný kód je uložen. Pro jeho zachování nechte toto pole prázdné.",
+    "clientSecret": "Tajný klíč klienta",
+    "secretKeep": "Tajný klíč je uložen. Nechte toto pole prázdné, pokud ho chcete zachovat.",
     "issuerUrl": "URL vydavatele",
-    "authUrl": "Autorizační URL",
-    "tokenUrl": "URL tokenu",
+    "authUrl": "URL pro autorizaci",
+    "tokenUrl": "URL pro token",
     "userIdentifier": "Cesta k identifikátoru uživatele",
-    "displayName": "Cesta k zobrazovanému názvu",
+    "displayName": "Cesta k uživatelskému jménu",
     "scopes": "Rozsahy",
-    "userinfoUrl": "Přepsat URL s uživatelskými informacemi",
-    "groupClaim": "Skupinový nárok",
-    "groupClaimDesc": "Volitelné. Cesta k deklaraci identity, která obsahuje skupiny uživatele. Výchozí nastavení je skupiny, role a poté skupina. Použijte pro poskytovatele s vlastní deklarací identity (např. Zitadel).",
+    "userinfoUrl": "Přepsat URL pro informace o uživateli",
+    "groupClaim": "Claim pro skupinu",
+    "groupClaimDesc": "Volitelné. Cesta k claimu, který obsahuje skupiny uživatele. Výchozí hodnoty jsou groups, roles a poté group. Použijte to pro poskytovatele s vlastním claimem (např. Zitadel).",
     "allowedUsers": "Povolení uživatelé",
-    "allowedUsersDesc": "Jeden e-mail na řádek. Pro povolení všech ponechte prázdné.",
+    "allowedUsersDesc": "Jeden e-mail na řádek. Nechte prázdné pro povolení všech.",
     "adminGroup": "Skupina administrátorů",
-    "adminGroupDesc": "Uživatelé v této skupině mají oprávnění k administraci. Pro deaktivaci synchronizace skupiny ponechte pole prázdné.",
-    "caCert": "Vlastní certifikát certifikační autority",
-    "caCertDesc": "Volitelné. Certifikát certifikační autority s kódováním PEM pro poskytovatele OIDC používající soukromou nebo samopodepsanou certifikační autoritu. Pro použití systémového úložiště důvěryhodných certifikátů ponechte pole prázdné."
+    "adminGroupDesc": "Uživatelé v této skupině získají oprávnění administrátora. Nechte prázdné pro vypnutí synchronizace skupin.",
+    "caCert": "Vlastní certifikát CA",
+    "caCertDesc": "Volitelné. Certifikát CA v kódování PEM pro poskytovatele OIDC používající soukromou nebo self-signed CA. Nechte prázdné pro použití systémového úložiště důvěryhodných certifikátů."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Automatické přihlášení pomocí SSO",
-      "description": "Odesílejte návštěvníky přímo k prvnímu poskytovateli SSO namísto zobrazení přihlašovacího formuláře. Proměnná prostředí OIDC_SILENT_LOGIN_DEFAULT toto přepíše."
+      "label": "Automaticky se přihlásit pomocí SSO",
+      "description": "Přesměrovat návštěvníky přímo na prvního poskytovatele SSO místo zobrazení přihlašovacího formuláře. Proměnná prostředí OIDC_SILENT_LOGIN_DEFAULT toto nastavení přepíše."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Jednotné přihlášení"
   }
 }

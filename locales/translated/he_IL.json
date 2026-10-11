@@ -1,72 +1,74 @@
 {
-  "loginWithSso": "כניסה באמצעות כניסה יחידה (SSO)",
-  "loginWithProvider": "התחברות באמצעות {{name}}",
-  "loading": "טְעִינָה...",
+  "loginWithSso": "התחבר באמצעות SSO",
+  "loginWithProvider": "התחבר באמצעות {{name}}",
+  "loading": "טוען...",
   "permissions": {
     "manage": {
       "title": "ניהול ספקי SSO",
-      "description": "הוספה, שינוי והסרה של ספקי SSO שאנשים יכולים להתחבר איתם."
+      "description": "הוסף, שנה והסר את ספקי ה-SSSO שבהם משתמשים יכולים להתחבר."
     }
   },
   "providers": {
-    "docsLink": "הצג מסמכים",
+    "docsLink": "צפה בתיעוד",
     "none": "לא הוגדרו ספקי SSO.",
     "add": "הוסף ספק",
-    "edit": "עריכת ספק",
-    "delete": "מחיקת ספק",
-    "deleteConfirm": "למחוק ספק זה? משתמשים משויכים לא יוכלו להתחבר.",
-    "name": "שם תצוגה",
-    "namePlaceholder": "ספק ה-SSO שלי",
-    "nameRequired": "נדרש שם תצוגה",
+    "edit": "ערוך ספק",
+    "delete": "מחק ספק",
+    "deleteConfirm": "למחוק את הספק הזה? המשתמשים שלו לא יוכלו להתחבר באמצעותו.",
+    "name": "שם לתצוגה",
+    "namePlaceholder": "ספק ה-SSSO שלי",
+    "nameRequired": "נדרש שם לתצוגה",
     "type": "סוג ספק",
     "enabled": "מופעל",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
-    "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "enabledDesc": "הצג כפתור התחברות לספק הזה במסך ההתחברות.",
+    "dialogDesc": "חבר ספק זהות כדי שמשתמשים יוכלו להתחבר באמצעותו.",
+    "sectionGeneral": "כללי",
+    "sectionCredentials": "לקוח",
+    "sectionClaims": "טענות (Claims)",
+    "sectionAccess": "גישה",
     "save": "שמור ספק",
-    "saving": "חִסָכוֹן...",
+    "saving": "שומר...",
     "saved": "נשמר",
     "saveFailed": "השמירה נכשלה",
     "deleted": "נמחק",
     "deleteFailed": "המחיקה נכשלה",
-    "loadFailed": "נכשלה טעינת ספקי SSO",
-    "cancel": "לְבַטֵל",
-    "copy": "לְהַעְתִיק",
-    "copied": "מוּעֲתָק",
-    "redirectUri": "כתובת URL להפניה מחדש",
-    "redirectUriDesc": "רשום כתובת URL זו ככתובת URL להפניה או לקריאה חוזרת בספק הזהויות שלך.",
-    "authorizationUrl": "כתובת אתר לאימות: {{url}}"
+    "loadFailed": "טעינת ספקי ה-SSSO נכשלה",
+    "cancel": "ביטול",
+    "copy": "העתק",
+    "copied": "הועתק",
+    "redirectUri": "כתובת הפניה (Redirect URI)",
+    "redirectUriDesc": "רשום את כתובת ה-URL הזו ככתובת הפניה או חזרה (callback) בספק הזהות שלך.",
+    "legacyCallback": "שמור את כתובת ההפניה הישנה",
+    "legacyCallbackDesc": "ספק זה הוגדר לפני Termix 2.9 ועדיין משתמש בכתובת ההפניה הישנה, שעדיין עובדת. כדי לעבור לחדשה, הוסף תחילה את {{uri}} בספק הזהות שלך, ואז כבה אפשרות זו.",
+    "authorizationUrl": "כתובת הרשאה: {{url}}"
   },
   "fields": {
-    "clientId": "מזהה לקוח",
-    "clientSecret": "סוד הלקוח",
-    "secretKeep": "סוד נשמר. השאר שדה זה ריק כדי לשמור אותו.",
-    "issuerUrl": "כתובת URL של המנפיק",
-    "authUrl": "כתובת אתר להרשאה",
-    "tokenUrl": "כתובת אתר של אסימון",
-    "userIdentifier": "נתיב מזהה המשתמש",
-    "displayName": "נתיב שם התצוגה",
-    "scopes": "טווחים",
-    "userinfoUrl": "עקיפת כתובת URL של פרטי משתמש",
-    "groupClaim": "תביעה קבוצתית",
-    "groupClaimDesc": "אופציונלי. נתיב התביעה המכיל את קבוצות המשתמש. ברירת המחדל היא קבוצות, תפקידים ולאחר מכן קבוצה. השתמש באפשרות זו עבור ספקים עם תביעה מותאמת אישית (למשל Zitadel).",
+    "clientId": "מזהה לקוח (Client ID)",
+    "clientSecret": "סוד לקוח (Client Secret)",
+    "secretKeep": "סוד נשמר. השאר ריק כדי לשמור אותו.",
+    "issuerUrl": "כתובת הנפיק (Issuer URL)",
+    "authUrl": "כתובת הרשאה (Authorization URL)",
+    "tokenUrl": "כתובת אסימון (Token URL)",
+    "userIdentifier": "נתיב מזהה משתמש",
+    "displayName": "נתיב שם משתמש",
+    "scopes": "טווחים (Scopes)",
+    "userinfoUrl": "עקוף כתובת Userinfo",
+    "groupClaim": "טענת קבוצה (Group Claim)",
+    "groupClaimDesc": "אופציונלי. נתיב הטענה שמכיל את קבוצות המשתמש. ברירת המחדל היא groups, roles ואז group. השתמש בזה לספקים עם טענה מותאמת אישית (למשל Zitadel).",
     "allowedUsers": "משתמשים מורשים",
-    "allowedUsersDesc": "אימייל אחד בכל שורה. יש להשאיר ריק כדי לאפשר את כולם.",
-    "adminGroup": "קבוצת ניהול",
-    "adminGroupDesc": "למשתמשים בקבוצה זו יש הרשאה לניהול. יש להשאיר ריק כדי להשבית את סנכרון הקבוצה.",
+    "allowedUsersDesc": "דואר אלקטרוני אחד בשורה. השאר ריק כדי לאפשר לכולם.",
+    "adminGroup": "קבוצת מנהל",
+    "adminGroupDesc": "משתמשים בקבוצה זו מקבלים הרשאות מנהל. השאר ריק כדי לנטרל סנכרון קבוצות.",
     "caCert": "תעודת CA מותאמת אישית",
-    "caCertDesc": "אופציונלי. אישור CA מקודד PEM עבור ספקי OIDC המשתמשים באישור CA פרטי או חתום עצמית. השאר ריק כדי להשתמש במאגר האמון של המערכת."
+    "caCertDesc": "אופציונלי. תעודת CA מקודדת ב-PEM לספקי OIDC המשתמשים ב-CA פרטי או חתום עצמית. השאר ריק כדי להשתמש במאגר האמון של המערכת."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "כניסה אוטומטית באמצעות SSO",
-      "description": "שלח מבקרים ישירות לספק ה-SSO הראשון במקום להציג את טופס ההתחברות. משתנה הסביבה OIDC_SILENT_LOGIN_DEFAULT עוקף זאת."
+      "label": "התחבר באופן אוטומטי באמצעות SSO",
+      "description": "שלח מבקרים ישירות לספק ה-SSSO הראשון במקום להציג את טופס ההתחברות. משתנה הסביבה OIDC_SILENT_LOGIN_DEFAULT עוקף הגדרה זו."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "התחברות חד-פעמית (Single sign-on)"
   }
 }

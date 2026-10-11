@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Prisijungti per SSO",
+  "loginWithProvider": "Prisijungti per {{name}}",
+  "loading": "Įkeliama...",
+  "permissions": {
+    "manage": {
+      "title": "Valdyti SSO tiekėjus",
+      "description": "Pridėkite, pakeiskite ir pašalinkite SSO tiekėjus, kuriais žmonės gali prisijungti."
+    }
+  },
+  "providers": {
+    "docsLink": "Peržiūrėti dokumentaciją",
+    "none": "Nėra sukonfigūruota SSO tiekėjų.",
+    "add": "Pridėti tiekėją",
+    "edit": "Redaguoti tiekėją",
+    "delete": "Pašalinti tiekėją",
+    "deleteConfirm": "Pašalinti šį tiekėją? Jo naudotojai nebegalės jo naudoti prisijungimui.",
+    "name": "Rodomas pavadinimas",
+    "namePlaceholder": "Mano SSO tiekėjas",
+    "nameRequired": "Būtina nurodyti rodomą pavadinimą",
+    "type": "Tiekėjo tipas",
+    "enabled": "Įjungta",
+    "enabledDesc": "Prisijungimo lange rodyti šio tiekėjo prisijungimo mygtuką.",
+    "dialogDesc": "Prijunkite tapatybės tiekėją, kad naudotojai galėtų juo prisijungti.",
+    "sectionGeneral": "Bendra",
+    "sectionCredentials": "Klientas",
+    "sectionClaims": "Pretendijos",
+    "sectionAccess": "Prieiga",
+    "save": "Išsaugoti tiekėją",
+    "saving": "Išsaugoma...",
+    "saved": "Išsaugota",
+    "saveFailed": "Nepavyko išsaugoti",
+    "deleted": "Pašalinta",
+    "deleteFailed": "Nepavyko pašalinti",
+    "loadFailed": "Nepavyko įkelti SSO tiekėjų",
+    "cancel": "Atšaukti",
+    "copy": "Kopijuoti",
+    "copied": "Nukopijuota",
+    "redirectUri": "Peradresavimo URI",
+    "redirectUriDesc": "Savo tapatybės tiekėje užregistruokite šį URL kaip peradresavimo arba grįžtamąjį URL.",
+    "legacyCallback": "Palikti seną peradresavimo URI",
+    "legacyCallbackDesc": "Šis tiekėjas buvo sukonfigūruotas prieš Termix 2.9 ir vis dar naudoja seną peradresavimo URI, kuris veikia. Norint pereiti prie naujo, pirmiausia savo tapatybės tiekėje pridėkite {{uri}}, tada išjunkite šią parinktį.",
+    "authorizationUrl": "Autentifikavimo URL: {{url}}"
+  },
+  "fields": {
+    "clientId": "Kliento ID",
+    "clientSecret": "Kliento slaptažodis",
+    "secretKeep": "Slaptažodis išsaugotas. Palikite tuščią, kad jį išlaikytumėte.",
+    "issuerUrl": "Išdavėjo URL",
+    "authUrl": "Autentifikavimo URL",
+    "tokenUrl": "Žetono URL",
+    "userIdentifier": "Naudotojo identifikatoriaus kelias",
+    "displayName": "Vartotojo vardo kelias",
+    "scopes": "Sritys",
+    "userinfoUrl": "Perrašyti Userinfo URL",
+    "groupClaim": "Grupės pretendija",
+    "groupClaimDesc": "Neprivaloma. Pretendijos kelias, kuriame yra naudotojo grupės. Numatytasis: groups, roles, tada group. Naudokite tai tiekėjams su specifine pretendija (pvz., Zitadel).",
+    "allowedUsers": "Leisti naudotojai",
+    "allowedUsersDesc": "Po vieną el. pašto adresą eilutėje. Palikite tuščią, kad leistumėte visiems.",
+    "adminGroup": "Administratoriaus grupė",
+    "adminGroupDesc": "Šios grupės naudotojams suteikiami administratoriaus teisės. Palikite tuščią, kad išjungtumėte grupės sinchronizavimą.",
+    "caCert": "Nestandartinis CA sertifikatas",
+    "caCertDesc": "Neprivaloma. PEM koduotas CA sertifikatas OIDC tiekėjams, naudojantiems privačią arba savarankiškai pasirašytą CA. Palikite tuščią, kad naudotumėte sistemos patikimumo saugyklą."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Automatiškai prisijungti per SSO",
+      "description": "Lankytojus nukreipti tiesiai į pirmąjį SSO tiekėją vietoj prisijungimo formos rodyti. OIDC_SILENT_LOGIN_DEFAULT aplinkos kintamasis perrašo šią parinktį."
+    }
+  },
+  "plugin": {
+    "name": "Vienkartinis prisijungimas"
+  }
+}

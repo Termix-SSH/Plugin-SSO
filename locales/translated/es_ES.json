@@ -4,69 +4,71 @@
   "loading": "Cargando...",
   "permissions": {
     "manage": {
-      "title": "Gestionar proveedores de inicio de sesión único (SSO)",
-      "description": "Agregue, cambie y elimine los proveedores de inicio de sesión único (SSO) con los que las personas pueden iniciar sesión."
+      "title": "Gestionar proveedores de SSO",
+      "description": "Añade, modifica y elimina los proveedores de SSO que las personas pueden usar para iniciar sesión."
     }
   },
   "providers": {
     "docsLink": "Ver documentación",
-    "none": "No hay proveedores SSO configurados.",
+    "none": "No hay proveedores de SSO configurados.",
     "add": "Añadir proveedor",
     "edit": "Editar proveedor",
     "delete": "Eliminar proveedor",
-    "deleteConfirm": "¿Eliminar este proveedor? Los usuarios asociados no podrán iniciar sesión.",
+    "deleteConfirm": "¿Eliminar este proveedor? Sus usuarios no podrán iniciar sesión con él.",
     "name": "Nombre para mostrar",
     "namePlaceholder": "Mi proveedor de SSO",
-    "nameRequired": "Se requiere un nombre para mostrar.",
+    "nameRequired": "Se requiere un nombre para mostrar",
     "type": "Tipo de proveedor",
-    "enabled": "Activado",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
+    "enabled": "Habilitado",
+    "enabledDesc": "Mostrar un botón de inicio de sesión para este proveedor en la pantalla de acceso.",
+    "dialogDesc": "Conecta un proveedor de identidad para que los usuarios puedan iniciar sesión con él.",
     "sectionGeneral": "General",
-    "sectionCredentials": "Client",
+    "sectionCredentials": "Cliente",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Acceso",
     "save": "Guardar proveedor",
     "saving": "Guardando...",
     "saved": "Guardado",
     "saveFailed": "Error al guardar",
     "deleted": "Eliminado",
     "deleteFailed": "Error al eliminar",
-    "loadFailed": "No se pudieron cargar los proveedores de SSO.",
+    "loadFailed": "Error al cargar los proveedores de SSO",
     "cancel": "Cancelar",
     "copy": "Copiar",
     "copied": "Copiado",
     "redirectUri": "URI de redirección",
-    "redirectUriDesc": "Registra esta URL como URL de redireccionamiento o de devolución de llamada en tu proveedor de identidad.",
+    "redirectUriDesc": "Registra esta URL como la URL de redirección o devolución de llamada en tu proveedor de identidad.",
+    "legacyCallback": "Mantener la URI de redirección antigua",
+    "legacyCallbackDesc": "Este proveedor se configuró antes de Termix 2.9 y sigue utilizando la URI de redirección antigua, que sigue funcionando. Para pasar a la nueva, añade primero {{uri}} en tu proveedor de identidad y luego desactiva esta opción.",
     "authorizationUrl": "URL de autorización: {{url}}"
   },
   "fields": {
     "clientId": "ID de cliente",
     "clientSecret": "Secreto de cliente",
-    "secretKeep": "Un secreto está guardado. Deja esto en blanco para conservarlo.",
+    "secretKeep": "Ya hay un secreto guardado. Déjalo vacío para conservarlo.",
     "issuerUrl": "URL del emisor",
     "authUrl": "URL de autorización",
     "tokenUrl": "URL del token",
     "userIdentifier": "Ruta del identificador de usuario",
-    "displayName": "Ruta del nombre para mostrar",
+    "displayName": "Ruta del nombre de usuario",
     "scopes": "Ámbitos",
-    "userinfoUrl": "Sobrescribir URL de Userinfo",
+    "userinfoUrl": "Anular URL de Userinfo",
     "groupClaim": "Claim de grupo",
-    "groupClaimDesc": "Opcional. La ruta del claim que contiene los grupos del usuario. Por defecto, se usan 'groups', 'roles' y luego 'group'. Úselo para proveedores con un claim personalizado (p. ej. Zitadel).",
+    "groupClaimDesc": "Opcional. La ruta del claim que contiene los grupos del usuario. Por defecto usa groups, roles y luego group. Úsalo para proveedores con un claim personalizado (p. ej., Zitadel).",
     "allowedUsers": "Usuarios permitidos",
-    "allowedUsersDesc": "Un correo electrónico por línea. Déjelo vacío para permitir todos.",
+    "allowedUsersDesc": "Un correo electrónico por línea. Déjalo vacío para permitir a todos.",
     "adminGroup": "Grupo de administradores",
-    "adminGroupDesc": "Los usuarios de este grupo reciben permisos de administrador. Déjelo vacío para desactivar la sincronización de grupos.",
+    "adminGroupDesc": "Los usuarios de este grupo obtendrán permisos de administrador. Déjalo vacío para desactivar la sincronización de grupos.",
     "caCert": "Certificado CA personalizado",
-    "caCertDesc": "Opcional. Certificado CA codificado en PEM para proveedores OIDC que utilicen una CA privada o autofirmada. Déjelo vacío para usar el almacén de confianza del sistema."
+    "caCertDesc": "Opcional. Certificado CA codificado en PEM para proveedores OIDC que usan una CA privada o autofirmada. Déjalo vacío para usar el almacén de confianza del sistema."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Inicia sesión automáticamente con SSO.",
-      "description": "En lugar de mostrar el formulario de inicio de sesión, redirige a los visitantes directamente al primer proveedor de SSO. La variable de entorno OIDC_SILENT_LOGIN_DEFAULT anula esta configuración."
+      "label": "Iniciar sesión con SSO automáticamente",
+      "description": "Envía a los visitantes directamente al primer proveedor de SSO en lugar de mostrar el formulario de inicio de sesión. La variable de entorno OIDC_SILENT_LOGIN_DEFAULT anula esta configuración."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Inicio de sesión único"
   }
 }

@@ -1,0 +1,74 @@
+{
+  "loginWithSso": "Pieteikties ar SSO",
+  "loginWithProvider": "Pieteikties ar {{name}}",
+  "loading": "Ielādē...",
+  "permissions": {
+    "manage": {
+      "title": "Pārvaldīt SSO pakalpojumu sniedzējus",
+      "description": "Pievienojiet, mainiet un noņemiet SSO pakalpojumu sniedzējus, ar kuriem lietotāji var pieteikties."
+    }
+  },
+  "providers": {
+    "docsLink": "Apskatīt dokumentāciju",
+    "none": "Nav konfigurēti SSO pakalpojumu sniedzēji.",
+    "add": "Pievienot pakalpojumu sniedzēju",
+    "edit": "Rediģēt pakalpojumu sniedzēju",
+    "delete": "Dzēst pakalpojumu sniedzēju",
+    "deleteConfirm": "Dzēst šo pakalpojumu sniedzēju? Tā lietotāji nevarēs pieteikties, izmantojot to.",
+    "name": "Attēlojamais nosaukums",
+    "namePlaceholder": "Mana SSO pakalpojumu sniedzējs",
+    "nameRequired": "Ir nepieciešams attēlojamais nosaukums",
+    "type": "Pakalpojumu sniedzēja tips",
+    "enabled": "Iespējots",
+    "enabledDesc": "Rādīt pieteikšanās pogu šim pakalpojumu sniedzējam pieteikšanās ekrānā.",
+    "dialogDesc": "Sasaistiet identitātes pakalpojumu sniedzēju, lai lietotāji varētu pieteikties, izmantojot to.",
+    "sectionGeneral": "Vispārīgi",
+    "sectionCredentials": "Klients",
+    "sectionClaims": "Pretendijas",
+    "sectionAccess": "Piekļuve",
+    "save": "Saglabāt pakalpojumu sniedzēju",
+    "saving": "Saglabā...",
+    "saved": "Saglabāts",
+    "saveFailed": "Neizdevās saglabāt",
+    "deleted": "Dzēsts",
+    "deleteFailed": "Neizdevās dzēst",
+    "loadFailed": "Neizdevās ielādēt SSO pakalpojumu sniedzējus",
+    "cancel": "Atcelt",
+    "copy": "Kopēt",
+    "copied": "Kopēts",
+    "redirectUri": "Pārvirzīšanas URI",
+    "redirectUriDesc": "Reģistrējiet šo URL kā pārvirzīšanas vai atgriešanās URL savā identitātes pakalpojumu sniedzējā.",
+    "legacyCallback": "Atstāt veco pārvirzīšanas URI",
+    "legacyCallbackDesc": "Šis pakalpojumu sniedzējs tika iestatīts pirms Termix 2.9 un joprojām izmanto veco pārvirzīšanas URI, kas joprojām darbojas. Lai pārietu uz jauno, vispirms pievienojiet {{uri}} savā identitātes pakalpojumu sniedzējā, pēc tam izslēdziet šo opciju.",
+    "authorizationUrl": "Autorizācijas URL: {{url}}"
+  },
+  "fields": {
+    "clientId": "Klienta ID",
+    "clientSecret": "Klienta slepenā atslēga",
+    "secretKeep": "Slepenā atslēga ir saglabāta. Atstājiet tukšu, lai to saglabātu.",
+    "issuerUrl": "Izdevēja URL",
+    "authUrl": "Autorizācijas URL",
+    "tokenUrl": "Tokena URL",
+    "userIdentifier": "Lietotāja identifikatora ceļš",
+    "displayName": "Lietotājvārda ceļš",
+    "scopes": "Ziņojuma jomas",
+    "userinfoUrl": "Pārdefinēt lietotāja informācijas URL",
+    "groupClaim": "Grupas pretendija",
+    "groupClaimDesc": "Neobligāts. Pretendiju ceļš, kas satur lietotāja grupas. Noklusējums ir groups, roles, tad group. Izmantojiet to pakalpojumu sniedzējiem ar pielāgotu pretendiju (piem., Zitadel).",
+    "allowedUsers": "Atļautie lietotāji",
+    "allowedUsersDesc": "Viens e-pasta adrese rindā. Atstājiet tukšu, lai atļautu visiem.",
+    "adminGroup": "Administratoru grupa",
+    "adminGroupDesc": "Šīs grupas lietotājiem tiek piešķirtas administratora tiesības. Atstājiet tukšu, lai atspējotu grupu sinhronizāciju.",
+    "caCert": "Pielāgots CA sertifikāts",
+    "caCertDesc": "Neobligāts. PEM kodēts CA sertifikāts OIDC pakalpojumu sniedzējiem, kas izmanto privātu vai pašparakstītu CA. Atstājiet tukšu, lai izmantotu sistēmas uzticības krātuvi."
+  },
+  "settings": {
+    "silentLoginDefault": {
+      "label": "Automātiski pieteikties ar SSO",
+      "description": "Novirzīt apmeklētājus tieši uz pirmo SSO pakalpojumu sniedzēju, nevis rādīt pieteikšanās formu. Vide mainīgais OIDC_SILENT_LOGIN_DEFAULT pārslēdz šo iestatījumu."
+    }
+  },
+  "plugin": {
+    "name": "Vienreizēja pieteikšanās"
+  }
+}

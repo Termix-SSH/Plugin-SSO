@@ -4,69 +4,71 @@
   "loading": "Đang tải...",
   "permissions": {
     "manage": {
-      "title": "Quản lý các nhà cung cấp SSO",
-      "description": "Thêm, thay đổi và xóa các nhà cung cấp SSO mà người dùng có thể sử dụng để đăng nhập."
+      "title": "Quản lý nhà cung cấp SSO",
+      "description": "Thêm, thay đổi và xóa các nhà cung cấp SSO mà người dùng có thể dùng để đăng nhập."
     }
   },
   "providers": {
     "docsLink": "Xem tài liệu",
-    "none": "Chưa có nhà cung cấp SSO.",
+    "none": "Chưa cấu hình nhà cung cấp SSO nào.",
     "add": "Thêm nhà cung cấp",
     "edit": "Chỉnh sửa nhà cung cấp",
     "delete": "Xóa nhà cung cấp",
-    "deleteConfirm": "Xóa nhà cung cấp này? Người dùng liên kết sẽ không thể đăng nhập.",
+    "deleteConfirm": "Xóa nhà cung cấp này? Người dùng của nó sẽ không thể đăng nhập bằng nhà cung cấp này nữa.",
     "name": "Tên hiển thị",
     "namePlaceholder": "Nhà cung cấp SSO của tôi",
-    "nameRequired": "Tên hiển thị là bắt buộc",
+    "nameRequired": "Bắt buộc nhập tên hiển thị",
     "type": "Loại nhà cung cấp",
     "enabled": "Đã bật",
-    "enabledDesc": "Show a sign in button for this provider on the login screen.",
-    "dialogDesc": "Connect an identity provider so users can sign in with it.",
-    "sectionGeneral": "General",
-    "sectionCredentials": "Client",
+    "enabledDesc": "Hiển thị nút đăng nhập cho nhà cung cấp này trên màn hình đăng nhập.",
+    "dialogDesc": "Kết nối nhà cung cấp danh tính để người dùng có thể đăng nhập bằng nó.",
+    "sectionGeneral": "Chung",
+    "sectionCredentials": "Khách hàng",
     "sectionClaims": "Claims",
-    "sectionAccess": "Access",
+    "sectionAccess": "Truy cập",
     "save": "Lưu nhà cung cấp",
     "saving": "Đang lưu...",
     "saved": "Đã lưu",
-    "saveFailed": "Không thể lưu",
+    "saveFailed": "Lưu không thành công",
     "deleted": "Đã xóa",
-    "deleteFailed": "Không thể xóa",
-    "loadFailed": "Không thể tải nhà cung cấp SSO",
+    "deleteFailed": "Xóa không thành công",
+    "loadFailed": "Tải nhà cung cấp SSO không thành công",
     "cancel": "Hủy",
     "copy": "Sao chép",
     "copied": "Đã sao chép",
     "redirectUri": "URI chuyển hướng",
-    "redirectUriDesc": "Hãy đăng ký URL này làm URL chuyển hướng hoặc URL gọi lại trong nhà cung cấp định danh của bạn.",
-    "authorizationUrl": "URL xác thực: {{url}}"
+    "redirectUriDesc": "Đăng ký URL này làm URL chuyển hướng hoặc callback trong nhà cung cấp danh tính của bạn.",
+    "legacyCallback": "Giữ URI chuyển hướng cũ",
+    "legacyCallbackDesc": "Nhà cung cấp này được thiết lập trước Termix 2.9 và vẫn sử dụng URI chuyển hướng cũ, vẫn hoạt động bình thường. Để chuyển sang URI mới, hãy thêm {{uri}} vào nhà cung cấp danh tính của bạn trước, sau đó tắt tùy chọn này.",
+    "authorizationUrl": "URL ủy quyền: {{url}}"
   },
   "fields": {
-    "clientId": "Client ID",
-    "clientSecret": "Client Secret",
-    "secretKeep": "Một bí mật đã được giữ kín. Hãy để trống phần này để bảo vệ nó.",
-    "issuerUrl": "Issuer URL",
+    "clientId": "ID khách hàng",
+    "clientSecret": "Bí mật khách hàng",
+    "secretKeep": "Đã lưu bí mật. Để trống để giữ nguyên.",
+    "issuerUrl": "URL phát hành",
     "authUrl": "URL ủy quyền",
-    "tokenUrl": "Token URL",
+    "tokenUrl": "URL token",
     "userIdentifier": "Đường dẫn định danh người dùng",
-    "displayName": "Đường dẫn tên hiển thị",
+    "displayName": "Đường dẫn tên người dùng",
     "scopes": "Phạm vi",
-    "userinfoUrl": "Ghi đè URL Userinfo",
-    "groupClaim": "Group Claim",
-    "groupClaimDesc": "Tùy chọn. Đường dẫn claim chứa các nhóm của người dùng. Mặc định là groups, roles, rồi group. Sử dụng cho các nhà cung cấp có claim tùy chỉnh (ví dụ: Zitadel).",
+    "userinfoUrl": "Ghi đè URL thông tin người dùng",
+    "groupClaim": "Claim nhóm",
+    "groupClaimDesc": "Tùy chọn. Đường dẫn claim chứa nhóm của người dùng. Mặc định là groups, roles, sau đó là group. Sử dụng cho các nhà cung cấp có claim tùy chỉnh (ví dụ: Zitadel).",
     "allowedUsers": "Người dùng được phép",
-    "allowedUsersDesc": "Mỗi email một dòng. Để trống để cho phép tất cả.",
-    "adminGroup": "Nhóm Admin",
-    "adminGroupDesc": "Người dùng trong nhóm này được cấp quyền admin. Để trống để tắt đồng bộ nhóm.",
+    "allowedUsersDesc": "Một email mỗi dòng. Để trống để cho phép tất cả.",
+    "adminGroup": "Nhóm quản trị",
+    "adminGroupDesc": "Người dùng trong nhóm này sẽ được cấp quyền quản trị. Để trống để tắt đồng bộ nhóm.",
     "caCert": "Chứng chỉ CA tùy chỉnh",
-    "caCertDesc": "Tùy chọn. Chứng chỉ CA mã hóa PEM cho các nhà cung cấp OIDC sử dụng CA riêng hoặc tự ký. Để trống để sử dụng kho tin cậy hệ thống."
+    "caCertDesc": "Tùy chọn. Chứng chỉ CA mã hóa PEM cho nhà cung cấp OIDC sử dụng CA riêng hoặc tự ký. Để trống để sử dụng kho tin cậy hệ thống."
   },
   "settings": {
     "silentLoginDefault": {
-      "label": "Đăng nhập tự động bằng SSO",
-      "description": "Hãy chuyển hướng khách truy cập trực tiếp đến nhà cung cấp SSO đầu tiên thay vì hiển thị biểu mẫu đăng nhập. Biến môi trường OIDC_SILENT_LOGIN_DEFAULT sẽ ghi đè lên cài đặt này."
+      "label": "Tự động đăng nhập bằng SSO",
+      "description": "Chuyển người dùng trực tiếp đến nhà cung cấp SSO đầu tiên thay vì hiển thị biểu mẫu đăng nhập. Biến môi trường OIDC_SILENT_LOGIN_DEFAULT sẽ ghi đè cài đặt này."
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Đăng nhập đơn"
   }
 }
