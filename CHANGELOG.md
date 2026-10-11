@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2
+
+### Changed
+
+- Translated into every supported language
+
 ## 1.0.1
 
 ### Fixed
