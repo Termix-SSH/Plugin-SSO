@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "单点登录"
+    "name": "单点登录",
+    "description": "使用任意 OpenID Connect 提供商、GitHub 或 Google 登录。"
   }
 }
