@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "單一登入"
+    "name": "單一登入",
+    "description": "使用任何 OpenID Connect 提供者、GitHub 或 Google 登入。"
   }
 }

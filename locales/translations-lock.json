@@ -56,5 +56,6 @@
   "fields.caCertDesc": "6a0db0cc5c11",
   "settings.silentLoginDefault.label": "aebc8364b82f",
   "settings.silentLoginDefault.description": "0c7ecafc125d",
-  "plugin.name": "3d6c0814f69a"
+  "plugin.name": "3d6c0814f69a",
+  "plugin.description": "15f76090a887"
 }

@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Μοναδική σύνδεση"
+    "name": "Μοναδική σύνδεση",
+    "description": "Συνδεθείτε με οποιοδήποτε πάροχο OpenID Connect, GitHub ή Google."
   }
 }

@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Enkel innlogging"
+    "name": "Enkel innlogging",
+    "description": "Logg inn med hvilken som helst OpenID Connect-tilbyder, GitHub eller Google."
   }
 }

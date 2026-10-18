@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Connexion unique"
+    "name": "Connexion unique",
+    "description": "Connectez-vous avec n'importe quel fournisseur OpenID Connect, GitHub ou Google."
   }
 }

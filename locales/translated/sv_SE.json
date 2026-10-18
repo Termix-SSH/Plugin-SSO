@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Enkel inloggning"
+    "name": "Enkel inloggning",
+    "description": "Logga in med valfri OpenID Connect-leverantör, GitHub eller Google."
   }
 }

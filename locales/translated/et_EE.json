@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Üksik sisselogimine"
+    "name": "Üksik sisselogimine",
+    "description": "Logi sisse mis iganes OpenID Connect-pakkuja, GitHub või Google kaudu."
   }
 }

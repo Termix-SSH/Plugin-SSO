@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Yksittäinen kirjautuminen"
+    "name": "Yksittäinen kirjautuminen",
+    "description": "Kirjaudu sisään mille tahansa OpenID Connect -palveluntarjoajalle, GitHubiin tai Googleen."
   }
 }

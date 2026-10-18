@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "সিঙ্গেল সাইন-অন"
+    "name": "সিঙ্গেল সাইন-অন",
+    "description": "যেকোনো OpenID Connect প্রদানকারী, GitHub বা Google দিয়ে সাইন ইন করুন।"
   }
 }

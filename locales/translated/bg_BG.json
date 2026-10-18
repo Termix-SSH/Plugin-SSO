@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Единичен вход"
+    "name": "Единичен вход",
+    "description": "Влезте с който и да е доставчик на OpenID Connect, GitHub или Google."
   }
 }

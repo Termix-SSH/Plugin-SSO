@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Inici de sessió únic"
+    "name": "Inici de sessió únic",
+    "description": "Inicia sessió amb qualsevol proveïdor d'OpenID Connect, GitHub o Google."
   }
 }

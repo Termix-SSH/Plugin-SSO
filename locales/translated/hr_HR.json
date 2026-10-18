@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Jedinstvena prijava"
+    "name": "Jedinstvena prijava",
+    "description": "Prijava putem bilo kojeg OpenID Connect pružatelja, GitHuba ili Googlea."
   }
 }

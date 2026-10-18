@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "सिंगल साइन-ऑन"
+    "name": "सिंगल साइन-ऑन",
+    "description": "किसी भी OpenID Connect प्रदाता, GitHub या Google के साथ साइन इन करें।"
   }
 }

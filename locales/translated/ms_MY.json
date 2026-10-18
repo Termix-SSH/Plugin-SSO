@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Log masuk tunggal"
+    "name": "Log masuk tunggal",
+    "description": "Log masuk dengan mana-mana penyedia OpenID Connect, GitHub atau Google."
   }
 }

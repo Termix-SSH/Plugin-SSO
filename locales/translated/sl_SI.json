@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Enotna prijava"
+    "name": "Enotna prijava",
+    "description": "Prijava z vsakim ponudnikom OpenID Connect, GitHubom ali Googleom."
   }
 }

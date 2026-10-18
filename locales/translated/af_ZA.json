@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Enkele aanmelding"
+    "name": "Enkele aanmelding",
+    "description": "Meld aan met enige OpenID Connect-lewerder, GitHub of Google."
   }
 }

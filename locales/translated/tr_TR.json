@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Tek oturum açma"
+    "name": "Tek oturum açma",
+    "description": "Herhangi bir OpenID Connect sağlayıcısı, GitHub veya Google ile oturum açın."
   }
 }

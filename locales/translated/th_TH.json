@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Single sign-on",
+    "description": "ลงชื่อเข้าใช้ด้วยผู้ให้บริการ OpenID Connect, GitHub หรือ Google ใดๆ"
   }
 }

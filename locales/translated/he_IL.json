@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "התחברות חד-פעמית (Single sign-on)"
+    "name": "התחברות חד-פעמית (Single sign-on)",
+    "description": "התחבר באמצעות ספק OpenID Connect, GitHub או Google."
   }
 }

@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Login único"
+    "name": "Login único",
+    "description": "Faça login com qualquer provedor OpenID Connect, GitHub ou Google."
   }
 }

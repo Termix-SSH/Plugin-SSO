@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "تسجيل الدخول الموحد"
+    "name": "تسجيل الدخول الموحد",
+    "description": "تسجيل الدخول باستخدام أي مزود OpenID Connect أو GitHub أو Google."
   }
 }

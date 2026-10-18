@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Đăng nhập đơn"
+    "name": "Đăng nhập đơn",
+    "description": "Đăng nhập bằng bất kỳ nhà cung cấp OpenID Connect, GitHub hoặc Google nào."
   }
 }

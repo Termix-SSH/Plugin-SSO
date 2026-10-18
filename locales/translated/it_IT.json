@@ -69,6 +69,7 @@
     }
   },
   "plugin": {
-    "name": "Single sign-on"
+    "name": "Single sign-on",
+    "description": "Accedi con qualsiasi provider OpenID Connect, GitHub o Google."
   }
 }
