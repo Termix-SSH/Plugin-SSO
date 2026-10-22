@@ -14,6 +14,7 @@ import {
 import {
   OIDCTokenFormatError,
   buildFetchOptions,
+  fetchWithOptions,
   extractOidcGroupsFromSources,
   generatePkceCodeChallenge,
   generatePkceCodeVerifier,
@@ -280,7 +281,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     code: string,
     pending: PendingState,
   ): Promise<Record<string, unknown>> {
-    const response = await fetch(config.token_url, {
+    const response = await fetchWithOptions(config.token_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -295,7 +296,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         code_verifier: pending.codeVerifier,
       }),
       ...buildFetchOptions(config.ca_cert),
-    } as RequestInit);
+    });
     if (!response.ok) {
       ctx.log.error(
         "Token exchange failed",
@@ -322,19 +323,25 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       Accept: "application/json",
       "User-Agent": "Termix",
     };
-    const userInfoResponse = await fetch("https://api.github.com/user", {
-      headers,
-      ...fetchOptions,
-    } as RequestInit);
+    const userInfoResponse = await fetchWithOptions(
+      "https://api.github.com/user",
+      {
+        headers,
+        ...fetchOptions,
+      },
+    );
     if (!userInfoResponse.ok) {
       throw new LoginMethodError("Failed to get GitHub user information", 400);
     }
     const userInfo = (await userInfoResponse.json()) as Record<string, unknown>;
 
-    const emailResponse = await fetch("https://api.github.com/user/emails", {
-      headers,
-      ...fetchOptions,
-    } as RequestInit);
+    const emailResponse = await fetchWithOptions(
+      "https://api.github.com/user/emails",
+      {
+        headers,
+        ...fetchOptions,
+      },
+    );
     if (emailResponse.ok) {
       const emails = (await emailResponse.json()) as Array<{
         email: string;
@@ -374,9 +381,9 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     const urls: string[] = [];
 
     try {
-      const discovery = await fetch(
+      const discovery = await fetchWithOptions(
         `${issuer}/.well-known/openid-configuration`,
-        fetchOptions as RequestInit,
+        fetchOptions,
       );
       if (discovery.ok) {
         const document = (await discovery.json()) as Record<string, unknown>;
@@ -403,10 +410,10 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     if (!accessToken) return userInfo;
     for (const url of urls) {
       try {
-        const response = await fetch(url, {
+        const response = await fetchWithOptions(url, {
           headers: { Authorization: `Bearer ${accessToken}` },
           ...fetchOptions,
-        } as RequestInit);
+        });
         if (response.ok) {
           const fetched = (await response.json()) as Record<string, unknown>;
           // Userinfo for someone other than the id token's subject is a

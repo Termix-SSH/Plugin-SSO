@@ -5,7 +5,8 @@
  */
 
 import crypto from "node:crypto";
-import { Agent } from "undici";
+import http from "node:http";
+import https from "node:https";
 import type { OidcConfig } from "./types.js";
 
 const BACKCHANNEL_LOGOUT_EVENT =
@@ -31,7 +32,73 @@ export function normalizeIssuer(url: string): string {
 
 export function buildFetchOptions(caCert?: string): Record<string, unknown> {
   if (!caCert || !caCert.trim()) return {};
-  return { dispatcher: new Agent({ connect: { ca: caCert } }) };
+  return { ca: caCert };
+}
+
+/**
+ * fetch that trusts the provider's own CA when `ca` is given. It uses node:https
+ * for that case: a bundled undici Agent replaces the process wide fetch
+ * dispatcher and breaks every other fetch with "invalid onRequestStart method".
+ */
+export async function fetchWithOptions(
+  url: string,
+  init: Record<string, unknown> = {},
+): Promise<Response> {
+  const { ca, ...rest } = init;
+  if (typeof ca !== "string" || !ca) return fetch(url, rest as RequestInit);
+
+  const target = new URL(url);
+  const body =
+    rest.body === undefined || rest.body === null
+      ? undefined
+      : String(rest.body);
+  const headers: Record<string, string> = {
+    ...(rest.headers as Record<string, string> | undefined),
+  };
+  if (
+    body !== undefined &&
+    !Object.keys(headers).some((h) => h.toLowerCase() === "content-length")
+  ) {
+    headers["Content-Length"] = String(Buffer.byteLength(body));
+  }
+  const client = target.protocol === "http:" ? http : https;
+  return new Promise<Response>((resolve, reject) => {
+    const request = client.request(
+      target,
+      { method: (rest.method as string) ?? "GET", headers, ca },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on("data", (chunk: Buffer) => chunks.push(chunk));
+        res.on("error", reject);
+        res.on("end", () => {
+          const responseHeaders = new Headers();
+          for (const [name, value] of Object.entries(res.headers)) {
+            if (Array.isArray(value)) {
+              for (const v of value) responseHeaders.append(name, v);
+            } else if (value !== undefined) {
+              responseHeaders.set(name, value);
+            }
+          }
+          const status = res.statusCode ?? 502;
+          const noBody = status === 204 || status === 205 || status === 304;
+          resolve(
+            new Response(noBody ? null : Buffer.concat(chunks), {
+              status,
+              headers: responseHeaders,
+            }),
+          );
+        });
+      },
+    );
+    request.setTimeout(30_000, () =>
+      request.destroy(new Error("Request timed out")),
+    );
+    request.on("error", (error) =>
+      reject(new TypeError("fetch failed", { cause: error })),
+    );
+    if (body !== undefined) request.write(body);
+    request.end();
+  });
 }
 
 /**
@@ -211,7 +278,10 @@ export async function verifyOIDCToken(
 
   const discoveryUrl = `${normalizedIssuerUrl}/.well-known/openid-configuration`;
   try {
-    const discoveryResponse = await fetch(discoveryUrl, fetchOptions);
+    const discoveryResponse = await fetchWithOptions(
+      discoveryUrl,
+      fetchOptions,
+    );
     if (!discoveryResponse.ok) {
       attempts.push(`${discoveryUrl}: HTTP ${discoveryResponse.status}`);
     } else {
@@ -233,7 +303,7 @@ export async function verifyOIDCToken(
 
   for (const url of jwksUrls) {
     try {
-      const response = await fetch(url, fetchOptions);
+      const response = await fetchWithOptions(url, fetchOptions);
       if (!response.ok) {
         attempts.push(`${url}: HTTP ${response.status}`);
         continue;

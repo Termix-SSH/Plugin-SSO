@@ -1,7 +1,7 @@
 {
   "id": "sso",
   "name": "Single sign-on",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Sign in with any OpenID Connect provider, GitHub or Google.",
   "author": {
     "name": "Termix"

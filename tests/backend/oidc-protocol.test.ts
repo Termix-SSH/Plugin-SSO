@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 import {
+  buildFetchOptions,
+  fetchWithOptions,
   describeFetchFailure,
   extractOidcGroups,
   extractOidcGroupsFromSources,
@@ -529,5 +531,24 @@ describe("verifyOIDCToken token shape", () => {
       oidcUtils.verifyOIDCToken("header.payload.signature", issuer, "client"),
     ).rejects.not.toThrow(oidcUtils.OIDCTokenFormatError);
     expect(fetchSpy).toHaveBeenCalled();
+  });
+});
+
+describe("fetchWithOptions", () => {
+  it("works with the dispatcher a custom CA creates", async () => {
+    const { createServer } = await import("node:http");
+    const server = createServer((_req, res) => res.end('{"ok":true}'));
+    await new Promise<void>((resolve) => server.listen(0, resolve));
+    const { port } = server.address() as { port: number };
+    try {
+      const options = buildFetchOptions("not a real certificate");
+      const response = await fetchWithOptions(
+        `http://127.0.0.1:${port}/`,
+        options,
+      );
+      expect(await response.json()).toEqual({ ok: true });
+    } finally {
+      server.close();
+    }
   });
 });

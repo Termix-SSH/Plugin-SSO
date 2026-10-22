@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.4
+
+### Fixed
+
+- Sign in with providers like Authelia no longer fails with OIDC authentication failed
+
 ## 1.0.3
 
 ### Changed
