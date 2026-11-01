@@ -58,7 +58,7 @@
     "allowedUsers": "Utilizadores Permitidos",
     "allowedUsersDesc": "Um email por linha. Deixe vazio para permitir todos.",
     "adminGroup": "Grupo de Administradores",
-    "adminGroupDesc": "Os utilizadores neste grupo recebem permissões de administrador. Deixe vazio para desativar a sincronização de grupos.",
+    "adminGroupDesc": "A cada início de sessão, os utilizadores deste grupo obtêm privilégios de administrador e todos os outros perdem-nos, mesmo que tenham sido promovidos no Termix. Deixe em branco para gerir os administradores no Termix.",
     "caCert": "Certificado CA Personalizado",
     "caCertDesc": "Opcional. Certificado CA codificado em PEM para provedores OIDC que usam uma CA privada ou auto-assinada. Deixe vazio para usar o repositório de confiança do sistema."
   },

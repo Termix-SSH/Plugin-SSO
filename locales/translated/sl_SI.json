@@ -58,7 +58,7 @@
     "allowedUsers": "Dovoljeni uporabniki",
     "allowedUsersDesc": "En e-naslov na vrstico. Pustite prazno, da dovolite vsem.",
     "adminGroup": "Skupina skrbnikov",
-    "adminGroupDesc": "Uporabniki v tej skupini dobijo skrbniške pravice. Pustite prazno, da onemogočite sinhronizacijo skupin.",
+    "adminGroupDesc": "Ob vsakem prijavi uporabniki v tej skupini postanejo skrbniki, vsi ostali pa izgubijo skrbniške pravice, tudi če so jih prej dobili v Termix. Pustite prazno, če želite skrbnike upravljati v Termix.",
     "caCert": "Prilagojeno CA potrdilo",
     "caCertDesc": "Neobvezno. PEM-kodirano CA potrdilo za ponudnike OIDC, ki uporabljajo zasebno ali samopodpisano CA. Pustite prazno, da uporabite sistemsko zaupno shrambo."
   },

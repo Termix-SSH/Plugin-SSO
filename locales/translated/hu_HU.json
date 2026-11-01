@@ -58,7 +58,7 @@
     "allowedUsers": "Engedélyezett felhasználók",
     "allowedUsersDesc": "Sorban egy-egy e-mail cím. Hagyja üresen, ha mindenkinek engedélyezni szeretné.",
     "adminGroup": "Adminisztrátor csoport",
-    "adminGroupDesc": "A ebben a csoportban lévő felhasználók adminisztrátori jogosultságot kapnak. Hagyja üresen a csoport-szinkronizálás letiltásához.",
+    "adminGroupDesc": "Bejelentkezéskor a csoport tagjai rendszergazdai jogosultságot kapnak, mindenki más pedig elveszíti azt, még akkor is, ha Termixben előléptették őket. Hagyja üresen, ha a rendszergazdákat Termixben szeretné kezelni.",
     "caCert": "Egyéni CA tanúsítvány",
     "caCertDesc": "Opcionális. PEM-kódolású CA tanúsítvány olyan OIDC szolgáltatókhoz, amelyek privát vagy önállóan aláírt CA-t használnak. Hagyja üresen a rendszer megbízhatósági tárolójának használatához."
   },

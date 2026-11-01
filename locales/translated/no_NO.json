@@ -58,7 +58,7 @@
     "allowedUsers": "Tillatte brukere",
     "allowedUsersDesc": "En e-postadresse per linje. La stå tomt for å tillate alle.",
     "adminGroup": "Administratørgruppe",
-    "adminGroupDesc": "Brukere i denne gruppen får administratørtilgang. La stå tomt for å deaktivere gruppesynkronisering.",
+    "adminGroupDesc": "Ved hver pålogging får brukere i denne gruppen admin-tilgang, og alle andre mister den, selv om de har fått oppgradert tilgang i Termix. La feltet være tomt for å administrere administratorer i Termix.",
     "caCert": "Tilpasset CA-sertifikat",
     "caCertDesc": "Valgfritt. PEM-kodet CA-sertifikat for OIDC-leverandører som bruker en privat eller selvsignert CA. La stå tomt for å bruke systemets tillitslager."
   },

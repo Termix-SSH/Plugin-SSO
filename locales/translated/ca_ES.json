@@ -58,7 +58,7 @@
     "allowedUsers": "Usuaris permesos",
     "allowedUsersDesc": "Un correu electrònic per línia. Deixa-ho buit per permetre tots.",
     "adminGroup": "Grup d'administradors",
-    "adminGroupDesc": "Els usuaris d'aquest grup rebran permisos d'administrador. Deixa-ho buit per desactivar la sincronització de grups.",
+    "adminGroupDesc": "En cada inici de sessió, els usuaris d'aquest grup obtenen permisos d'administrador i la resta els perden, fins i tot si s'han promogut a Termix. Deixeu-ho buit per gestionar els administradors des de Termix.",
     "caCert": "Certificat CA personalitzat",
     "caCertDesc": "Opcional. Certificat CA codificat en PEM per a proveïdors OIDC que utilitzen una CA privada o autofirmada. Deixa-ho buit per utilitzar el magatzem de confiança del sistema."
   },

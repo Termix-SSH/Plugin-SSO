@@ -58,7 +58,7 @@
     "allowedUsers": "Pengguna Dibenarkan",
     "allowedUsersDesc": "Satu e-mel setiap baris. Kosongkan untuk membenarkan semua.",
     "adminGroup": "Kumpulan Pentadbir",
-    "adminGroupDesc": "Pengguna dalam kumpulan ini diberi hak pentadbir. Kosongkan untuk melaraskan penyegerakan kumpulan.",
+    "adminGroupDesc": "Setiap kali log masuk, pengguna dalam kumpulan ini akan mendapat akses pentadbir dan semua orang lain akan kehilangannya, walaupun telah dinaikkan taraf dalam Termix. Kosongkan untuk menguruskan pentadbir dalam Termix.",
     "caCert": "Sijil CA Tersuai",
     "caCertDesc": "Pilihan. Sijil CA yang dikodkan PEM untuk penyedia OIDC yang menggunakan CA peribadi atau tandatangan sendiri. Kosongkan untuk menggunakan stor percayaan sistem."
   },

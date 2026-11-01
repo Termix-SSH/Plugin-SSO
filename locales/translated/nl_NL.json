@@ -58,7 +58,7 @@
     "allowedUsers": "Toegestane gebruikers",
     "allowedUsersDesc": "Eén e-mailadres per regel. Laat leeg om iedereen toe te staan.",
     "adminGroup": "Beheergroep",
-    "adminGroupDesc": "Gebruikers in deze groep krijgen beheerdersrechten. Laat leeg om groepssynchronisatie uit te schakelen.",
+    "adminGroupDesc": "Bij elke aanmelding krijgen gebruikers in deze groep beheerdersrechten en verliest iedereen anders die rechten, zelfs als ze in Termix zijn gepromoveerd. Laat leeg om beheerders in Termix te beheren.",
     "caCert": "Aangepast CA-certificaat",
     "caCertDesc": "Optioneel. PEM-gecodeerd CA-certificaat voor OIDC-aanbieders die een privé- of zelfondertekende CA gebruiken. Laat leeg om het systeemvertrouwensarchief te gebruiken."
   },

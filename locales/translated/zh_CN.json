@@ -58,7 +58,7 @@
     "allowedUsers": "允许的用户",
     "allowedUsersDesc": "每行一个电子邮件地址。留空以允许所有用户。",
     "adminGroup": "管理员组",
-    "adminGroupDesc": "此组中的用户将被授予管理员权限。留空以禁用组同步。",
+    "adminGroupDesc": "每次登录时，该组中的用户将获得管理员权限，而其他用户将失去管理员权限，即使在 Termix 中已被提升。留空以在 Termix 中管理管理员。",
     "caCert": "自定义 CA 证书",
     "caCertDesc": "可选。使用私有或自签名 CA 的 OIDC 提供商的 PEM 编码 CA 证书。留空以使用系统信任库。"
   },

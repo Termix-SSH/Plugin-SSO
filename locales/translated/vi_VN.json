@@ -58,7 +58,7 @@
     "allowedUsers": "Người dùng được phép",
     "allowedUsersDesc": "Một email mỗi dòng. Để trống để cho phép tất cả.",
     "adminGroup": "Nhóm quản trị",
-    "adminGroupDesc": "Người dùng trong nhóm này sẽ được cấp quyền quản trị. Để trống để tắt đồng bộ nhóm.",
+    "adminGroupDesc": "Mỗi khi đăng nhập, người dùng trong nhóm này sẽ được cấp quyền quản trị và những người khác sẽ bị thu hồi, ngay cả khi họ đã được thăng cấp trong Termix. Để trống để quản lý quản trị viên trong Termix.",
     "caCert": "Chứng chỉ CA tùy chỉnh",
     "caCertDesc": "Tùy chọn. Chứng chỉ CA mã hóa PEM cho nhà cung cấp OIDC sử dụng CA riêng hoặc tự ký. Để trống để sử dụng kho tin cậy hệ thống."
   },

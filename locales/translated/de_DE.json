@@ -58,7 +58,7 @@
     "allowedUsers": "Erlaubte Benutzer",
     "allowedUsersDesc": "Eine E-Mail-Adresse pro Zeile. Leer lassen, um alle zu erlauben.",
     "adminGroup": "Admin-Gruppe",
-    "adminGroupDesc": "Benutzer in dieser Gruppe erhalten Admin-Rechte. Leer lassen, um die Gruppen-Synchronisierung zu deaktivieren.",
+    "adminGroupDesc": "Bei jeder Anmeldung erhalten Benutzer in dieser Gruppe Administratorrechte, alle anderen verlieren sie – auch wenn sie in Termix befördert wurden. Lassen Sie das Feld leer, um Administratoren in Termix zu verwalten.",
     "caCert": "Benutzerdefiniertes CA-Zertifikat",
     "caCertDesc": "Optional. PEM-codiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte CA verwenden. Leer lassen, um den System-Truststore zu verwenden."
   },

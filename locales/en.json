@@ -58,7 +58,7 @@
     "allowedUsers": "Allowed Users",
     "allowedUsersDesc": "One email per line. Leave empty to allow all.",
     "adminGroup": "Admin Group",
-    "adminGroupDesc": "Users in this group are granted admin. Leave empty to disable group sync.",
+    "adminGroupDesc": "At every sign in, users in this group get admin and everyone else loses it, even if promoted in Termix. Leave empty to manage admins in Termix.",
     "caCert": "Custom CA Certificate",
     "caCertDesc": "Optional. PEM-encoded CA certificate for OIDC providers using a private or self-signed CA. Leave empty to use the system trust store."
   },

@@ -58,7 +58,7 @@
     "allowedUsers": "Dopušteni korisnici",
     "allowedUsersDesc": "Jedan e-mail po retku. Ostavite prazno da biste dopustili svima.",
     "adminGroup": "Admin grupa",
-    "adminGroupDesc": "Korisnici u ovoj grupi dobivaju administratorska prava. Ostavite prazno da onemogućite sinkronizaciju grupa.",
+    "adminGroupDesc": "Kod svake prijave korisnici u ovoj skupini dobivaju administratorska prava, a svi ostali ih gube, čak i ako su unaprijeđeni u Termixu. Ostavite prazno za upravljanje administratorima u Termixu.",
     "caCert": "Prilagođeni CA certifikat",
     "caCertDesc": "Opcionalno. PEM-kodirani CA certifikat za OIDC pružatelje koji koriste privatni ili samopotpisani CA. Ostavite prazno da biste koristili sustavski spremnik povjerenja."
   },

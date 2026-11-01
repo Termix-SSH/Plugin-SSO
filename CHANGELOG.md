@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5
+
+### Changed
+
+- The Admin Group setting says that it decides admin at every sign in, including for accounts promoted in Termix or merged with an admin account
+
 ## 1.0.4
 
 ### Fixed

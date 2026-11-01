@@ -58,7 +58,7 @@
     "allowedUsers": "Toegelaatde gebruikers",
     "allowedUsersDesc": "Een e-pos per lyn. Laat leeg om almal toe te laat.",
     "adminGroup": "Admin-groep",
-    "adminGroupDesc": "Gebruikers in hierdie groep kry admin-toegang. Laat leeg om groep-sinchronisering uit te skakel.",
+    "adminGroupDesc": "By elke aanmelding kry gebruikers in hierdie groep admin-toegang en almal anders verloor dit, selfs as hulle in Termix bevorder is. Laat leeg om administrateurs in Termix te bestuur.",
     "caCert": "Aangepaste CA-sertifikaat",
     "caCertDesc": "Opsioneel. PEM-gekodeerde CA-sertifikaat vir OIDC-lewerders wat 'n privaat of self-ondertekende CA gebruik. Laat leeg om die stelsel se vertrouensberging te gebruik."
   },

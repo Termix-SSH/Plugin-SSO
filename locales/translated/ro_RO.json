@@ -58,7 +58,7 @@
     "allowedUsers": "Utilizatori autorizați",
     "allowedUsersDesc": "O adresă de e-mail pe linie. Lăsați gol pentru a permite accesul tuturor.",
     "adminGroup": "Grup de administratori",
-    "adminGroupDesc": "Utilizatorii din acest grup primesc drepturi de administrator. Lăsați gol pentru a dezactiva sincronizarea grupurilor.",
+    "adminGroupDesc": "La fiecare autentificare, utilizatorii din acest grup primesc drepturi de administrator, iar ceilalți le pierd, chiar dacă au fost promovați în Termix. Lăsați gol pentru a gestiona administratorii în Termix.",
     "caCert": "Certificat CA personalizat",
     "caCertDesc": "Opțional. Certificat CA codificat PEM pentru furnizorii OIDC care folosesc o CA privată sau autosemnată. Lăsați gol pentru a utiliza stocul de încredere al sistemului."
   },

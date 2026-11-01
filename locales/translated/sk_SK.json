@@ -58,7 +58,7 @@
     "allowedUsers": "Povolení používatelia",
     "allowedUsersDesc": "Jeden e-mail na riadok. Ak chcete povoliť všetkých, nechajte prázdne.",
     "adminGroup": "Skupina administrátorov",
-    "adminGroupDesc": "Používatelia v tejto skupine získajú práva administrátora. Ak chcete vypnúť synchronizáciu skupín, nechajte prázdne.",
+    "adminGroupDesc": "Pri každom prihlásení získajú používatelia v tejto skupine práva správcu a všetci ostatní ich stratia, aj ak boli povýšení v Termix. Ak chcete spravovať správcov v Termix, nechajte toto pole prázdne.",
     "caCert": "Vlastný certifikát CA",
     "caCertDesc": "Voliteľné. Certifikát CA v kódovaní PEM pre poskytovateľov OIDC používajúcich súkromnú alebo samopodpísanú CA. Ak chcete použiť systémový úložník dôveryhodných certifikátov, nechajte prázdne."
   },

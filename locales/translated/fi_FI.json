@@ -58,7 +58,7 @@
     "allowedUsers": "Sallitut käyttäjät",
     "allowedUsersDesc": "Yksi sähköpostiosoite per rivi. Jätä tyhjäksi salliakset kaikki.",
     "adminGroup": "Ylläpitäjäryhmä",
-    "adminGroupDesc": "Tähän ryhmään kuuluvat käyttäjät saavat ylläpitäjäoikeudet. Jätä tyhjäksi poistaaksesi ryhmäsynkronoinnin käytöstä.",
+    "adminGroupDesc": "Jokaisessa kirjautumisessa tämän ryhmän käyttäjät saavat ylläpitäjän oikeudet ja muut menettävät ne, vaikka ne olisi myönnetty Termixissä. Jätä tyhjäksi, jos haluat hallita ylläpitäjiä Termixissä.",
     "caCert": "Mukautettu CA-varmenne",
     "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluille, jotka käyttävät yksityistä tai itseallekirjoitettua CA:ta. Jätä tyhjäksi käyttääksesi järjestelmän luottamusvarastoa."
   },

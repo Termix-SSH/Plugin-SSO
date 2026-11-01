@@ -58,7 +58,7 @@
     "allowedUsers": "İzin Verilen Kullanıcılar",
     "allowedUsersDesc": "Her satıra bir e-posta adresi. Tümünü izin vermek için boş bırakın.",
     "adminGroup": "Yönetici Grubu",
-    "adminGroupDesc": "Bu gruptaki kullanıcılara yönetici yetkisi verilir. Grup eşitlemeyi devre dışı bırakmak için boş bırakın.",
+    "adminGroupDesc": "Bu gruptaki kullanıcılar her oturum açışında yönetici olur, diğerleri ise Termix'te yükseltilmiş olsa bile yönetici yetkisini kaybeder. Yöneticileri Termix içinde yönetmek için boş bırakın.",
     "caCert": "Özel CA Sertifikası",
     "caCertDesc": "İsteğe bağlı. Özel veya kendi kendine imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın."
   },

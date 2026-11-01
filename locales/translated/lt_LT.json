@@ -58,7 +58,7 @@
     "allowedUsers": "Leisti naudotojai",
     "allowedUsersDesc": "Po vieną el. pašto adresą eilutėje. Palikite tuščią, kad leistumėte visiems.",
     "adminGroup": "Administratoriaus grupė",
-    "adminGroupDesc": "Šios grupės naudotojams suteikiami administratoriaus teisės. Palikite tuščią, kad išjungtumėte grupės sinchronizavimą.",
+    "adminGroupDesc": "Kiekvieną kartą prisijungiant, šios grupės vartotojai tampa administratore, o visi kiti praranda šias teises, net jei Termix programoje jiems buvo suteiktos. Palikite tuščią, kad administratorių teises valdytumėte Termix programoje.",
     "caCert": "Nestandartinis CA sertifikatas",
     "caCertDesc": "Neprivaloma. PEM koduotas CA sertifikatas OIDC tiekėjams, naudojantiems privačią arba savarankiškai pasirašytą CA. Palikite tuščią, kad naudotumėte sistemos patikimumo saugyklą."
   },

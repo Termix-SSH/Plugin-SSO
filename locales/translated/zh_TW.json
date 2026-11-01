@@ -58,7 +58,7 @@
     "allowedUsers": "允許的使用者",
     "allowedUsersDesc": "每行一個電子郵件地址。留空表示允許所有使用者。",
     "adminGroup": "管理員群組",
-    "adminGroupDesc": "此群組中的使用者將被賦予管理員權限。留空表示停用群組同步。",
+    "adminGroupDesc": "每次登入時，此群組中的使用者會取得管理員權限，而其他使用者則會失去該權限，即使在 Termix 中已被提升為管理員亦然。留空即可在 Termix 中管理管理員。",
     "caCert": "自訂 CA 憑證",
     "caCertDesc": "選填。用於使用私人或自簽 CA 的 OIDC 提供者之 PEM 編碼 CA 憑證。留空表示使用系統信任儲存區。"
   },

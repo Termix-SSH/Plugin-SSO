@@ -58,7 +58,7 @@
     "allowedUsers": "Pengguna yang Diizinkan",
     "allowedUsersDesc": "Satu email per baris. Kosongkan untuk mengizinkan semua.",
     "adminGroup": "Grup Admin",
-    "adminGroupDesc": "Pengguna dalam grup ini diberikan hak admin. Kosongkan untuk menonaktifkan sinkronisasi grup.",
+    "adminGroupDesc": "Setiap kali masuk, pengguna dalam grup ini menjadi admin dan yang lain kehilangan status admin, bahkan jika dipromosikan di Termix. Kosongkan untuk mengelola admin di Termix.",
     "caCert": "Sertifikat CA Kustom",
     "caCertDesc": "Opsional. Sertifikat CA yang dikodekan PEM untuk penyedia OIDC yang menggunakan CA pribadi atau self-signed. Kosongkan untuk menggunakan penyimpanan kepercayaan sistem."
   },

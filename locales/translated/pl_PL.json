@@ -58,7 +58,7 @@
     "allowedUsers": "Dozwoleni użytkownicy",
     "allowedUsersDesc": "Jeden adres e-mail w wierszu. Pozostaw puste, aby zezwolić wszystkim.",
     "adminGroup": "Grupa administratorów",
-    "adminGroupDesc": "Użytkownicy w tej grupie otrzymują uprawnienia administratora. Pozostaw puste, aby wyłączyć synchronizację grup.",
+    "adminGroupDesc": "Podczas każdego logowania użytkownicy z tej grupy uzyskują uprawnienia administratora, a wszyscy inni tracą je, nawet jeśli zostali awansowani w Termix. Pozostaw puste, aby zarządzać administratorami w Termix.",
     "caCert": "Niestandardowy certyfikat CA",
     "caCertDesc": "Opcjonalnie. Certyfikat CA zakodowany w formacie PEM dla dostawców OIDC używających prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufania."
   },

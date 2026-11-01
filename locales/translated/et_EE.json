@@ -58,7 +58,7 @@
     "allowedUsers": "Lubatud kasutajad",
     "allowedUsersDesc": "Üks e-posti aadress rida. Jäta tühjaks, et lubada kõik.",
     "adminGroup": "Administraatorite grupp",
-    "adminGroupDesc": "Sellesse gruppi kuuluvatele kasutajatele antakse administraatori õigused. Jäta tühjaks, et keelata grupi sünkroonimine.",
+    "adminGroupDesc": "Iga sisselogimise korral saavad selle grupi kasutajad administraatori õigused ja kõik teised kaotavad need, isegi kui neid Termixis on edendatud. Jäta tühjaks, kui soovid administraatoreid haldada Termixis.",
     "caCert": "Kohandatud CA-sertifikaat",
     "caCertDesc": "Valikuline. PEM-kodeeritud CA-sertifikaat OIDC-pakkujatele, kes kasutavad privaatset või isesertifitseeritud CA-d. Jäta tühjaks, et kasutada süsteemi usalduskaupa."
   },

@@ -58,7 +58,7 @@
     "allowedUsers": "Atļautie lietotāji",
     "allowedUsersDesc": "Viens e-pasta adrese rindā. Atstājiet tukšu, lai atļautu visiem.",
     "adminGroup": "Administratoru grupa",
-    "adminGroupDesc": "Šīs grupas lietotājiem tiek piešķirtas administratora tiesības. Atstājiet tukšu, lai atspējotu grupu sinhronizāciju.",
+    "adminGroupDesc": "Katru reizi, kad lietotāji šajā grupā pieslēdzas, viņi iegūst administratora tiesības, bet visi pārējie tās zaudē, pat ja Termix tos ir paaugstinājuši. Atstājiet tukšu, lai administratorus pārvaldītu Termix.",
     "caCert": "Pielāgots CA sertifikāts",
     "caCertDesc": "Neobligāts. PEM kodēts CA sertifikāts OIDC pakalpojumu sniedzējiem, kas izmanto privātu vai pašparakstītu CA. Atstājiet tukšu, lai izmantotu sistēmas uzticības krātuvi."
   },
