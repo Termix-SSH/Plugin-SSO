@@ -1,6 +1,14 @@
 # Changelog
 
-## 1.0.6
+## 1.1.0
+
+### Added
+
+- Link a single sign-on account to your existing Termix account in Settings, Security, and unlink it again. An admin setting turns this off (#4)
+
+### Changed
+
+- Needs Termix 26.11.1 or newer
 
 ### Fixed
 

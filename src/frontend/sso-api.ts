@@ -14,6 +14,12 @@ export interface SsoProvider {
   redirectUri: string;
 }
 
+export interface SsoLink {
+  id: string;
+  label: string;
+  linked: boolean;
+}
+
 export interface SsoProviderInput {
   name?: string;
   type?: SsoProviderType;
@@ -25,6 +31,22 @@ export interface SsoProviderInput {
 /** Paths are relative to /plugin-api/sso/. */
 export function createSsoApi(api: PluginApiClient) {
   return {
+    async links() {
+      const { data } = await api.get<{
+        allowed: boolean;
+        providers: SsoLink[];
+      }>("/links");
+      return data;
+    },
+    async startLink(provider: string) {
+      const { data } = await api.post<{ redirectUrl: string }>("/links/start", {
+        provider,
+      });
+      return data.redirectUrl;
+    },
+    async unlink(provider: string) {
+      await api.delete(`/links/${encodeURIComponent(provider)}`);
+    },
     async list() {
       const { data } = await api.get<{
         providers: SsoProvider[];

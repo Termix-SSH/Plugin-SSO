@@ -154,10 +154,153 @@ export function registerSsoRoutes(
    *       302:
    *         description: Back to the app.
    */
-  const callback = (req: Request, res: Response) =>
-    ctx.auth.completeRedirectLogin(METHOD_ID, req, res);
+  const callback = async (req: Request, res: Response) => {
+    const state = req.query.state ?? req.body?.state;
+    if (await login.isLink(state)) {
+      try {
+        res.redirect(await login.finishLink(req as never));
+      } catch (error) {
+        if (error instanceof LoginMethodError) {
+          res.status(error.status).json({ error: error.message });
+          return;
+        }
+        fail(ctx, res, "Failed to link SSO", error);
+      }
+      return;
+    }
+    return ctx.auth.completeRedirectLogin(METHOD_ID, req, res);
+  };
   router.get("/callback", callback);
   router.post("/callback", callback);
+
+  async function selfLinkAllowed(): Promise<boolean> {
+    return (await ctx.settings.get("allowSelfLink")) !== false;
+  }
+
+  /**
+   * @openapi
+   * /plugin-api/sso/links:
+   *   get:
+   *     summary: The current user's SSO links
+   *     description: Each enabled provider and whether the signed in user is linked to it.
+   *     tags:
+   *       - SSO
+   *     responses:
+   *       200:
+   *         description: "{ allowed, providers } where each provider has id, label and linked."
+   */
+  router.get("/links", async (_req: Request, res: Response) => {
+    try {
+      const userId = ctx.currentActor();
+      if (!userId) return res.status(401).json({ error: "Not signed in" });
+      const linked = new Set(
+        (await ctx.auth.identities.list(userId)).map(
+          (identity) => identity.provider,
+        ),
+      );
+      res.json({
+        allowed: await selfLinkAllowed(),
+        providers: (await store.listInstances()).map((instance) => ({
+          id: instance.id,
+          label: instance.label,
+          linked: linked.has(login.providerKeyOf(instance.id)),
+        })),
+      });
+    } catch (error) {
+      fail(ctx, res, "Failed to load SSO links", error);
+    }
+  });
+
+  /**
+   * @openapi
+   * /plugin-api/sso/links/start:
+   *   post:
+   *     summary: Start linking an SSO provider
+   *     description: Gives the provider address for the signed in user. When the provider sends them back, its identity is tied to their account, and the app is opened with the sso_link query parameter set to the result.
+   *     tags:
+   *       - SSO
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               provider:
+   *                 type: string
+   *     responses:
+   *       200:
+   *         description: "{ redirectUrl }"
+   *       403:
+   *         description: An admin turned linking off.
+   *       404:
+   *         description: No such provider.
+   */
+  router.post("/links/start", async (req: Request, res: Response) => {
+    try {
+      const userId = ctx.currentActor();
+      if (!userId) return res.status(401).json({ error: "Not signed in" });
+      if (!(await selfLinkAllowed())) {
+        return res.status(403).json({ error: "Linking is turned off" });
+      }
+      const provider =
+        typeof req.body?.provider === "string" ? req.body.provider : null;
+      if (!provider) {
+        return res.status(400).json({ error: "Provider is required" });
+      }
+      res.json(
+        await login.start(req as never, provider, { linkUserId: userId }),
+      );
+    } catch (error) {
+      if (error instanceof LoginMethodError) {
+        res.status(error.status).json({ error: error.message });
+        return;
+      }
+      fail(ctx, res, "Failed to start SSO link", error);
+    }
+  });
+
+  /**
+   * @openapi
+   * /plugin-api/sso/links/{provider}:
+   *   delete:
+   *     summary: Unlink an SSO provider
+   *     description: Removes the provider from the signed in user's account.
+   *     tags:
+   *       - SSO
+   *     parameters:
+   *       - in: path
+   *         name: provider
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Unlinked.
+   *       409:
+   *         description: It is the user's only way to sign in.
+   */
+  router.delete("/links/:provider", async (req: Request, res: Response) => {
+    try {
+      const userId = ctx.currentActor();
+      if (!userId) return res.status(401).json({ error: "Not signed in" });
+      await ctx.auth.identities.unlink(
+        userId,
+        login.providerKeyOf(String(req.params.provider)),
+      );
+      res.json({ success: true });
+    } catch (error) {
+      const refused = error as { status?: number; code?: string };
+      if (refused.code === "last_login") {
+        res.status(refused.status ?? 409).json({
+          error: "Set a password before unlinking your only sign in",
+          code: refused.code,
+        });
+        return;
+      }
+      fail(ctx, res, "Failed to unlink SSO", error);
+    }
+  });
 
   /**
    * @openapi
