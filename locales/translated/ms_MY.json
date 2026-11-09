@@ -62,7 +62,25 @@
     "caCert": "Sijil CA Tersuai",
     "caCertDesc": "Pilihan. Sijil CA yang dikodkan PEM untuk penyedia OIDC yang menggunakan CA peribadi atau tandatangan sendiri. Kosongkan untuk menggunakan stor percayaan sistem."
   },
+  "links": {
+    "description": "Pautkan akaun log masuk tunggal untuk log masuk ke akaun Termix ini dengannya. Host dan tetapan anda kekal seperti sedia ada.",
+    "link": "Pautkan",
+    "unlink": "Nyahpaut",
+    "linkedBadge": "Dipautkan",
+    "unlinkTitle": "Nyahpaut {{name}}?",
+    "unlinkBody": "Anda tidak akan dapat log masuk menggunakan {{name}} lagi.",
+    "linked": "Akaun log masuk tunggal dipautkan",
+    "inUse": "Akaun log masuk tunggal tersebut sudah dipautkan ke akaun Termix lain",
+    "already": "Akaun Termix ini sudah dipautkan ke penyedia tersebut. Nyahpautkan dahulu.",
+    "failed": "Tidak dapat memautkan akaun log masuk tunggal",
+    "lastLogin": "Tetapkan kata laluan sebelum menyahpautkan satu-satunya kaedah log masuk anda",
+    "turnedOff": "Pentadbir telah mematikan pautan, minta mereka memautkan akaun anda"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Benarkan pengguna memautkan akaun mereka",
+      "description": "Pengguna boleh memautkan akaun log masuk tunggal ke akaun Termix mereka dalam Tetapan, Keselamatan. Jika dimatikan, hanya pentadbir yang boleh memautkan akaun."
+    },
     "silentLoginDefault": {
       "label": "Log masuk dengan SSO secara automatik",
       "description": "Hantar pengunjung terus ke penyedia SSO pertama daripada memaparkan borang log masuk. Pembolehubah persekitaran OIDC_SILENT_LOGIN_DEFAULT mengatasi ini."

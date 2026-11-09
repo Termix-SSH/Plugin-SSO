@@ -62,7 +62,25 @@
     "caCert": "Vlastný certifikát CA",
     "caCertDesc": "Voliteľné. Certifikát CA v kódovaní PEM pre poskytovateľov OIDC používajúcich súkromnú alebo samopodpísanú CA. Ak chcete použiť systémový úložník dôveryhodných certifikátov, nechajte prázdne."
   },
+  "links": {
+    "description": "Prepojte účet jednorazového prihlásenia, aby ste sa mohli do tohto účtu Termix prihlásiť pomocou neho. Vaše hostiteľské servery a nastavenia zostanú nezmenené.",
+    "link": "Prepojiť",
+    "unlink": "Odpojiť",
+    "linkedBadge": "Prepojené",
+    "unlinkTitle": "Odpojiť {{name}}?",
+    "unlinkBody": "Už sa nebudete môcť prihlásiť pomocou {{name}}.",
+    "linked": "Účet jednorazového prihlásenia je prepojený",
+    "inUse": "Tento účet jednorazového prihlásenia je už prepojený s iným účtom Termix",
+    "already": "Tento účet Termix je už prepojený s týmto poskytovateľom. Najprv ho odpojte.",
+    "failed": "Nepodarilo sa prepojiť účet jednorazového prihlásenia",
+    "lastLogin": "Pred odpojením jedinej možnosti prihlásenia si nastavte heslo",
+    "turnedOff": "Správca vypol prepojenie, požiadajte ho, aby prepojil váš účet"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Povoliť používateľom prepojiť ich účet",
+      "description": "Používatelia môžu v časti Nastavenia, Bezpečnosť prepojiť účet jednorazového prihlásenia so svojím účtom Termix. Ak je vypnuté, účty môžu prepojiť iba správcovia."
+    },
     "silentLoginDefault": {
       "label": "Automatické prihlásenie cez SSO",
       "description": "Presmerovať návštevníkov priamo na prvý poskytovateľa SSO namiesto zobrazenia prihlasovacieho formulára. Premenná prostredia OIDC_SILENT_LOGIN_DEFAULT túto možnosť prepíše."

@@ -62,7 +62,25 @@
     "caCert": "Benutzerdefiniertes CA-Zertifikat",
     "caCertDesc": "Optional. PEM-codiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte CA verwenden. Leer lassen, um den System-Truststore zu verwenden."
   },
+  "links": {
+    "description": "Verknüpfen Sie ein Single-Sign-On-Konto, um sich damit bei diesem Termix-Konto anzumelden. Ihre Hosts und Einstellungen bleiben unverändert.",
+    "link": "Verknüpfen",
+    "unlink": "Entkoppeln",
+    "linkedBadge": "Verknüpft",
+    "unlinkTitle": "{{name}} entkoppeln?",
+    "unlinkBody": "Sie können sich nicht mehr mit {{name}} anmelden.",
+    "linked": "Single-Sign-On-Konto verknüpft",
+    "inUse": "Dieses Single-Sign-On-Konto ist bereits mit einem anderen Termix-Konto verknüpft.",
+    "already": "Dieses Termix-Konto ist bereits mit diesem Anbieter verknüpft. Entkoppeln Sie es zuerst.",
+    "failed": "Das Single-Sign-On-Konto konnte nicht verknüpft werden.",
+    "lastLogin": "Legen Sie ein Passwort fest, bevor Sie Ihr einziges Anmeldekonto entkoppeln.",
+    "turnedOff": "Ein Administrator hat das Verknüpfen deaktiviert. Bitten Sie ihn, Ihr Konto zu verknüpfen."
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Benutzern erlauben, ihr Konto zu verknüpfen",
+      "description": "Benutzer können in den Einstellungen unter Sicherheit ein Single-Sign-On-Konto mit ihrem Termix-Konto verknüpfen. Wenn deaktiviert, können nur Administratoren Konten verknüpfen."
+    },
     "silentLoginDefault": {
       "label": "Automatisch mit SSO anmelden",
       "description": "Leiten Sie Besucher direkt zum ersten SSO-Anbieter weiter, anstatt das Anmeldeformular anzuzeigen. Die Umgebungsvariable OIDC_SILENT_LOGIN_DEFAULT überschreibt diese Einstellung."

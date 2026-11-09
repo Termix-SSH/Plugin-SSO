@@ -338,6 +338,7 @@ function ProviderDialog({
               hint={secretHint}
             >
               <PasswordInput
+                className="h-8 pr-8 text-xs"
                 value={fields.client_secret}
                 onChange={(e) => set("client_secret")(e.target.value)}
                 placeholder="your-client-secret"

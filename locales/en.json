@@ -62,7 +62,25 @@
     "caCert": "Custom CA Certificate",
     "caCertDesc": "Optional. PEM-encoded CA certificate for OIDC providers using a private or self-signed CA. Leave empty to use the system trust store."
   },
+  "links": {
+    "description": "Link a single sign-on account to sign in to this Termix account with it. Your hosts and settings stay as they are.",
+    "link": "Link",
+    "unlink": "Unlink",
+    "linkedBadge": "Linked",
+    "unlinkTitle": "Unlink {{name}}?",
+    "unlinkBody": "You will no longer be able to sign in with {{name}}.",
+    "linked": "Single sign-on account linked",
+    "inUse": "That single sign-on account is already linked to another Termix account",
+    "already": "This Termix account is already linked to that provider. Unlink it first.",
+    "failed": "Could not link the single sign-on account",
+    "lastLogin": "Set a password before unlinking your only sign in",
+    "turnedOff": "An admin turned off linking, ask them to link your account"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Let users link their account",
+      "description": "Users can link a single sign-on account to their Termix account in Settings, Security. Off, only admins can link accounts."
+    },
     "silentLoginDefault": {
       "label": "Sign in with SSO automatically",
       "description": "Send visitors straight to the first SSO provider instead of showing the login form. The OIDC_SILENT_LOGIN_DEFAULT environment variable overrides this."

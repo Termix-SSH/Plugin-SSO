@@ -62,7 +62,25 @@
     "caCert": "Pielāgots CA sertifikāts",
     "caCertDesc": "Neobligāts. PEM kodēts CA sertifikāts OIDC pakalpojumu sniedzējiem, kas izmanto privātu vai pašparakstītu CA. Atstājiet tukšu, lai izmantotu sistēmas uzticības krātuvi."
   },
+  "links": {
+    "description": "Sasaistiet vienas pierakstīšanās kontu, lai ar to pierakstītos šajā Termix kontā. Jūsu hosti un iestatījumi paliks nemainīgi.",
+    "link": "Sasaistīt",
+    "unlink": "Atsaistīt",
+    "linkedBadge": "Sasaistīts",
+    "unlinkTitle": "Atsaistīt {{name}}?",
+    "unlinkBody": "Vairs nevarēsiet pierakstīties, izmantojot {{name}}.",
+    "linked": "Vienas pierakstīšanās konts ir sasaistīts",
+    "inUse": "Šis vienas pierakstīšanās konts jau ir sasaistīts ar citu Termix kontu",
+    "already": "Šis Termix konts jau ir sasaistīts ar šo pakalpojumu sniedzēju. Vispirms atsaitējiet to.",
+    "failed": "Neizdevās sasaistīt vienas pierakstīšanās kontu",
+    "lastLogin": "Pirms atsaitējat savu vienīgo pierakstīšanās veidu, iestatiet paroli",
+    "turnedOff": "Administrators ir atslēdzis sasaistīšanu, lūdziet viņam sasaistīt jūsu kontu"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Ļaut lietotājiem sasaistīt savu kontu",
+      "description": "Lietotāji var sasaistīt vienas pierakstīšanās kontu ar savu Termix kontu Iestatījumos, sadaļā Drošība. Ja ir izslēgts, kontus var sasaistīt tikai administratori."
+    },
     "silentLoginDefault": {
       "label": "Automātiski pieteikties ar SSO",
       "description": "Novirzīt apmeklētājus tieši uz pirmo SSO pakalpojumu sniedzēju, nevis rādīt pieteikšanās formu. Vide mainīgais OIDC_SILENT_LOGIN_DEFAULT pārslēdz šo iestatījumu."

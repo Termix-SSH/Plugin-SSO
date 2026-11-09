@@ -62,7 +62,25 @@
     "caCert": "Certificat CA personalitzat",
     "caCertDesc": "Opcional. Certificat CA codificat en PEM per a proveïdors OIDC que utilitzen una CA privada o autofirmada. Deixa-ho buit per utilitzar el magatzem de confiança del sistema."
   },
+  "links": {
+    "description": "Vincula un compte d'inici de sessió únic per iniciar sessió en aquest compte de Termix. Els teus amfitrions i la configuració es mantindran iguals.",
+    "link": "Vincula",
+    "unlink": "Desvincula",
+    "linkedBadge": "Vinculat",
+    "unlinkTitle": "Vols desvincular {{name}}?",
+    "unlinkBody": "Ja no podràs iniciar sessió amb {{name}}.",
+    "linked": "Compte d'inici de sessió únic vinculat",
+    "inUse": "Aquest compte d'inici de sessió únic ja està vinculat a un altre compte de Termix",
+    "already": "Aquest compte de Termix ja està vinculat a aquest proveïdor. Desvincula'l primer.",
+    "failed": "No s'ha pogut vincular el compte d'inici de sessió únic",
+    "lastLogin": "Estableix una contrasenya abans de desvincular l'únic mètode d'inici de sessió",
+    "turnedOff": "Un administrador ha desactivat la vinculació, demana-li que vinculi el teu compte"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Permet als usuaris vincular el seu compte",
+      "description": "Els usuaris poden vincular un compte d'inici de sessió únic al seu compte de Termix a Configuració, Seguretat. Si està desactivat, només els administradors poden vincular comptes."
+    },
     "silentLoginDefault": {
       "label": "Inicia sessió amb SSO automàticament",
       "description": "Envia els visitants directament al primer proveïdor SSO en lloc de mostrar el formulari d'inici de sessió. La variable d'entorn OIDC_SILENT_LOGIN_DEFAULT anul·la aquesta configuració."

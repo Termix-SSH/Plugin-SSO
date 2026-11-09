@@ -62,7 +62,25 @@
     "caCert": "Aangepaste CA-sertifikaat",
     "caCertDesc": "Opsioneel. PEM-gekodeerde CA-sertifikaat vir OIDC-lewerders wat 'n privaat of self-ondertekende CA gebruik. Laat leeg om die stelsel se vertrouensberging te gebruik."
   },
+  "links": {
+    "description": "Koppel 'n enkelteken-in-rekening om met daardie rekening by hierdie Termix-rekening aan te meld. Jou gasheerbedieners en instellings bly soos hulle is.",
+    "link": "Koppel",
+    "unlink": "Ontkoppel",
+    "linkedBadge": "Gekoppel",
+    "unlinkTitle": "Ontkoppel {{name}}?",
+    "unlinkBody": "Jy sal nie meer met {{name}} kan aanmeld nie.",
+    "linked": "Enkelteken-in-rekening gekoppel",
+    "inUse": "Daardie enkelteken-in-rekening is reeds aan 'n ander Termix-rekening gekoppel",
+    "already": "Hierdie Termix-rekening is reeds aan daardie verskaffer gekoppel. Ontkoppel dit eers.",
+    "failed": "Kon nie die enkelteken-in-rekening koppel nie",
+    "lastLogin": "Stel 'n wagwoord voor jy jou enigste aanmelding ontkoppel",
+    "turnedOff": "'n Bestuurder het koppeling afgeskakel, vra hulle om jou rekening te koppel"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Laat gebruikers hul rekening koppel",
+      "description": "Gebruikers kan 'n enkelteken-in-rekening aan hul Termix-rekening koppel in Instellings, Sekuriteit. Af, slegs bestuurders kan rekeninge koppel."
+    },
     "silentLoginDefault": {
       "label": "Teken outomaties aan met SSO",
       "description": "Stuur besoekers direk na die eerste SSO-lewerder in plaas daarvan om die aanmeldformulier te wys. Die OIDC_SILENT_LOGIN_DEFAULT-omgewingsveranderlike oorskryf dit."

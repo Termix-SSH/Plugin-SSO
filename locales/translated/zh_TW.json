@@ -62,7 +62,25 @@
     "caCert": "自訂 CA 憑證",
     "caCertDesc": "選填。用於使用私人或自簽 CA 的 OIDC 提供者之 PEM 編碼 CA 憑證。留空表示使用系統信任儲存區。"
   },
+  "links": {
+    "description": "將單一登入帳戶連結至此 Termix 帳戶，以便使用該帳戶登入。您的主機與設定將維持不變。",
+    "link": "連結",
+    "unlink": "解除連結",
+    "linkedBadge": "已連結",
+    "unlinkTitle": "要解除連結 {{name}} 嗎？",
+    "unlinkBody": "您將無法再使用 {{name}} 登入。",
+    "linked": "單一登入帳戶已連結",
+    "inUse": "該單一登入帳戶已連結至另一個 Termix 帳戶",
+    "already": "此 Termix 帳戶已連結至該提供者。請先解除連結。",
+    "failed": "無法連結單一登入帳戶",
+    "lastLogin": "在解除連結您唯一的登入方式前，請先設定密碼",
+    "turnedOff": "管理員已關閉連結功能，請要求他們協助連結您的帳戶"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "允許使用者連結其帳戶",
+      "description": "使用者可在「設定」>「安全性」中，將單一登入帳戶連結至其 Termix 帳戶。若關閉此選項，僅管理員可連結帳戶。"
+    },
     "silentLoginDefault": {
       "label": "自動使用 SSO 登入",
       "description": "直接將訪客導向第一個 SSO 提供者，而非顯示登入表單。OIDC_SILENT_LOGIN_DEFAULT 環境變數會覆寫此設定。"

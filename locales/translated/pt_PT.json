@@ -62,7 +62,25 @@
     "caCert": "Certificado CA Personalizado",
     "caCertDesc": "Opcional. Certificado CA codificado em PEM para provedores OIDC que usam uma CA privada ou auto-assinada. Deixe vazio para usar o repositório de confiança do sistema."
   },
+  "links": {
+    "description": "Ligue uma conta de início de sessão único para entrar nesta conta Termix. Os seus hosts e definições mantêm-se inalterados.",
+    "link": "Ligar",
+    "unlink": "Desligar",
+    "linkedBadge": "Ligado",
+    "unlinkTitle": "Desligar {{name}}?",
+    "unlinkBody": "Já não poderá iniciar sessão com {{name}}.",
+    "linked": "Conta de início de sessão único ligada",
+    "inUse": "Essa conta de início de sessão único já está ligada a outra conta Termix",
+    "already": "Esta conta Termix já está ligada a esse fornecedor. Desligue-a primeiro.",
+    "failed": "Não foi possível ligar a conta de início de sessão único",
+    "lastLogin": "Defina uma palavra-passe antes de desligar a sua única forma de início de sessão",
+    "turnedOff": "Um administrador desativou a ligação. Peça-lhe para ligar a sua conta"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Permitir que os utilizadores liguem a sua conta",
+      "description": "Os utilizadores podem ligar uma conta de início de sessão único à sua conta Termix em Definições, Segurança. Se desativado, apenas os administradores podem ligar contas."
+    },
     "silentLoginDefault": {
       "label": "Iniciar sessão com SSO automaticamente",
       "description": "Enviar visitantes diretamente para o primeiro provedor SSO em vez de mostrar o formulário de login. A variável de ambiente OIDC_SILENT_LOGIN_DEFAULT substitui esta definição."

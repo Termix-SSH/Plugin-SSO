@@ -62,7 +62,25 @@
     "caCert": "Niestandardowy certyfikat CA",
     "caCertDesc": "Opcjonalnie. Certyfikat CA zakodowany w formacie PEM dla dostawców OIDC używających prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufania."
   },
+  "links": {
+    "description": "Połącz konto logowania jednokrotnego (SSO), aby móc się logować do tego konta Termix. Twoi hostowie i ustawienia pozostaną bez zmian.",
+    "link": "Połącz",
+    "unlink": "Odłącz",
+    "linkedBadge": "Połączono",
+    "unlinkTitle": "Odłączyć {{name}}?",
+    "unlinkBody": "Nie będziesz mógł się już logować za pomocą {{name}}.",
+    "linked": "Połączono konto logowania jednokrotnego (SSO)",
+    "inUse": "To konto logowania jednokrotnego (SSO) jest już połączone z innym kontem Termix",
+    "already": "To konto Termix jest już połączone z tym dostawcą. Najpierw je odłącz.",
+    "failed": "Nie udało się połączyć konta logowania jednokrotnego (SSO)",
+    "lastLogin": "Ustaw hasło przed odłączeniem jedynego sposobu logowania",
+    "turnedOff": "Administrator wyłączył możliwość łączenia kont. Poproś go o połączenie Twojego konta"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Zezwól użytkownikom na łączenie ich kont",
+      "description": "Użytkownicy mogą połączyć konto logowania jednokrotnego (SSO) ze swoim kontem Termix w Ustawieniach, Bezpieczeństwo. Jeśli wyłączone, tylko administratorzy mogą łączyć konta."
+    },
     "silentLoginDefault": {
       "label": "Automatyczne logowanie przez SSO",
       "description": "Przekieruj odwiedzających bezpośrednio do pierwszego dostawcy SSO zamiast wyświetlać formularz logowania. Zmienna środowiskowa OIDC_SILENT_LOGIN_DEFAULT nadpisuje tę ustawienie."

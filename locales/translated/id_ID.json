@@ -62,7 +62,25 @@
     "caCert": "Sertifikat CA Kustom",
     "caCertDesc": "Opsional. Sertifikat CA yang dikodekan PEM untuk penyedia OIDC yang menggunakan CA pribadi atau self-signed. Kosongkan untuk menggunakan penyimpanan kepercayaan sistem."
   },
+  "links": {
+    "description": "Hubungkan akun single sign-on untuk masuk ke akun Termix ini. Host dan pengaturan Anda tetap seperti semula.",
+    "link": "Hubungkan",
+    "unlink": "Putuskan",
+    "linkedBadge": "Terhubung",
+    "unlinkTitle": "Putuskan {{name}}?",
+    "unlinkBody": "Anda tidak akan dapat masuk menggunakan {{name}} lagi.",
+    "linked": "Akun single sign-on terhubung",
+    "inUse": "Akun single sign-on tersebut sudah terhubung ke akun Termix lain",
+    "already": "Akun Termix ini sudah terhubung ke penyedia tersebut. Putuskan hubungannya terlebih dahulu.",
+    "failed": "Gagal menghubungkan akun single sign-on",
+    "lastLogin": "Atur kata sandi sebelum memutuskan satu-satunya metode masuk Anda",
+    "turnedOff": "Admin menonaktifkan penghubungan, minta mereka untuk menghubungkan akun Anda"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Izinkan pengguna menghubungkan akun mereka",
+      "description": "Pengguna dapat menghubungkan akun single sign-on ke akun Termix mereka di Pengaturan, Keamanan. Jika dimatikan, hanya admin yang dapat menghubungkan akun."
+    },
     "silentLoginDefault": {
       "label": "Masuk dengan SSO secara otomatis",
       "description": "Langsung arahkan pengunjung ke penyedia SSO pertama alih-alih menampilkan formulir login. Variabel lingkungan OIDC_SILENT_LOGIN_DEFAULT akan menimpa pengaturan ini."

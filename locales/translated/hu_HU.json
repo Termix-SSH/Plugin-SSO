@@ -62,7 +62,25 @@
     "caCert": "Egyéni CA tanúsítvány",
     "caCertDesc": "Opcionális. PEM-kódolású CA tanúsítvány olyan OIDC szolgáltatókhoz, amelyek privát vagy önállóan aláírt CA-t használnak. Hagyja üresen a rendszer megbízhatósági tárolójának használatához."
   },
+  "links": {
+    "description": "Csatlakoztasson egy egységes bejelentkezési fiókot, hogy ezzel tudjon bejelentkezni ebbe a Termix-fiókba. A gazdagépei és beállításai változatlanok maradnak.",
+    "link": "Csatlakoztatás",
+    "unlink": "Leválasztás",
+    "linkedBadge": "Csatlakoztatva",
+    "unlinkTitle": "Leválasztja a(z) {{name}} fiókot?",
+    "unlinkBody": "Ezentúl nem tud bejelentkezni a(z) {{name}} fiókkal.",
+    "linked": "Egységes bejelentkezési fiók csatlakoztatva",
+    "inUse": "Ez az egységes bejelentkezési fiók már egy másik Termix-fiókhoz van csatlakoztatva",
+    "already": "Ez a Termix-fiók már csatlakoztatva van ehhez a szolgáltatóhoz. Először válassza le.",
+    "failed": "Nem sikerült csatlakoztatni az egységes bejelentkezési fiókot",
+    "lastLogin": "Állítson be jelszót, mielőtt leválasztaná az egyetlen bejelentkezési módját",
+    "turnedOff": "Egy rendszergazda letiltotta a csatlakoztatást, kérje meg, hogy csatlakoztassa a fiókját"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Fiókcsatlakoztatás engedélyezése a felhasználóknak",
+      "description": "A felhasználók a Beállítások > Biztonság menüpontban csatlakoztathatnak egy egységes bejelentkezési fiókot a Termix-fiókjukhoz. Ha ki van kapcsolva, csak a rendszergazdák csatlakoztathatnak fiókokat."
+    },
     "silentLoginDefault": {
       "label": "Automatikus bejelentkezés SSO-val",
       "description": "A látogatók közvetlenül az első SSO szolgáltatóhoz irányítása a belépési űrlap megjelenítése helyett. Az OIDC_SILENT_LOGIN_DEFAULT környezeti változó felülírja ezt."

@@ -62,7 +62,25 @@
     "caCert": "Prilagojeno CA potrdilo",
     "caCertDesc": "Neobvezno. PEM-kodirano CA potrdilo za ponudnike OIDC, ki uporabljajo zasebno ali samopodpisano CA. Pustite prazno, da uporabite sistemsko zaupno shrambo."
   },
+  "links": {
+    "description": "Povežite račun za enotno prijavo, da se s tem prijavite v ta Termix račun. Vaši gostitelji in nastavitve ostanejo nespremenjeni.",
+    "link": "Poveži",
+    "unlink": "Prekini povezavo",
+    "linkedBadge": "Povezano",
+    "unlinkTitle": "Prekiniti povezavo z računom {{name}}?",
+    "unlinkBody": "Ne boste se več mogli prijaviti z računom {{name}}.",
+    "linked": "Račun za enotno prijavo je povezan",
+    "inUse": "Ta račun za enotno prijavo je že povezan z drugim Termix računom",
+    "already": "Ta Termix račun je že povezan s tem ponudnikom. Najprej prekinite povezavo.",
+    "failed": "Povezave računa za enotno prijavo ni bilo mogoče vzpostaviti",
+    "lastLogin": "Pred prekinitvijo povezave z edino metodo prijave nastavite geslo",
+    "turnedOff": "Upravitelj je onemogočil povezovanje, prosite ga, da poveže vaš račun"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Dovoli uporabnikom povezovanje računa",
+      "description": "Uporabniki lahko v Nastavitvah, varnost povežejo račun za enotno prijavo s svojim Termix računom. Če je izklopljeno, lahko račune povezujejo le upravitelji."
+    },
     "silentLoginDefault": {
       "label": "Samodejna prijava z SSO",
       "description": "Obiskovalce neposredno pošljite k prvemu ponudniku SSO namesto prikaza obrazca za prijavo. Spremenljivka okolja OIDC_SILENT_LOGIN_DEFAULT to nadpiše."

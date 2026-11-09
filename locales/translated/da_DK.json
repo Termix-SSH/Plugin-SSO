@@ -62,7 +62,25 @@
     "caCert": "Tilpasset CA-certifikat",
     "caCertDesc": "Valgfrit. PEM-kodet CA-certifikat til OIDC-leverandører, der bruger en privat eller selvsigneret CA. Lad være tomt for at bruge systemets tillidslager."
   },
+  "links": {
+    "description": "Kob en single sign-on-konto til for at logge ind på denne Termix-konto med den. Dine værter og indstillinger forbliver uændrede.",
+    "link": "Kob til",
+    "unlink": "Fjern kobling",
+    "linkedBadge": "Koblet",
+    "unlinkTitle": "Fjern kobling til {{name}}?",
+    "unlinkBody": "Du kan ikke længere logge ind med {{name}}.",
+    "linked": "Single sign-on-konto koblet",
+    "inUse": "Denne single sign-on-konto er allerede koblet til en anden Termix-konto",
+    "already": "Denne Termix-konto er allerede koblet til denne udbyder. Fjern koblingen først.",
+    "failed": "Kunne ikke koble single sign-on-kontoen til",
+    "lastLogin": "Indstil en adgangskode, før du fjerner koblingen til din eneste loginmetode",
+    "turnedOff": "En administrator har deaktiveret kobling. Bed dem om at koble din konto til."
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Tillad brugere at koble deres konto",
+      "description": "Brugere kan koble en single sign-on-konto til deres Termix-konto i Indstillinger, Sikkerhed. Slukket kan kun administratorer koble konti."
+    },
     "silentLoginDefault": {
       "label": "Log ind med SSO automatisk",
       "description": "Send besøgende direkte til den første SSO-leverandør i stedet for at vise login-skemaet. Miljøvariablen OIDC_SILENT_LOGIN_DEFAULT tilsidesætter dette."

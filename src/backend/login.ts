@@ -32,6 +32,8 @@ import {
 import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
+/** Query parameter the app reads after a link finishes. */
+export const LINK_RESULT_PARAM = "sso_link";
 const CALLBACK_PATH = "/plugin-api/sso/callback";
 /** The redirect URI identity providers were set up with before 2.9. */
 const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
@@ -69,6 +71,8 @@ interface PendingState {
   codeVerifier: string;
   /** sha256 of the binding cookie; null for app flows, which finish elsewhere. */
   bindingHash: string | null;
+  /** Set when a signed in user links this login instead of signing in. */
+  linkUserId?: string;
   createdAt: number;
 }
 
@@ -206,6 +210,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
   async function start(
     request: PluginLoginRequest,
     instanceId: string | null,
+    options: { linkUserId?: string } = {},
   ): Promise<{ redirectUrl: string }> {
     const requested =
       instanceId ??
@@ -249,6 +254,9 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     } else if (sameBrowser) {
       ctx.log.warn("SSO login started without a response to bind it to");
     }
+    if (options.linkUserId && !bindingHash) {
+      throw new LoginMethodError("SSO linking needs a browser", 400);
+    }
 
     await saveState(state, {
       nonce,
@@ -258,6 +266,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       providerId: provider.rowId,
       codeVerifier,
       bindingHash,
+      ...(options.linkUserId ? { linkUserId: options.linkUserId } : {}),
       createdAt: Date.now(),
     });
 
@@ -305,6 +314,11 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       throw new LoginMethodError("Failed to exchange authorization code", 400);
     }
     return (await response.json()) as Record<string, unknown>;
+  }
+
+  /** The identity provider name a login method instance signs in as. */
+  function providerKeyOf(instanceId: string): string {
+    return instanceId === ENV_INSTANCE_ID ? ENV_PROVIDER_ID : instanceId;
   }
 
   function providerKey(provider: ResolvedProvider): string {
@@ -544,6 +558,89 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     };
   }
 
+  function assertSameBrowser(
+    request: PluginLoginRequest,
+    pending: PendingState,
+  ) {
+    if (!pending.bindingHash) return;
+    const binding = readCookie(request, BINDING_COOKIE);
+    const given = Buffer.from(binding ? sha256(binding) : "");
+    const expected = Buffer.from(pending.bindingHash);
+    responseOf(request)?.clearCookie(BINDING_COOKIE, {
+      path: bindingCookiePath(pending.backendCallback),
+    });
+    if (
+      given.length !== expected.length ||
+      !crypto.timingSafeEqual(given, expected)
+    ) {
+      ctx.log.warn("SSO callback came from a browser that did not start it");
+      throw new RedirectLoginError(
+        "Login was started in another browser",
+        pending.frontendOrigin,
+        400,
+      );
+    }
+  }
+
+  function identityFrom(
+    provider: ResolvedProvider,
+    code: string,
+    pending: PendingState,
+  ) {
+    // GitHub does not issue OIDC id_tokens; it has its own token exchange.
+    return provider.type === "github"
+      ? githubIdentity(provider, code, pending)
+      : oidcIdentity(provider, code, pending);
+  }
+
+  /** Whether this callback finishes a link instead of a sign in. */
+  async function isLink(state: unknown): Promise<boolean> {
+    if (!nonEmpty(state)) return false;
+    const entry = (await ctx.kv.get(`${STATE_PREFIX}${state}`)) as
+      PendingState | undefined;
+    return !!entry?.linkUserId;
+  }
+
+  /** Ties the provider's answer to the user who started it. Returns the page to go back to. */
+  async function finishLink(request: PluginLoginRequest): Promise<string> {
+    const source = { ...request.query, ...(request.body ?? {}) };
+    const { code, state } = source as Record<string, unknown>;
+    if (!nonEmpty(code) || !nonEmpty(state)) {
+      throw new LoginMethodError("Code and state are required", 400);
+    }
+    const pending = await takeState(state);
+    if (!pending?.linkUserId) {
+      throw new LoginMethodError("Invalid state parameter", 400);
+    }
+    const back = (outcome: string) => {
+      const url = new URL(pending.frontendOrigin);
+      url.searchParams.set(LINK_RESULT_PARAM, outcome);
+      return url.toString();
+    };
+    try {
+      assertSameBrowser(request, pending);
+      const provider = await store.resolve(pending.providerId);
+      if (!provider) throw new LoginMethodError("OIDC not configured", 500);
+      const identity = await identityFrom(provider, code, pending);
+      if (identity.kind !== "external") {
+        throw new LoginMethodError("Unexpected SSO identity", 500);
+      }
+      await ctx.auth.identities.link(pending.linkUserId, {
+        provider: identity.provider,
+        subject: identity.subject,
+        email: identity.email ?? null,
+      });
+      return back("linked");
+    } catch (error) {
+      const refused = (error as { code?: unknown }).code;
+      if (typeof refused === "string" && refused) return back(refused);
+      ctx.log.warn(
+        `Could not link an SSO identity: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      return back("failed");
+    }
+  }
+
   /**
    * The provider's callback. Throws RedirectLoginError once the return
    * address is known, and a plain LoginMethodError (answered as JSON) before.
@@ -558,33 +655,12 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     }
     const pending = await takeState(state);
     if (!pending) throw new LoginMethodError("Invalid state parameter", 400);
-    if (pending.bindingHash) {
-      const binding = readCookie(request, BINDING_COOKIE);
-      const given = Buffer.from(binding ? sha256(binding) : "");
-      const expected = Buffer.from(pending.bindingHash);
-      responseOf(request)?.clearCookie(BINDING_COOKIE, {
-        path: bindingCookiePath(pending.backendCallback),
-      });
-      if (
-        given.length !== expected.length ||
-        !crypto.timingSafeEqual(given, expected)
-      ) {
-        ctx.log.warn("SSO callback came from a browser that did not start it");
-        throw new RedirectLoginError(
-          "Login was started in another browser",
-          pending.frontendOrigin,
-          400,
-        );
-      }
-    }
+    assertSameBrowser(request, pending);
 
     try {
       const provider = await store.resolve(pending.providerId);
       if (!provider) throw new LoginMethodError("OIDC not configured", 500);
-      // GitHub does not issue OIDC id_tokens; it has its own token exchange.
-      return provider.type === "github"
-        ? await githubIdentity(provider, code, pending)
-        : await oidcIdentity(provider, code, pending);
+      return await identityFrom(provider, code, pending);
     } catch (error) {
       if (error instanceof LoginMethodError) {
         throw new RedirectLoginError(
@@ -606,5 +682,5 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     }
   }
 
-  return { start, callback };
+  return { start, callback, isLink, finishLink, providerKeyOf };
 }

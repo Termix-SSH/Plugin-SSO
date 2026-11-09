@@ -62,7 +62,25 @@
     "caCert": "Mukautettu CA-varmenne",
     "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluille, jotka käyttävät yksityistä tai itseallekirjoitettua CA:ta. Jätä tyhjäksi käyttääksesi järjestelmän luottamusvarastoa."
   },
+  "links": {
+    "description": "Linkaa yksittäinen kirjautumistili (SSO) tähän Termix-tiliin voidaksesi kirjautua sillä. Isäntäsi ja asetukset pysyvät ennallaan.",
+    "link": "Linkitä",
+    "unlink": "Irrota linkki",
+    "linkedBadge": "Linkitetty",
+    "unlinkTitle": "Irrotetaanko linkki tililtä {{name}}?",
+    "unlinkBody": "Et voi enää kirjautua sisään tilillä {{name}}.",
+    "linked": "Yksittäinen kirjautumistili (SSO) linkitetty",
+    "inUse": "Tämä yksittäinen kirjautumistili (SSO) on jo linkitetty toiseen Termix-tiliin",
+    "already": "Tämä Termix-tili on jo linkitetty tähän palveluntarjoajaan. Irrota linkki ensin.",
+    "failed": "Yksittäisen kirjautumistilin (SSO) linkittäminen epäonnistui",
+    "lastLogin": "Aseta salasana ennen ainoan kirjautumistapasi linkin irrottamista",
+    "turnedOff": "Ylläpitäjä on poistanut linkittämisen käytöstä. Pyydä ylläpitäjää linkittämään tilisi."
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Salli käyttäjien linkittää tilinsä",
+      "description": "Käyttäjät voivat linkittää yksittäisen kirjautumistilin (SSO) Termix-tiliinsä Asetukset > Turvallisuus -kohdasta. Jos kytketty pois päältä, vain ylläpitäjät voivat linkittää tilejä."
+    },
     "silentLoginDefault": {
       "label": "Kirjaudu sisään SSO:lla automaattisesti",
       "description": "Ohjaa vieraat suoraan ensimmäiseen SSO-palveluun sen sijaan, että näytetään kirjautumislomake. OIDC_SILENT_LOGIN_DEFAULT-ympäristömuuttuja ohittaa tämän."

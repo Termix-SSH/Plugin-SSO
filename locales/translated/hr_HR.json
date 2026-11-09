@@ -62,7 +62,25 @@
     "caCert": "Prilagođeni CA certifikat",
     "caCertDesc": "Opcionalno. PEM-kodirani CA certifikat za OIDC pružatelje koji koriste privatni ili samopotpisani CA. Ostavite prazno da biste koristili sustavski spremnik povjerenja."
   },
+  "links": {
+    "description": "Povežite račun za jedinstvenu prijavu kako biste se s njim prijavili u ovaj Termix račun. Vaši hostovi i postavke ostaju nepromijenjeni.",
+    "link": "Poveži",
+    "unlink": "Odspoji",
+    "linkedBadge": "Povezano",
+    "unlinkTitle": "Odspojiti {{name}}?",
+    "unlinkBody": "Nećete moći više se prijaviti putem {{name}}.",
+    "linked": "Račun za jedinstvenu prijavu je povezan",
+    "inUse": "Taj račun za jedinstvenu prijavu već je povezan s drugim Termix računom",
+    "already": "Ovaj Termix račun već je povezan s tim pružateljem usluga. Prvo ga odspojite.",
+    "failed": "Nije moguće povezati račun za jedinstvenu prijavu",
+    "lastLogin": "Postavite lozinku prije odspajanja jedine metode prijave",
+    "turnedOff": "Administrator je onemogućio povezivanje, zatražite od njega da poveže vaš račun"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Dopusti korisnicima povezivanje računa",
+      "description": "Korisnici mogu povezati račun za jedinstvenu prijavu sa svojim Termix računom u Postavkama, Sigurnost. Ako je isključeno, samo administratori mogu povezati račune."
+    },
     "silentLoginDefault": {
       "label": "Automatska prijava putem SSO-a",
       "description": "Preusmjerite posjetitelje izravno na prvi SSO pružatelj umjesto prikazivanja obrasca za prijavu. Okolišna varijabla OIDC_SILENT_LOGIN_DEFAULT nadjačava ovo."

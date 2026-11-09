@@ -62,7 +62,25 @@
     "caCert": "Nestandartinis CA sertifikatas",
     "caCertDesc": "Neprivaloma. PEM koduotas CA sertifikatas OIDC tiekėjams, naudojantiems privačią arba savarankiškai pasirašytą CA. Palikite tuščią, kad naudotumėte sistemos patikimumo saugyklą."
   },
+  "links": {
+    "description": "Susiekite vieno prisijungimo (SSO) paskyrą, kad galėtumėte į ją prisijungti naudodami šią Termix paskyrą. Jūsų serveriai ir nustatymai liks nepakitę.",
+    "link": "Susieti",
+    "unlink": "Atsieti",
+    "linkedBadge": "Susieta",
+    "unlinkTitle": "Atsieti „{{name}}“?",
+    "unlinkBody": "Nebegalėsite prisijungti naudodami „{{name}}“.",
+    "linked": "Vieno prisijungimo paskyra susieta",
+    "inUse": "Ši vieno prisijungimo paskyra jau susieta su kita Termix paskyra",
+    "already": "Ši Termix paskyra jau susieta su šiuo tiekėju. Pirmiausia atsiekite ją.",
+    "failed": "Nepavyko susieti vieno prisijungimo paskyros",
+    "lastLogin": "Prieš atsiesdami vienintelį prisijungimo būdą, nustatykite slaptažodį",
+    "turnedOff": "Administratorius išjungė susiejimą, paprašykite jo susieti jūsų paskyrą"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Leisti vartotojams susieti savo paskyrą",
+      "description": "Vartotojai gali susieti vieno prisijungimo paskyrą su savo Termix paskyra skiltyje Nustatymai, Saugumas. Jei išjungta, paskyras gali susieti tik administratoriai."
+    },
     "silentLoginDefault": {
       "label": "Automatiškai prisijungti per SSO",
       "description": "Lankytojus nukreipti tiesiai į pirmąjį SSO tiekėją vietoj prisijungimo formos rodyti. OIDC_SILENT_LOGIN_DEFAULT aplinkos kintamasis perrašo šią parinktį."

@@ -62,7 +62,25 @@
     "caCert": "Certificado CA Personalizado",
     "caCertDesc": "Opcional. Certificado CA codificado em PEM para provedores OIDC que usam uma CA privada ou autoassinada. Deixe vazio para usar o repositório de confiança do sistema."
   },
+  "links": {
+    "description": "Vincule uma conta de login único para fazer login nesta conta do Termix. Seus hosts e configurações permanecem inalterados.",
+    "link": "Vincular",
+    "unlink": "Desvincular",
+    "linkedBadge": "Vinculado",
+    "unlinkTitle": "Desvincular {{name}}?",
+    "unlinkBody": "Você não poderá mais fazer login com {{name}}.",
+    "linked": "Conta de login único vinculada",
+    "inUse": "Essa conta de login único já está vinculada a outra conta do Termix",
+    "already": "Esta conta do Termix já está vinculada a esse provedor. Desvincule-a primeiro.",
+    "failed": "Não foi possível vincular a conta de login único",
+    "lastLogin": "Defina uma senha antes de desvincular seu único método de login",
+    "turnedOff": "Um administrador desativou o vinculação. Peça a ele para vincular sua conta"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Permitir que os usuários vinculem suas contas",
+      "description": "Os usuários podem vincular uma conta de login único à sua conta do Termix em Configurações, Segurança. Se desativado, apenas administradores podem vincular contas."
+    },
     "silentLoginDefault": {
       "label": "Entrar com SSO automaticamente",
       "description": "Encaminhe os visitantes diretamente para o primeiro provedor de SSO em vez de mostrar o formulário de login. A variável de ambiente OIDC_SILENT_LOGIN_DEFAULT substitui esta configuração."

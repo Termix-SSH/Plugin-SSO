@@ -62,7 +62,25 @@
     "caCert": "Anpassat CA-certifikat",
     "caCertDesc": "Valfritt. PEM-kodat CA-certifikat för OIDC-leverantörer som använder en privat eller självsignerad CA. Lämna tomt för att använda systemets certifikatbutik."
   },
+  "links": {
+    "description": "Koppla ett inloggningskonto för enkel inloggning så att du kan logga in på detta Termix-konto med det. Dina värdar och inställningar förblir oförändrade.",
+    "link": "Koppla",
+    "unlink": "Koppla bort",
+    "linkedBadge": "Kopplad",
+    "unlinkTitle": "Koppla bort {{name}}?",
+    "unlinkBody": "Du kan inte längre logga in med {{name}}.",
+    "linked": "Konto för enkel inloggning kopplat",
+    "inUse": "Detta konto för enkel inloggning är redan kopplat till ett annat Termix-konto",
+    "already": "Detta Termix-konto är redan kopplat till den här leverantören. Koppla bort det först.",
+    "failed": "Kunde inte koppla kontot för enkel inloggning",
+    "lastLogin": "Ställ in ett lösenord innan du kopplar bort ditt enda inloggningsalternativ",
+    "turnedOff": "En administratör har stängt av kopplingar, be dem koppla ditt konto"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Tillåt användare att koppla sitt konto",
+      "description": "Användare kan koppla ett konto för enkel inloggning till sitt Termix-konto i Inställningar, Säkerhet. Om det är avstängt kan endast administratörer koppla konton."
+    },
     "silentLoginDefault": {
       "label": "Logga in automatiskt med SSO",
       "description": "Skicka besökare direkt till den första SSO-leverantören istället för att visa inloggningsformuläret. Miljövariabeln OIDC_SILENT_LOGIN_DEFAULT åsidosätter detta."

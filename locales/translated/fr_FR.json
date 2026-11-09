@@ -62,7 +62,25 @@
     "caCert": "Certificat CA personnalisé",
     "caCertDesc": "Facultatif. Certificat CA encodé en PEM pour les fournisseurs OIDC utilisant une CA privée ou autosignée. Laissez vide pour utiliser le magasin de confiance du système."
   },
+  "links": {
+    "description": "Liez un compte d'authentification unique pour vous connecter à ce compte Termix. Vos hôtes et paramètres restent inchangés.",
+    "link": "Lier",
+    "unlink": "Dissocier",
+    "linkedBadge": "Lié",
+    "unlinkTitle": "Dissocier {{name}} ?",
+    "unlinkBody": "Vous ne pourrez plus vous connecter avec {{name}}.",
+    "linked": "Compte d'authentification unique lié",
+    "inUse": "Ce compte d'authentification unique est déjà lié à un autre compte Termix",
+    "already": "Ce compte Termix est déjà lié à ce fournisseur. Dissociez-le d'abord.",
+    "failed": "Impossible de lier le compte d'authentification unique",
+    "lastLogin": "Définissez un mot de passe avant de dissocier votre seul moyen de connexion",
+    "turnedOff": "Un administrateur a désactivé la liaison de comptes. Demandez-lui de lier votre compte."
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Autoriser les utilisateurs à lier leur compte",
+      "description": "Les utilisateurs peuvent lier un compte d'authentification unique à leur compte Termix dans Paramètres, Sécurité. Désactivé, seuls les administrateurs peuvent lier des comptes."
+    },
     "silentLoginDefault": {
       "label": "Se connecter automatiquement avec SSO",
       "description": "Rediriger les visiteurs directement vers le premier fournisseur SSO au lieu d'afficher le formulaire de connexion. La variable d'environnement OIDC_SILENT_LOGIN_DEFAULT remplace ce paramètre."

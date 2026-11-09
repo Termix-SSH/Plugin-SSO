@@ -62,7 +62,25 @@
     "caCert": "Certificat CA personalizat",
     "caCertDesc": "Opțional. Certificat CA codificat PEM pentru furnizorii OIDC care folosesc o CA privată sau autosemnată. Lăsați gol pentru a utiliza stocul de încredere al sistemului."
   },
+  "links": {
+    "description": "Asociați un cont de autentificare unică pentru a vă conecta la acest cont Termix. Gazdele și setările dvs. rămân neschimbate.",
+    "link": "Asociere",
+    "unlink": "Dezasociere",
+    "linkedBadge": "Asociat",
+    "unlinkTitle": "Doriți să dezasociați {{name}}?",
+    "unlinkBody": "Nu mai veți putea să vă autentificați cu {{name}}.",
+    "linked": "Contul de autentificare unică a fost asociat",
+    "inUse": "Acest cont de autentificare unică este deja asociat cu un alt cont Termix",
+    "already": "Acest cont Termix este deja asociat cu acest furnizor. Dezasociați-l mai întâi.",
+    "failed": "Nu s-a putut asocia contul de autentificare unică",
+    "lastLogin": "Stabiliți o parolă înainte de a dezasocia singura metodă de autentificare",
+    "turnedOff": "Un administrator a dezactivat asocierea; cereți-i să vă asocieze contul"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Permiteți utilizatorilor să își asocieze contul",
+      "description": "Utilizatorii pot asocia un cont de autentificare unică cu contul lor Termix în Setări, Securitate. Dacă este dezactivat, doar administratorii pot asocia conturi."
+    },
     "silentLoginDefault": {
       "label": "Autentificare automată prin SSO",
       "description": "Redirecționează vizitatorii direct către primul furnizor SSO, în loc să afișeze formularul de autentificare. Variabila de mediu OIDC_SILENT_LOGIN_DEFAULT anulează această setare."

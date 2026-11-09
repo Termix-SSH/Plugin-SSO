@@ -62,7 +62,25 @@
     "caCert": "Özel CA Sertifikası",
     "caCertDesc": "İsteğe bağlı. Özel veya kendi kendine imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın."
   },
+  "links": {
+    "description": "Bu Termix hesabına tek oturum açma hesabıyla giriş yapmak için onu bağlayın. Sunucularınız ve ayarlarınız olduğu gibi kalır.",
+    "link": "Bağla",
+    "unlink": "Bağlantıyı Kaldır",
+    "linkedBadge": "Bağlı",
+    "unlinkTitle": "{{name}} bağlantısı kaldırılsın mı?",
+    "unlinkBody": "{{name}} ile artık giriş yapamayacaksınız.",
+    "linked": "Tek oturum açma hesabı bağlandı",
+    "inUse": "Bu tek oturum açma hesabı zaten başka bir Termix hesabına bağlı",
+    "already": "Bu Termix hesabı zaten bu sağlayıcıya bağlı. Önce bağlantıyı kaldırın.",
+    "failed": "Tek oturum açma hesabı bağlanamadı",
+    "lastLogin": "Tek giriş yönteminizin bağlantısını kaldırmadan önce bir şifre belirleyin",
+    "turnedOff": "Bir yönetici bağlantı özelliğini kapattı, hesabınızı bağlamaları için onlardan isteyin"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Kullanıcıların hesaplarını bağlamasına izin ver",
+      "description": "Kullanıcılar, Ayarlar > Güvenlik bölümünde tek oturum açma hesabını Termix hesaplarına bağlayabilir. Kapalıyken yalnızca yöneticiler hesapları bağlayabilir."
+    },
     "silentLoginDefault": {
       "label": "SSO ile otomatik giriş yap",
       "description": "Ziyaretçileri giriş formunu göstermek yerine doğrudan ilk SSO sağlayıcısına yönlendir. OIDC_SILENT_LOGIN_DEFAULT ortam değişkeni bunu geçersiz kılar."

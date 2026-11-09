@@ -42,6 +42,12 @@ The button sends people to the provider. After they sign in, the provider sends 
 - To ask for a second factor after SSO too, turn on Ask for a second factor after external logins.
 - Use `$external.username` as a host's username to fill in the name someone signed in with.
 
+## Link an existing account
+
+Already have a Termix account? Open Settings, Security and press Link next to a provider. Sign in at the provider and you land back in Termix with that sign in tied to your account, so your hosts and settings stay. You can unlink it in the same place, unless it is your only way to sign in. A provider account can only be linked to one Termix account.
+
+Admins can turn this off with Let users link their account, or link an SSO account to a password account in the user list.
+
 ## Groups to roles
 
 Map provider groups to Termix [roles](/guide/roles) with `OIDC_ROLE_MAP`, as `group:role` pairs:

@@ -62,7 +62,25 @@
     "caCert": "Certificato CA personalizzato",
     "caCertDesc": "Opzionale. Certificato CA in formato PEM per provider OIDC che usano una CA privata o autofirmata. Lascia vuoto per usare il trust store di sistema."
   },
+  "links": {
+    "description": "Collega un account di accesso singolo per accedere a questo account Termix. I tuoi host e le impostazioni rimarranno invariati.",
+    "link": "Collega",
+    "unlink": "Scollega",
+    "linkedBadge": "Collegato",
+    "unlinkTitle": "Scollegare {{name}}?",
+    "unlinkBody": "Non potrai più accedere con {{name}}.",
+    "linked": "Account di accesso singolo collegato",
+    "inUse": "Questo account di accesso singolo è già collegato a un altro account Termix",
+    "already": "Questo account Termix è già collegato a quel provider. Scollegalo prima.",
+    "failed": "Impossibile collegare l'account di accesso singolo",
+    "lastLogin": "Imposta una password prima di scollegare l'unico metodo di accesso",
+    "turnedOff": "Un amministratore ha disabilitato il collegamento, chiedi loro di collegare il tuo account"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Consenti agli utenti di collegare il proprio account",
+      "description": "Gli utenti possono collegare un account di accesso singolo al proprio account Termix in Impostazioni, Sicurezza. Se disabilitato, solo gli amministratori possono collegare gli account."
+    },
     "silentLoginDefault": {
       "label": "Accedi automaticamente con SSO",
       "description": "Reindirizza i visitatori direttamente al primo provider SSO invece di mostrare il modulo di accesso. La variabile d'ambiente OIDC_SILENT_LOGIN_DEFAULT sovrascrive questa impostazione."

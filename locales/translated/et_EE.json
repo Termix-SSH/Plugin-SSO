@@ -62,7 +62,25 @@
     "caCert": "Kohandatud CA-sertifikaat",
     "caCertDesc": "Valikuline. PEM-kodeeritud CA-sertifikaat OIDC-pakkujatele, kes kasutavad privaatset või isesertifitseeritud CA-d. Jäta tühjaks, et kasutada süsteemi usalduskaupa."
   },
+  "links": {
+    "description": "Seosta üks sisselogimisega (SSO) konto, et saaksid sellega selle Termixi konto sisse logida. Sinu hostid ja seaded jäävad samaks.",
+    "link": "Seosta",
+    "unlink": "Eemalda seos",
+    "linkedBadge": "Seotud",
+    "unlinkTitle": "Kas eemaldada seos {{name}}?",
+    "unlinkBody": "Sa ei saa enam sisse logida kasutades {{name}}.",
+    "linked": "Üks sisselogimisega (SSO) konto on seotud",
+    "inUse": "See üks sisselogimisega (SSO) konto on juba seotud teise Termixi kontoga",
+    "already": "See Termixi konto on juba seotud selle pakujaga. Eemalda seos enne.",
+    "failed": "Ühe sisselogimisega (SSO) konto seostamine ei õnnestunud",
+    "lastLogin": "Määra parool enne ainsat sisselogimise viisi seose eemaldamist",
+    "turnedOff": "Haldur on seostamise keelanud, palu tal sinu konto seostada"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Luba kasutajatel oma konto seostada",
+      "description": "Kasutajad saavad seostada ühe sisselogimisega (SSO) konto oma Termixi kontoga Seaded, Turvalisus. Kui keelatud, saavad kontosid seostada ainult haldurid."
+    },
     "silentLoginDefault": {
       "label": "Logi SSO-ga automaatselt sisse",
       "description": "Suuna külastajad otse esimesse SSO-pakkuja juurde, mitte näita sisselogimisvormi. Keskkonnamuutuja OIDC_SILENT_LOGIN_DEFAULT ületab selle seadistuse."

@@ -62,7 +62,25 @@
     "caCert": "自定义 CA 证书",
     "caCertDesc": "可选。使用私有或自签名 CA 的 OIDC 提供商的 PEM 编码 CA 证书。留空以使用系统信任库。"
   },
+  "links": {
+    "description": "将单点登录账户关联到此 Termix 账户，以便使用该账户登录。您的主机和设置将保持不变。",
+    "link": "关联",
+    "unlink": "取消关联",
+    "linkedBadge": "已关联",
+    "unlinkTitle": "取消关联 {{name}}？",
+    "unlinkBody": "您将无法再使用 {{name}} 登录。",
+    "linked": "单点登录账户已关联",
+    "inUse": "该单点登录账户已关联到另一个 Termix 账户",
+    "already": "此 Termix 账户已关联到该提供商。请先取消关联。",
+    "failed": "无法关联单点登录账户",
+    "lastLogin": "在取消关联您唯一的登录方式之前，请先设置密码",
+    "turnedOff": "管理员已关闭关联功能，请联系他们为您关联账户"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "允许用户关联其账户",
+      "description": "用户可以在“设置”>“安全”中将单点登录账户关联到其 Termix 账户。关闭后，仅管理员可以关联账户。"
+    },
     "silentLoginDefault": {
       "label": "自动使用 SSO 登录",
       "description": "直接将访问者发送到第一个 SSO 提供商，而不是显示登录表单。OIDC_SILENT_LOGIN_DEFAULT 环境变量会覆盖此设置。"

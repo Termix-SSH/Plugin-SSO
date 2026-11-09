@@ -62,7 +62,25 @@
     "caCert": "Aangepast CA-certificaat",
     "caCertDesc": "Optioneel. PEM-gecodeerd CA-certificaat voor OIDC-aanbieders die een privé- of zelfondertekende CA gebruiken. Laat leeg om het systeemvertrouwensarchief te gebruiken."
   },
+  "links": {
+    "description": "Koppel een single sign-on-account om ermee in te loggen bij dit Termix-account. Uw hosts en instellingen blijven zoals ze zijn.",
+    "link": "Koppelen",
+    "unlink": "Ontkoppelen",
+    "linkedBadge": "Gekoppeld",
+    "unlinkTitle": "{{name}} ontkoppelen?",
+    "unlinkBody": "U kunt niet meer inloggen met {{name}}.",
+    "linked": "Single sign-on-account gekoppeld",
+    "inUse": "Dat single sign-on-account is al gekoppeld aan een ander Termix-account",
+    "already": "Dit Termix-account is al gekoppeld aan die provider. Koppel het eerst los.",
+    "failed": "Het single sign-on-account kon niet worden gekoppeld",
+    "lastLogin": "Stel een wachtwoord in voordat u uw enige inlogmethode ontkoppelt",
+    "turnedOff": "Een beheerder heeft koppelen uitgeschakeld, vraag hen om uw account te koppelen"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Gebruikers toestaan hun account te koppelen",
+      "description": "Gebruikers kunnen in Instellingen, Beveiliging een single sign-on-account koppelen aan hun Termix-account. Uit: alleen beheerders kunnen accounts koppelen."
+    },
     "silentLoginDefault": {
       "label": "Automatisch inloggen met SSO",
       "description": "Stuur bezoekers direct naar de eerste SSO-aanbieder in plaats van het inlogformulier te tonen. De omgevingsvariabele OIDC_SILENT_LOGIN_DEFAULT overschrijft deze instelling."

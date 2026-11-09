@@ -62,7 +62,25 @@
     "caCert": "Vlastní certifikát CA",
     "caCertDesc": "Volitelné. Certifikát CA v kódování PEM pro poskytovatele OIDC používající soukromou nebo self-signed CA. Nechte prázdné pro použití systémového úložiště důvěryhodných certifikátů."
   },
+  "links": {
+    "description": "Propojte účet pro jednotné přihlašování, abyste se mohli do tohoto účtu Termix přihlašovat pomocí něj. Vaše hostitelé a nastavení zůstanou nezměněny.",
+    "link": "Propojit",
+    "unlink": "Odpojit",
+    "linkedBadge": "Propojeno",
+    "unlinkTitle": "Odpojit {{name}}?",
+    "unlinkBody": "Přihlašování pomocí {{name}} již nebude možné.",
+    "linked": "Účet pro jednotné přihlašování byl propojen",
+    "inUse": "Tento účet pro jednotné přihlašování je již propojen s jiným účtem Termix",
+    "already": "Tento účet Termix je již propojen s tímto poskytovatelem. Nejprve jej odpojte.",
+    "failed": "Nelze propojit účet pro jednotné přihlašování",
+    "lastLogin": "Před odpojením jediného způsobu přihlašování si nastavte heslo",
+    "turnedOff": "Správce vypnul propojování, požádejte jej, aby propojil váš účet"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Umožnit uživatelům propojit jejich účet",
+      "description": "Uživatelé mohou v Nastavení > Bezpečnost propojit účet pro jednotné přihlašování se svým účtem Termix. Pokud je vypnuto, mohou účty propojovat pouze správci."
+    },
     "silentLoginDefault": {
       "label": "Automaticky se přihlásit pomocí SSO",
       "description": "Přesměrovat návštěvníky přímo na prvního poskytovatele SSO místo zobrazení přihlašovacího formuláře. Proměnná prostředí OIDC_SILENT_LOGIN_DEFAULT toto nastavení přepíše."

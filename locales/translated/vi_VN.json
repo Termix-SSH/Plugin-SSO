@@ -62,7 +62,25 @@
     "caCert": "Chứng chỉ CA tùy chỉnh",
     "caCertDesc": "Tùy chọn. Chứng chỉ CA mã hóa PEM cho nhà cung cấp OIDC sử dụng CA riêng hoặc tự ký. Để trống để sử dụng kho tin cậy hệ thống."
   },
+  "links": {
+    "description": "Liên kết tài khoản đăng nhập một lần (SSO) để đăng nhập vào tài khoản Termix này bằng tài khoản đó. Các máy chủ và cài đặt của bạn sẽ không thay đổi.",
+    "link": "Liên kết",
+    "unlink": "Hủy liên kết",
+    "linkedBadge": "Đã liên kết",
+    "unlinkTitle": "Hủy liên kết {{name}}?",
+    "unlinkBody": "Bạn sẽ không thể đăng nhập bằng {{name}} nữa.",
+    "linked": "Tài khoản đăng nhập một lần đã được liên kết",
+    "inUse": "Tài khoản đăng nhập một lần đó đã được liên kết với một tài khoản Termix khác",
+    "already": "Tài khoản Termix này đã được liên kết với nhà cung cấp đó. Vui lòng hủy liên kết trước.",
+    "failed": "Không thể liên kết tài khoản đăng nhập một lần",
+    "lastLogin": "Đặt mật khẩu trước khi hủy liên kết phương thức đăng nhập duy nhất của bạn",
+    "turnedOff": "Quản trị viên đã tắt tính năng liên kết, hãy yêu cầu họ liên kết tài khoản của bạn"
+  },
   "settings": {
+    "allowSelfLink": {
+      "label": "Cho phép người dùng liên kết tài khoản",
+      "description": "Người dùng có thể liên kết tài khoản đăng nhập một lần với tài khoản Termix của họ trong Cài đặt, Bảo mật. Nếu tắt, chỉ quản trị viên mới có thể liên kết tài khoản."
+    },
     "silentLoginDefault": {
       "label": "Tự động đăng nhập bằng SSO",
       "description": "Chuyển người dùng trực tiếp đến nhà cung cấp SSO đầu tiên thay vì hiển thị biểu mẫu đăng nhập. Biến môi trường OIDC_SILENT_LOGIN_DEFAULT sẽ ghi đè cài đặt này."
