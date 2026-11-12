@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Termix-SSH/Termix/main/scripts/authz/authz.schema.json",
+  "seed": [],
+  "routes": {
+    "POST /plugin-api/sso/backchannel-logout": {
+      "access": "public",
+      "destructive": true
+    },
+    "GET /plugin-api/sso/callback": {
+      "access": "public"
+    },
+    "POST /plugin-api/sso/callback": {
+      "access": "public"
+    },
+    "GET /plugin-api/sso/config": {
+      "access": "public"
+    },
+    "GET /plugin-api/sso/links": {
+      "access": "user"
+    },
+    "DELETE /plugin-api/sso/links/:provider": {
+      "access": "user",
+      "resource": {
+        "kind": "own",
+        "fixture": "sso.links"
+      },
+      "params": {
+        "provider": "=authz-none"
+      },
+      "destructive": true,
+      "allowed": "any",
+      "note": "Removes only the caller own link",
+      "filtered": true
+    },
+    "POST /plugin-api/sso/links/start": {
+      "access": "user",
+      "destructive": true
+    },
+    "GET /plugin-api/sso/providers": {
+      "access": "user",
+      "permission": "sso.manage"
+    },
+    "POST /plugin-api/sso/providers": {
+      "access": "user"
+    },
+    "DELETE /plugin-api/sso/providers/:id": {
+      "access": "user",
+      "destructive": true
+    },
+    "PUT /plugin-api/sso/providers/:id": {
+      "access": "user"
+    },
+    "GET /plugin-api/sso/start": {
+      "access": "public"
+    }
+  }
+}
