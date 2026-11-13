@@ -45,7 +45,7 @@ async function beginLogin(s: TestServer, query = "provider=3") {
   });
   expect(started.status).toBe(302);
   const cookie = started.setCookie.find((c) =>
-    c.startsWith("termix_sso_binding="),
+    c.startsWith("tmxp_sso_binding="),
   );
   if (cookie) bindingCookies.set(s, cookie.split(";")[0]);
   return new URL(started.location!);
@@ -299,7 +299,7 @@ describe("the login method", () => {
       headers: { referer: "https://termix.test/login" },
     });
     const cookie = started.setCookie.find((c) =>
-      c.startsWith("termix_sso_binding="),
+      c.startsWith("tmxp_sso_binding="),
     );
     expect(cookie).toContain("Path=/plugin-api/sso/callback");
   });
@@ -450,7 +450,7 @@ describe("the callback", () => {
     const elsewhere = await s.request(
       "GET",
       `/callback?code=abc&state=${state}`,
-      { headers: { cookie: "termix_sso_binding=someone-else" } },
+      { headers: { cookie: "tmxp_sso_binding=someone-else" } },
     );
     expect(elsewhere.status).toBe(302);
     expect(elsewhere.location).toMatch(/\?error=/);

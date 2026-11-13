@@ -13,7 +13,6 @@ import {
 } from "@termix-ssh/plugin-sdk/backend";
 import {
   OIDCTokenFormatError,
-  buildFetchOptions,
   fetchWithOptions,
   extractOidcGroupsFromSources,
   generatePkceCodeChallenge,
@@ -21,6 +20,7 @@ import {
   getDesktopCallbackUrl,
   getNestedValue,
   parseOidcRoleMap,
+  providerFetchOptions,
   resolveOidcMappedRoles,
   verifyOIDCToken,
 } from "./oidc-protocol.js";
@@ -41,7 +41,7 @@ const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
 /** Ties a web login's state to the browser that started it. */
-export const BINDING_COOKIE = "termix_sso_binding";
+export const BINDING_COOKIE = "tmxp_sso_binding";
 
 /** The express response behind a request, when core passed the real one. */
 interface CookieResponse {
@@ -304,7 +304,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         redirect_uri: pending.backendCallback,
         code_verifier: pending.codeVerifier,
       }),
-      ...buildFetchOptions(config.ca_cert),
+      ...providerFetchOptions(config),
     });
     if (!response.ok) {
       ctx.log.error(
@@ -331,7 +331,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     pending: PendingState,
   ): Promise<PluginVerifiedIdentity> {
     const tokenData = await exchangeCode(provider.config, code, pending);
-    const fetchOptions = buildFetchOptions(provider.config.ca_cert);
+    const fetchOptions = providerFetchOptions(provider.config);
     const headers = {
       Authorization: `Bearer ${tokenData.access_token}`,
       Accept: "application/json",
@@ -387,7 +387,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     userInfo: Record<string, unknown> | null,
     claimSources: Record<string, unknown>[],
   ): Promise<Record<string, unknown> | null> {
-    const fetchOptions = buildFetchOptions(config.ca_cert);
+    const fetchOptions = providerFetchOptions(config);
     const issuer = config.issuer_url.endsWith("/")
       ? config.issuer_url.slice(0, -1)
       : config.issuer_url;

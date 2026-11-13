@@ -1,7 +1,10 @@
 import http from "node:http";
 import type { AddressInfo } from "node:net";
 import { fileURLToPath } from "node:url";
-import express, { type Router } from "express";
+import express, {
+  type Response as ExpressResponse,
+  type Router,
+} from "express";
 import { vi } from "vitest";
 import {
   createMockCtx,
@@ -9,6 +12,7 @@ import {
   type MockPluginContext,
   type TestDb,
 } from "@termix-ssh/plugin-sdk/testing";
+import { PluginCapabilityError } from "@termix-ssh/plugin-sdk/backend";
 import type { PluginManifest } from "@termix-ssh/plugin-sdk/manifest";
 import manifestJson from "../../manifest.json";
 
@@ -72,17 +76,78 @@ export async function startServer(
     .run("admin", "admin");
 
   let router: Router | null = null;
+  const capabilities = options.capabilities ?? manifest.capabilities;
   const mock = createMockCtx({
+    sandbox: true,
     pluginId: manifest.id,
     manifest,
-    capabilities: options.capabilities ?? manifest.capabilities,
+    capabilities,
     db: db.database,
+    // ctx.fetch goes to the global fetch, which stubIdp replaces.
+    fetch: (url, init) => globalThis.fetch(url, init as RequestInit),
     router: () => (router = express.Router()),
     permissions: options.permissions,
     linkedUsers: options.linkedUsers,
     baseUrl: "https://termix.test",
     settings: options.settings,
   });
+  // SDK 2.2.1's sandbox mock still refuses login methods and
+  // completeRedirectLogin; 2.2.2 takes them. Drop this once the lock moves
+  // to 2.2.2.
+  const auth = mock.ctx.auth as unknown as Record<string, unknown>;
+  const registerLogin = auth.registerLoginMethod as (method: unknown) => void;
+  auth.registerLoginMethod = (method: never) => {
+    try {
+      registerLogin(method);
+    } catch (error) {
+      if ((error as { code?: string }).code !== "SANDBOX_UNSUPPORTED") {
+        throw error;
+      }
+      if (!capabilities.includes("auth:provide")) {
+        throw new PluginCapabilityError(manifest.id, "auth:provide");
+      }
+      mock.auth.loginMethods.push(method);
+    }
+  };
+  const complete = auth.completeRedirectLogin as (
+    ...args: unknown[]
+  ) => Promise<void>;
+  auth.completeRedirectLogin = async (
+    methodId: string,
+    req: never,
+    res: ExpressResponse,
+  ) => {
+    try {
+      return await complete(methodId, req, res);
+    } catch (error) {
+      if ((error as { code?: string }).code !== "SANDBOX_UNSUPPORTED") {
+        throw error;
+      }
+    }
+    // What the 2.2.2 fake does: the identity as JSON, or a redirect back
+    // with the error.
+    const method = mock.auth.loginMethods.find((m) => m.id === methodId);
+    try {
+      const identity = await method!.callback!(req);
+      mock.auth.completedLogins.push({ methodId, identity });
+      res.status(200).json({ completed: methodId, identity });
+    } catch (error) {
+      const returnTo = (error as { returnTo?: string }).returnTo;
+      const message = (error as Error).message;
+      if (returnTo) {
+        const url = new URL(returnTo);
+        url.searchParams.set(
+          "error",
+          (error as { code?: string }).code ?? message,
+        );
+        res.redirect(url.toString());
+        return;
+      }
+      res.status((error as { status?: number }).status ?? 500).json({
+        error: message,
+      });
+    }
+  };
 
   const { activate } = await import("../../src/backend/index.js");
   await activate(mock.ctx);

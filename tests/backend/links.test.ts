@@ -35,7 +35,7 @@ async function begin(s: TestServer, provider: string, user = "admin") {
     body: { provider },
   });
   const cookie = started.setCookie
-    .find((value) => value.startsWith("termix_sso_binding="))
+    .find((value) => value.startsWith("tmxp_sso_binding="))
     ?.split(";")[0];
   return { started, cookie, url: new URL(started.body.redirectUrl) };
 }

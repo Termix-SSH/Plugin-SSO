@@ -5,8 +5,7 @@
  */
 
 import crypto from "node:crypto";
-import http from "node:http";
-import https from "node:https";
+import type { PluginFetch } from "@termix-ssh/plugin-sdk/backend";
 import type { OidcConfig } from "./types.js";
 
 const BACKCHANNEL_LOGOUT_EVENT =
@@ -30,74 +29,80 @@ export function normalizeIssuer(url: string): string {
     .replace(/\/\.well-known\/openid-configuration$/, "");
 }
 
-export function buildFetchOptions(caCert?: string): Record<string, unknown> {
-  if (!caCert || !caCert.trim()) return {};
-  return { ca: caCert };
+export interface OidcFetchOptions {
+  /** A private CA the provider's certificate chains to. */
+  ca?: string;
+  /** Hosts from the admin's provider settings, which may be private. */
+  allowHosts?: string[];
+}
+
+/** Fetch options for a provider: its CA and the hosts its settings name. */
+export function buildFetchOptions(
+  caCert?: string,
+  urls: Array<string | null | undefined> = [],
+): OidcFetchOptions {
+  const allowHosts: string[] = [];
+  for (const url of urls) {
+    try {
+      if (url) allowHosts.push(new URL(url).hostname);
+    } catch {
+      // not a URL, nothing to allow
+    }
+  }
+  return {
+    ...(caCert && caCert.trim() ? { ca: caCert } : {}),
+    ...(allowHosts.length ? { allowHosts } : {}),
+  };
+}
+
+/** Fetch options from a provider's settings. */
+export function providerFetchOptions(
+  config: Pick<
+    OidcConfig,
+    | "ca_cert"
+    | "issuer_url"
+    | "authorization_url"
+    | "token_url"
+    | "userinfo_url"
+  >,
+): OidcFetchOptions {
+  return buildFetchOptions(config.ca_cert, [
+    config.issuer_url,
+    config.authorization_url,
+    config.token_url,
+    config.userinfo_url,
+  ]);
+}
+
+let outbound: PluginFetch | null = null;
+
+/** Set in activate, cleared on deactivate. */
+export function setOidcFetch(fetcher: PluginFetch | null): void {
+  outbound = fetcher;
 }
 
 /**
- * fetch that trusts the provider's own CA when `ca` is given. It uses node:https
- * for that case: a bundled undici Agent replaces the process wide fetch
- * dispatcher and breaks every other fetch with "invalid onRequestStart method".
+ * Outbound HTTP through Termix's guarded fetch. A private address is reached
+ * only when the admin's provider settings name that host, and the provider's
+ * own CA is trusted when one is set.
  */
 export async function fetchWithOptions(
   url: string,
-  init: Record<string, unknown> = {},
+  init: OidcFetchOptions & {
+    method?: string;
+    headers?: Record<string, string>;
+    body?: unknown;
+  } = {},
 ): Promise<Response> {
-  const { ca, ...rest } = init;
-  if (typeof ca !== "string" || !ca) return fetch(url, rest as RequestInit);
-
-  const target = new URL(url);
-  const body =
-    rest.body === undefined || rest.body === null
-      ? undefined
-      : String(rest.body);
-  const headers: Record<string, string> = {
-    ...(rest.headers as Record<string, string> | undefined),
-  };
-  if (
-    body !== undefined &&
-    !Object.keys(headers).some((h) => h.toLowerCase() === "content-length")
-  ) {
-    headers["Content-Length"] = String(Buffer.byteLength(body));
-  }
-  const client = target.protocol === "http:" ? http : https;
-  return new Promise<Response>((resolve, reject) => {
-    const request = client.request(
-      target,
-      { method: (rest.method as string) ?? "GET", headers, ca },
-      (res) => {
-        const chunks: Buffer[] = [];
-        res.on("data", (chunk: Buffer) => chunks.push(chunk));
-        res.on("error", reject);
-        res.on("end", () => {
-          const responseHeaders = new Headers();
-          for (const [name, value] of Object.entries(res.headers)) {
-            if (Array.isArray(value)) {
-              for (const v of value) responseHeaders.append(name, v);
-            } else if (value !== undefined) {
-              responseHeaders.set(name, value);
-            }
-          }
-          const status = res.statusCode ?? 502;
-          const noBody = status === 204 || status === 205 || status === 304;
-          resolve(
-            new Response(noBody ? null : Buffer.concat(chunks), {
-              status,
-              headers: responseHeaders,
-            }),
-          );
-        });
-      },
-    );
-    request.setTimeout(30_000, () =>
-      request.destroy(new Error("Request timed out")),
-    );
-    request.on("error", (error) =>
-      reject(new TypeError("fetch failed", { cause: error })),
-    );
-    if (body !== undefined) request.write(body);
-    request.end();
+  if (!outbound) throw new Error("The SSO plugin is not active");
+  const { ca, allowHosts, body, method, headers } = init;
+  const host = new URL(url).hostname;
+  return outbound(url, {
+    method: method ?? "GET",
+    ...(headers ? { headers } : {}),
+    ...(body === undefined || body === null ? {} : { body: String(body) }),
+    ...(ca ? { tls: { ca } } : {}),
+    ...(allowHosts?.includes(host) ? { allowPrivateHosts: [host] } : {}),
   });
 }
 
@@ -255,7 +260,7 @@ export async function verifyOIDCToken(
     );
   }
 
-  const fetchOptions = buildFetchOptions(caCert);
+  const fetchOptions = buildFetchOptions(caCert, [issuerUrl]);
   const configuredIssuerUrl = issuerUrl.trim().replace(/\/+$/, "");
   const normalizedIssuerUrl = normalizeIssuer(issuerUrl);
   const possibleIssuers = [

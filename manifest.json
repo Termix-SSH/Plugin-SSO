@@ -1,7 +1,7 @@
 {
   "id": "sso",
   "name": "Single sign-on",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Sign in with any OpenID Connect provider, GitHub or Google.",
   "author": {
     "name": "Termix"
@@ -92,8 +92,8 @@
     }
   ],
   "engine": {
-    "termix": ">=26.11.1-0",
-    "api": "^1.16"
+    "termix": ">=26.11.2-0",
+    "api": "^2.0.0"
   },
   "capabilities": [
     "db:own",
@@ -101,7 +101,8 @@
     "secrets:own",
     "network:serve",
     "auth:provide",
-    "ui:surface"
+    "ui:surface",
+    "network:outbound"
   ],
   "contributes": {
     "auth": {
