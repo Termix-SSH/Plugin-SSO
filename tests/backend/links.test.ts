@@ -29,15 +29,22 @@ async function startWithProvider() {
   return { s, providerId: String(created.body.id) };
 }
 
+/** The settings screen asks for a link address; the person opens it in a tab. */
 async function begin(s: TestServer, provider: string, user = "admin") {
   const started = await s.request("POST", "/links/start", {
     user,
     body: { provider },
   });
-  const cookie = started.setCookie
+  const token = String(started.body.redirectUrl).split("/links/go/")[1];
+  const go = await s.request("GET", `/links/go/${token}`, { user });
+  const cookie = go.setCookie
     .find((value) => value.startsWith("tmxp_sso_binding="))
     ?.split(";")[0];
-  return { started, cookie, url: new URL(started.body.redirectUrl) };
+  return { started, go, token, cookie, url: new URL(go.location!) };
+}
+
+async function result(s: TestServer, user = "admin") {
+  return (await s.request("GET", "/links", { user })).body.result;
 }
 
 describe("linking an SSO account", () => {
@@ -55,7 +62,10 @@ describe("linking an SSO account", () => {
     );
 
     expect(done.status).toBe(302);
-    expect(new URL(done.location!).searchParams.get("sso_link")).toBe("linked");
+    expect(new URL(done.location!).search).toBe("");
+    expect(await result(s)).toBe("linked");
+    // Reported once.
+    expect(await result(s)).toBeUndefined();
     expect(s.mock.auth.identities).toEqual([
       expect.objectContaining({
         userId: "admin",
@@ -85,7 +95,8 @@ describe("linking an SSO account", () => {
       { user: "" },
     );
 
-    expect(new URL(done.location!).searchParams.get("sso_link")).toBe("failed");
+    expect(done.status).toBe(302);
+    expect(await result(s)).toBe("failed");
     expect(s.mock.auth.identities).toEqual([]);
   });
 
@@ -107,10 +118,55 @@ describe("linking an SSO account", () => {
       { user: "", headers: { cookie: cookie! } },
     );
 
-    expect(new URL(done.location!).searchParams.get("sso_link")).toBe(
-      "identity_in_use",
-    );
+    expect(done.status).toBe(302);
+    expect(await result(s)).toBe("identity_in_use");
     expect(s.mock.auth.identities).toHaveLength(1);
+  });
+
+  it("gives the settings screen an address on this server, never the provider's", async () => {
+    const { s, providerId } = await startWithProvider();
+    server = s;
+    await stubIdp("idp-user");
+    const started = await s.request("POST", "/links/start", {
+      body: { provider: providerId },
+    });
+    expect(started.status).toBe(200);
+    expect(started.body.redirectUrl).toMatch(
+      /\/plugin-api\/sso\/links\/go\/[A-Za-z0-9_-]{32}$/,
+    );
+    expect(started.setCookie).toEqual([]);
+  });
+
+  it("opens the address only for the person who asked, once", async () => {
+    const { s, providerId } = await startWithProvider();
+    server = s;
+    await stubIdp("idp-user");
+    const started = await s.request("POST", "/links/start", {
+      body: { provider: providerId },
+    });
+    const token = String(started.body.redirectUrl).split("/links/go/")[1];
+    const stolen = await s.request("GET", `/links/go/${token}`, {
+      user: "someone-else",
+    });
+    expect(stolen.status).toBe(404);
+    // Someone else trying it used it up.
+    expect((await s.request("GET", `/links/go/${token}`)).status).toBe(404);
+    expect((await s.request("GET", "/links/go/made-up")).status).toBe(404);
+  });
+
+  it("lets an address go stale after two minutes", async () => {
+    const { s, providerId } = await startWithProvider();
+    server = s;
+    await stubIdp("idp-user");
+    const now = Date.now();
+    const clock = vi.spyOn(Date, "now").mockReturnValue(now);
+    const started = await s.request("POST", "/links/start", {
+      body: { provider: providerId },
+    });
+    const token = String(started.body.redirectUrl).split("/links/go/")[1];
+    clock.mockReturnValue(now + 3 * 60 * 1000);
+    expect((await s.request("GET", `/links/go/${token}`)).status).toBe(404);
+    clock.mockRestore();
   });
 
   it("can be turned off by an admin", async () => {

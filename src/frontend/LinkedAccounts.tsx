@@ -23,19 +23,31 @@ export function LinkedAccounts() {
     const data = await api.links();
     setLinks(data.providers);
     setAllowed(data.allowed);
+    // A link finished in its own tab reports back here once.
+    if (data.result === "linked") toast.success(t("links.linked"));
+    else if (data.result === "identity_in_use") toast.error(t("links.inUse"));
+    else if (data.result === "provider_linked") {
+      toast.error(t("links.already"));
+    } else if (data.result) toast.error(t("links.failed"));
   }
 
   useEffect(() => {
     load().catch(() => {});
+    // Coming back from the provider's tab refreshes the list.
+    const onFocus = () => void load().catch(() => {});
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [api]);
 
   async function link(provider: string) {
     setBusy(true);
     try {
-      window.location.assign(await api.startLink(provider));
+      // The provider opens in its own tab, where the browser has the login.
+      window.open(await api.startLink(provider), "_blank");
     } catch {
       toast.error(t("links.failed"));
+    } finally {
       setBusy(false);
     }
   }

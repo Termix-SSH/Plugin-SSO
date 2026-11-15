@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Sign in with SSO",
-  "loginWithProvider": "Sign in with {{name}}",
-  "loading": "Loading...",
   "permissions": {
     "manage": {
       "title": "Manage SSO providers",
