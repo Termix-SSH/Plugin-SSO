@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import type { Request, Response, Router } from "express";
 import {
   LoginMethodError,
@@ -9,7 +10,16 @@ import {
   validateLogoutToken,
 } from "./oidc-protocol.js";
 import { isSsoType, type ProviderStore } from "./providers.js";
-import { METHOD_ID, redirectUriFor, type SsoLogin } from "./login.js";
+import {
+  LINK_RESULT_PREFIX,
+  METHOD_ID,
+  redirectUriFor,
+  type SsoLogin,
+} from "./login.js";
+
+/** A one time link start, opened in a browser tab that has the login. */
+const LINK_GO_PREFIX = "link-go:";
+const LINK_GO_TTL_MS = 2 * 60 * 1000;
 import type { OidcConfig, ProviderRow, SsoProviderType } from "./types.js";
 
 export const PUBLIC_PATHS = [
@@ -187,7 +197,7 @@ export function registerSsoRoutes(
    *       - SSO
    *     responses:
    *       200:
-   *         description: "{ allowed, providers } where each provider has id, label and linked."
+   *         description: "{ allowed, providers, result } where each provider has id, label and linked, and result is the outcome of the last link, given once."
    */
   router.get("/links", async (_req: Request, res: Response) => {
     try {
@@ -198,8 +208,13 @@ export function registerSsoRoutes(
           (identity) => identity.provider,
         ),
       );
+      // The result of a link finished in another tab, shown once.
+      const resultKey = `${LINK_RESULT_PREFIX}${userId}`;
+      const result = await ctx.kv.get(resultKey);
+      if (result) await ctx.kv.delete(resultKey);
       res.json({
         allowed: await selfLinkAllowed(),
+        ...(typeof result === "string" ? { result } : {}),
         providers: (await store.listInstances()).map((instance) => ({
           id: instance.id,
           label: instance.label,
@@ -216,7 +231,7 @@ export function registerSsoRoutes(
    * /plugin-api/sso/links/start:
    *   post:
    *     summary: Start linking an SSO provider
-   *     description: Gives the provider address for the signed in user. When the provider sends them back, its identity is tied to their account, and the app is opened with the sso_link query parameter set to the result.
+   *     description: Gives a one time address for the signed in user to open in a browser tab. It goes on to the provider, and when the provider sends them back its identity is tied to their account. GET /plugin-api/sso/links then reports the result once.
    *     tags:
    *       - SSO
    *     requestBody:
@@ -248,9 +263,73 @@ export function registerSsoRoutes(
       if (!provider) {
         return res.status(400).json({ error: "Provider is required" });
       }
-      res.json(
-        await login.start(req as never, provider, { linkUserId: userId }),
-      );
+      const token = crypto.randomBytes(24).toString("base64url");
+      await ctx.kv.set(`${LINK_GO_PREFIX}${token}`, {
+        userId,
+        provider,
+        createdAt: Date.now(),
+      });
+      const base = ctx.http.baseUrl(req).replace(/\/+$/, "");
+      res.json({ redirectUrl: `${base}/plugin-api/sso/links/go/${token}` });
+    } catch (error) {
+      if (error instanceof LoginMethodError) {
+        res.status(error.status).json({ error: error.message });
+        return;
+      }
+      fail(ctx, res, "Failed to start SSO link", error);
+    }
+  });
+
+  /**
+   * @openapi
+   * /plugin-api/sso/links/go/{token}:
+   *   get:
+   *     summary: Open the provider to link an account
+   *     description: The address /links/start gave, opened in a browser tab. Only the person who asked can use it, once, within two minutes. Sends the browser on to the provider.
+   *     tags:
+   *       - SSO
+   *     parameters:
+   *       - in: path
+   *         name: token
+   *         required: true
+   *         schema: { type: string }
+   *     responses:
+   *       302:
+   *         description: On to the provider.
+   *       401:
+   *         description: Not signed in.
+   *       404:
+   *         description: Unknown, used, expired or someone else's link.
+   */
+  router.get("/links/go/:token", async (req: Request, res: Response) => {
+    try {
+      const userId = ctx.currentActor();
+      if (!userId) return res.status(401).json({ error: "Not signed in" });
+      const key = `${LINK_GO_PREFIX}${String(req.params.token)}`;
+      const entry = (await ctx.kv.get(key)) as {
+        userId?: unknown;
+        provider?: unknown;
+        createdAt?: unknown;
+      } | null;
+      if (entry) await ctx.kv.delete(key);
+      if (
+        !entry ||
+        entry.userId !== userId ||
+        typeof entry.provider !== "string" ||
+        typeof entry.createdAt !== "number" ||
+        Date.now() - entry.createdAt > LINK_GO_TTL_MS
+      ) {
+        return res.status(404).json({ error: "This link expired" });
+      }
+      if (!(await selfLinkAllowed())) {
+        return res.status(403).json({ error: "Linking is turned off" });
+      }
+      const base = ctx.http.baseUrl(req).replace(/\/+$/, "");
+      const { redirectUrl } = await login.start(req as never, entry.provider, {
+        linkUserId: userId,
+        returnTo: `${base}/`,
+      });
+      res.redirect(302, redirectUrl);
     } catch (error) {
       if (error instanceof LoginMethodError) {
         res.status(error.status).json({ error: error.message });

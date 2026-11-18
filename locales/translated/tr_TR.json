@@ -1,7 +1,5 @@
 {
   "loginWithSso": "SSO ile giriş yap",
-  "loginWithProvider": "{{name}} ile giriş yap",
-  "loading": "Yükleniyor...",
   "permissions": {
     "manage": {
       "title": "SSO sağlayıcılarını yönet",

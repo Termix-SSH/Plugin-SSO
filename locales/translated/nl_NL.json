@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Inloggen met SSO",
-  "loginWithProvider": "Inloggen met {{name}}",
-  "loading": "Laden...",
   "permissions": {
     "manage": {
       "title": "SSO-aanbieders beheren",

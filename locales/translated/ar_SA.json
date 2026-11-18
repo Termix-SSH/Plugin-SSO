@@ -1,7 +1,5 @@
 {
   "loginWithSso": "تسجيل الدخول عبر SSO",
-  "loginWithProvider": "تسجيل الدخول عبر {{name}}",
-  "loading": "جارٍ التحميل...",
   "permissions": {
     "manage": {
       "title": "إدارة مزودي SSO",

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "使用 SSO 登录",
-  "loginWithProvider": "使用 {{name}} 登录",
-  "loading": "加载中...",
   "permissions": {
     "manage": {
       "title": "管理 SSO 提供商",

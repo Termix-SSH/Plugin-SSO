@@ -1,7 +1,5 @@
 {
   "loginWithSso": "התחבר באמצעות SSO",
-  "loginWithProvider": "התחבר באמצעות {{name}}",
-  "loading": "טוען...",
   "permissions": {
     "manage": {
       "title": "ניהול ספקי SSO",

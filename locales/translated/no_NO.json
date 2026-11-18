@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Logg inn med SSO",
-  "loginWithProvider": "Logg inn med {{name}}",
-  "loading": "Laster...",
   "permissions": {
     "manage": {
       "title": "Administrer SSO-leverandører",

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Prijava z SSO",
-  "loginWithProvider": "Prijava z {{name}}",
-  "loading": "Nalaganje...",
   "permissions": {
     "manage": {
       "title": "Upravljanje ponudnikov SSO",

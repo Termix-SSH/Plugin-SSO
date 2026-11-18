@@ -1,7 +1,5 @@
 {
   "loginWithSso": "เข้าสู่ระบบด้วย SSO",
-  "loginWithProvider": "เข้าสู่ระบบด้วย {{name}}",
-  "loading": "กำลังโหลด...",
   "permissions": {
     "manage": {
       "title": "จัดการผู้ให้บริการ SSO",

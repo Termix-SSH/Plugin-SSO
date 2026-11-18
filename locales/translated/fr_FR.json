@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Se connecter avec SSO",
-  "loginWithProvider": "Se connecter avec {{name}}",
-  "loading": "Chargement...",
   "permissions": {
     "manage": {
       "title": "Gérer les fournisseurs SSO",

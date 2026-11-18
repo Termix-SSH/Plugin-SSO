@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Log ind med SSO",
-  "loginWithProvider": "Log ind med {{name}}",
-  "loading": "Indlæser...",
   "permissions": {
     "manage": {
       "title": "Administrer SSO-leverandører",

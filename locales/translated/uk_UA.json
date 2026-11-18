@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Увійти через SSO",
-  "loginWithProvider": "Увійти через {{name}}",
-  "loading": "Завантаження...",
   "permissions": {
     "manage": {
       "title": "Керування провайдерами SSO",

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Bejelentkezés SSO-val",
-  "loginWithProvider": "Bejelentkezés {{name}}-val",
-  "loading": "Betöltés...",
   "permissions": {
     "manage": {
       "title": "SSO szolgáltatók kezelése",

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Autentificare prin SSO",
-  "loginWithProvider": "Autentificare cu {{name}}",
-  "loading": "Se încarcă...",
   "permissions": {
     "manage": {
       "title": "Gestionarea furnizorilor SSO",

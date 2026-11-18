@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Přihlásit se pomocí SSO",
-  "loginWithProvider": "Přihlásit se pomocí {{name}}",
-  "loading": "Načítání...",
   "permissions": {
     "manage": {
       "title": "Spravovat poskytovatele SSO",

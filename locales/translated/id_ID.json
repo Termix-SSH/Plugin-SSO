@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Masuk dengan SSO",
-  "loginWithProvider": "Masuk dengan {{name}}",
-  "loading": "Memuat...",
   "permissions": {
     "manage": {
       "title": "Kelola penyedia SSO",

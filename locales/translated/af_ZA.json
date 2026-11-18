@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Teken aan met SSO",
-  "loginWithProvider": "Teken aan met {{name}}",
-  "loading": "Laai tans...",
   "permissions": {
     "manage": {
       "title": "Bestuur SSO-lewerders",

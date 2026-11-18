@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Zaloguj się przez SSO",
-  "loginWithProvider": "Zaloguj się przez {{name}}",
-  "loading": "Ładowanie...",
   "permissions": {
     "manage": {
       "title": "Zarządzaj dostawcami SSO",

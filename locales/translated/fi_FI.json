@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Kirjaudu sisään SSO:lla",
-  "loginWithProvider": "Kirjaudu sisään palvelulla {{name}}",
-  "loading": "Ladataan...",
   "permissions": {
     "manage": {
       "title": "SSO-palveluiden hallinta",

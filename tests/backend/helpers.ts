@@ -72,11 +72,15 @@ export async function startServer(
     .run("admin", "admin");
 
   let router: Router | null = null;
+  const capabilities = options.capabilities ?? manifest.capabilities;
   const mock = createMockCtx({
+    sandbox: true,
     pluginId: manifest.id,
     manifest,
-    capabilities: options.capabilities ?? manifest.capabilities,
+    capabilities,
     db: db.database,
+    // ctx.fetch goes to the global fetch, which stubIdp replaces.
+    fetch: (url, init) => globalThis.fetch(url, init as RequestInit),
     router: () => (router = express.Router()),
     permissions: options.permissions,
     linkedUsers: options.linkedUsers,

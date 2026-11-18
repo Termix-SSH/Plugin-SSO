@@ -43,25 +43,59 @@ const providers = {
 };
 
 describe(`${manifest.id} activate`, () => {
-  it("registers the login buttons and the provider settings", async () => {
+  it("registers the linked accounts and provider settings; Termix draws the sign in buttons", async () => {
     rendered = await renderWithApp(plugin, { manifest, locales });
     expect(rendered.registered.loginMethods()).toEqual(["oidc"]);
     expect(rendered.registered.settingsComponents()).toEqual(["providers"]);
   });
 
-  it("draws a button per provider that starts the redirect", async () => {
-    rendered = await renderWithApp(plugin, { manifest, locales });
-    const startRedirect = vi.fn(async () => {});
-    rendered.renderLoginMethod("oidc", {
-      instances: [
-        { id: "3", label: "Keycloak" },
-        { id: "5", label: "Google" },
-      ],
-      startRedirect,
+  it("opens the provider in its own tab to link an account", async () => {
+    const open = vi.spyOn(window, "open").mockReturnValue(null);
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: {
+        get: vi.fn(async () => ({
+          data: {
+            allowed: true,
+            providers: [{ id: "3", label: "Keycloak", linked: false }],
+          },
+        })),
+        post: vi.fn(async () => ({
+          data: {
+            redirectUrl: "https://termix.test/plugin-api/sso/links/go/t",
+          },
+        })),
+      } as never,
     });
-    fireEvent.click(screen.getByText("Sign in with Google"));
-    await waitFor(() => expect(startRedirect).toHaveBeenCalledWith("5"));
-    expect(screen.getByText("Sign in with Keycloak")).toBeTruthy();
+    rendered.renderEnrollment("oidc");
+    fireEvent.click(await screen.findByText(locales.links.link));
+    await waitFor(() =>
+      expect(open).toHaveBeenCalledWith(
+        "https://termix.test/plugin-api/sso/links/go/t",
+        "_blank",
+      ),
+    );
+    open.mockRestore();
+  });
+
+  it("shows the result of a link finished in the other tab", async () => {
+    const { toast } = await import("sonner");
+    const success = vi.spyOn(toast, "success");
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      api: {
+        get: vi.fn(async () => ({
+          data: { allowed: true, providers: [], result: "linked" },
+        })),
+      } as never,
+    });
+    rendered.renderEnrollment("oidc");
+    await waitFor(() =>
+      expect(success).toHaveBeenCalledWith(locales.links.linked),
+    );
+    success.mockRestore();
   });
 
   it("lists providers with the redirect URI to register", async () => {

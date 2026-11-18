@@ -1,7 +1,5 @@
 {
   "loginWithSso": "SSO से साइन इन करें",
-  "loginWithProvider": "{{name}} से साइन इन करें",
-  "loading": "लोड हो रहा है...",
   "permissions": {
     "manage": {
       "title": "SSO प्रदाताओं का प्रबंधन करें",

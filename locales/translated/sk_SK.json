@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Prihlásiť sa cez SSO",
-  "loginWithProvider": "Prihlásiť sa cez {{name}}",
-  "loading": "Načítava sa...",
   "permissions": {
     "manage": {
       "title": "Spravovať poskytovateľov SSO",

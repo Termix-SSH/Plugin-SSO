@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Mit SSO anmelden",
-  "loginWithProvider": "Mit {{name}} anmelden",
-  "loading": "Wird geladen...",
   "permissions": {
     "manage": {
       "title": "SSO-Anbieter verwalten",

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Entrar com SSO",
-  "loginWithProvider": "Entrar com {{name}}",
-  "loading": "Carregando...",
   "permissions": {
     "manage": {
       "title": "Gerenciar provedores de SSO",

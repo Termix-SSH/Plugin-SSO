@@ -13,7 +13,6 @@ import {
 } from "@termix-ssh/plugin-sdk/backend";
 import {
   OIDCTokenFormatError,
-  buildFetchOptions,
   fetchWithOptions,
   extractOidcGroupsFromSources,
   generatePkceCodeChallenge,
@@ -21,6 +20,7 @@ import {
   getDesktopCallbackUrl,
   getNestedValue,
   parseOidcRoleMap,
+  providerFetchOptions,
   resolveOidcMappedRoles,
   verifyOIDCToken,
 } from "./oidc-protocol.js";
@@ -33,7 +33,8 @@ import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
 /** Query parameter the app reads after a link finishes. */
-export const LINK_RESULT_PARAM = "sso_link";
+/** kv key prefix for a person's last link result, read once by the settings screen. */
+export const LINK_RESULT_PREFIX = "link-result:";
 const CALLBACK_PATH = "/plugin-api/sso/callback";
 /** The redirect URI identity providers were set up with before 2.9. */
 const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
@@ -41,7 +42,7 @@ const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
 /** Ties a web login's state to the browser that started it. */
-export const BINDING_COOKIE = "termix_sso_binding";
+export const BINDING_COOKIE = "tmxp_sso_binding";
 
 /** The express response behind a request, when core passed the real one. */
 interface CookieResponse {
@@ -210,7 +211,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
   async function start(
     request: PluginLoginRequest,
     instanceId: string | null,
-    options: { linkUserId?: string } = {},
+    options: { linkUserId?: string; returnTo?: string } = {},
   ): Promise<{ redirectUrl: string }> {
     const requested =
       instanceId ??
@@ -229,10 +230,9 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
 
     const baseUrl = ctx.http.baseUrl(request);
     const backendCallback = redirectUriFor(baseUrl, provider);
-    const { returnTo: frontendOrigin, sameBrowser } = frontendOriginFor(
-      request,
-      baseUrl,
-    );
+    const { returnTo: frontendOrigin, sameBrowser } = options.returnTo
+      ? { returnTo: options.returnTo, sameBrowser: true }
+      : frontendOriginFor(request, baseUrl);
     const state = crypto.randomUUID();
     const nonce = crypto.randomUUID();
     const codeVerifier = generatePkceCodeVerifier();
@@ -304,7 +304,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         redirect_uri: pending.backendCallback,
         code_verifier: pending.codeVerifier,
       }),
-      ...buildFetchOptions(config.ca_cert),
+      ...providerFetchOptions(config),
     });
     if (!response.ok) {
       ctx.log.error(
@@ -331,7 +331,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     pending: PendingState,
   ): Promise<PluginVerifiedIdentity> {
     const tokenData = await exchangeCode(provider.config, code, pending);
-    const fetchOptions = buildFetchOptions(provider.config.ca_cert);
+    const fetchOptions = providerFetchOptions(provider.config);
     const headers = {
       Authorization: `Bearer ${tokenData.access_token}`,
       Accept: "application/json",
@@ -387,7 +387,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     userInfo: Record<string, unknown> | null,
     claimSources: Record<string, unknown>[],
   ): Promise<Record<string, unknown> | null> {
-    const fetchOptions = buildFetchOptions(config.ca_cert);
+    const fetchOptions = providerFetchOptions(config);
     const issuer = config.issuer_url.endsWith("/")
       ? config.issuer_url.slice(0, -1)
       : config.issuer_url;
@@ -612,10 +612,10 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     if (!pending?.linkUserId) {
       throw new LoginMethodError("Invalid state parameter", 400);
     }
-    const back = (outcome: string) => {
-      const url = new URL(pending.frontendOrigin);
-      url.searchParams.set(LINK_RESULT_PARAM, outcome);
-      return url.toString();
+    // The settings screen reads the result the next time it loads.
+    const back = async (outcome: string) => {
+      await ctx.kv.set(`${LINK_RESULT_PREFIX}${pending.linkUserId}`, outcome);
+      return new URL(pending.frontendOrigin).toString();
     };
     try {
       assertSameBrowser(request, pending);
@@ -630,14 +630,14 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
         subject: identity.subject,
         email: identity.email ?? null,
       });
-      return back("linked");
+      return await back("linked");
     } catch (error) {
       const refused = (error as { code?: unknown }).code;
-      if (typeof refused === "string" && refused) return back(refused);
+      if (typeof refused === "string" && refused) return await back(refused);
       ctx.log.warn(
         `Could not link an SSO identity: ${error instanceof Error ? error.message : String(error)}`,
       );
-      return back("failed");
+      return await back("failed");
     }
   }
 

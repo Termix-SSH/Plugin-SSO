@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Prisijungti per SSO",
-  "loginWithProvider": "Prisijungti per {{name}}",
-  "loading": "Įkeliama...",
   "permissions": {
     "manage": {
       "title": "Valdyti SSO tiekėjus",

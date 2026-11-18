@@ -4,6 +4,7 @@ import { providers } from "./tables.js";
 import { createProviderStore } from "./providers.js";
 import { createSsoLogin, METHOD_ID } from "./login.js";
 import { PUBLIC_PATHS, registerSsoRoutes } from "./routes.js";
+import { setOidcFetch } from "./oidc-protocol.js";
 
 /**
  * Whether the login page starts the first provider without a click. The
@@ -16,6 +17,7 @@ export async function silentLoginDefault(ctx: PluginContext): Promise<boolean> {
 }
 
 export async function activate(ctx: PluginContext) {
+  setOidcFetch(ctx.fetch);
   const table = await ctx.db.define(providers);
   const store = createProviderStore(ctx, table);
   const login = createSsoLogin(ctx, store);
@@ -48,5 +50,6 @@ export async function activate(ctx: PluginContext) {
 }
 
 export async function deactivate() {
-  // Everything above was registered through ctx and is disposed by core.
+  // Everything else was registered through ctx and is disposed by core.
+  setOidcFetch(null);
 }

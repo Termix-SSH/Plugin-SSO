@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Logga in med SSO",
-  "loginWithProvider": "Logga in med {{name}}",
-  "loading": "Laddar...",
   "permissions": {
     "manage": {
       "title": "Hantera SSO-leverantörer",

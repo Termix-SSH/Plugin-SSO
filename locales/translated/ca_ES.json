@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Inicia sessió amb SSO",
-  "loginWithProvider": "Inicia sessió amb {{name}}",
-  "loading": "S'està carregant...",
   "permissions": {
     "manage": {
       "title": "Gestiona els proveïdors SSO",

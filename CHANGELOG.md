@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+### Changed
+
+- Runs in its own process on Termix 26.11.2 and later, with no access to the server beyond what Termix allows it
+- On Termix 26.11.2 and later the sign in buttons are drawn by Termix itself, and the settings screens run in a sandboxed frame
+- Linking an account opens the provider in a new tab, and the linked accounts list shows the result when you come back
+
 ## 1.1.0
 
 ### Added

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "SSO로 로그인",
-  "loginWithProvider": "{{name}}로 로그인",
-  "loading": "로딩 중...",
   "permissions": {
     "manage": {
       "title": "SSO 공급자 관리",

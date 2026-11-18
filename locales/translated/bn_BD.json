@@ -1,7 +1,5 @@
 {
   "loginWithSso": "SSO দিয়ে সাইন ইন করুন",
-  "loginWithProvider": "{{name}} দিয়ে সাইন ইন করুন",
-  "loading": "লোড হচ্ছে...",
   "permissions": {
     "manage": {
       "title": "SSO প্রোভাইডার পরিচালনা করুন",

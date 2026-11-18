@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Pieteikties ar SSO",
-  "loginWithProvider": "Pieteikties ar {{name}}",
-  "loading": "Ielādē...",
   "permissions": {
     "manage": {
       "title": "Pārvaldīt SSO pakalpojumu sniedzējus",

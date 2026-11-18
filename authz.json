@@ -36,6 +36,14 @@
       "access": "user",
       "destructive": true
     },
+    "GET /plugin-api/sso/links/go/:token": {
+      "access": "user",
+      "params": {
+        "token": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "A one time address for the person who asked; with no such token every caller gets 404."
+    },
     "GET /plugin-api/sso/providers": {
       "access": "user",
       "permission": "sso.manage"

@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Σύνδεση με SSO",
-  "loginWithProvider": "Σύνδεση με {{name}}",
-  "loading": "Φόρτωση...",
   "permissions": {
     "manage": {
       "title": "Διαχείριση παρόχων SSO",

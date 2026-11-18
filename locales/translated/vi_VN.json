@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Đăng nhập bằng SSO",
-  "loginWithProvider": "Đăng nhập bằng {{name}}",
-  "loading": "Đang tải...",
   "permissions": {
     "manage": {
       "title": "Quản lý nhà cung cấp SSO",

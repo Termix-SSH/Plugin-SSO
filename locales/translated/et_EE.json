@@ -1,7 +1,5 @@
 {
   "loginWithSso": "Logi sisse SSO-ga",
-  "loginWithProvider": "Logi sisse {{name}}-ga",
-  "loading": "Laadimine...",
   "permissions": {
     "manage": {
       "title": "SSO-pakkujate haldamine",

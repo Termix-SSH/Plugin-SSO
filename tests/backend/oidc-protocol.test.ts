@@ -7,7 +7,9 @@ import {
   extractOidcGroups,
   extractOidcGroupsFromSources,
   parseOidcRoleMap,
+  providerFetchOptions,
   resolveOidcMappedRoles,
+  setOidcFetch,
   validateLogoutTokenClaims,
   verifyOIDCToken,
 } from "../../src/backend/oidc-protocol.js";
@@ -19,8 +21,14 @@ import {
 const BACKCHANNEL_LOGOUT_EVENT =
   "http://schemas.openid.net/event/backchannel-logout";
 
+// ctx.fetch in the plugin; the global fetch here, so tests can stub it.
+beforeEach(() => {
+  setOidcFetch((url, init) => globalThis.fetch(url, init as RequestInit));
+});
+
 afterEach(() => {
   vi.restoreAllMocks();
+  setOidcFetch(null);
 });
 
 describe("describeFetchFailure", () => {
@@ -156,7 +164,7 @@ describe("verifyOIDCToken", () => {
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
       `${issuer}/.well-known/openid-configuration`,
-      {},
+      expect.objectContaining({ method: "GET" }),
     );
   });
 
@@ -535,20 +543,54 @@ describe("verifyOIDCToken token shape", () => {
 });
 
 describe("fetchWithOptions", () => {
-  it("works with the dispatcher a custom CA creates", async () => {
-    const { createServer } = await import("node:http");
-    const server = createServer((_req, res) => res.end('{"ok":true}'));
-    await new Promise<void>((resolve) => server.listen(0, resolve));
-    const { port } = server.address() as { port: number };
-    try {
-      const options = buildFetchOptions("not a real certificate");
-      const response = await fetchWithOptions(
-        `http://127.0.0.1:${port}/`,
-        options,
-      );
-      expect(await response.json()).toEqual({ ok: true });
-    } finally {
-      server.close();
-    }
+  it("goes through ctx.fetch with the provider's CA and string bodies", async () => {
+    const calls: Array<[string, unknown]> = [];
+    setOidcFetch(async (url, init) => {
+      calls.push([url, init]);
+      return Response.json({ ok: true });
+    });
+    const response = await fetchWithOptions("https://idp.example/token", {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: new URLSearchParams({ code: "abc" }),
+      ...buildFetchOptions("PEM"),
+    });
+    expect(await response.json()).toEqual({ ok: true });
+    expect(calls).toEqual([
+      [
+        "https://idp.example/token",
+        {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: "code=abc",
+          tls: { ca: "PEM" },
+        },
+      ],
+    ]);
+  });
+
+  it("reaches a private host only when the provider's settings name it", async () => {
+    const calls: Array<{ allowPrivateHosts?: readonly string[] }> = [];
+    setOidcFetch(async (_url, init) => {
+      calls.push(init ?? {});
+      return new Response("{}");
+    });
+    const options = providerFetchOptions({
+      issuer_url: "https://auth.lan/application/o/termix/",
+      authorization_url: "https://auth.lan/authorize",
+      token_url: "https://auth.lan/token",
+      userinfo_url: "",
+    });
+    await fetchWithOptions("https://auth.lan/jwks", options);
+    await fetchWithOptions("http://169.254.169.254/latest", options);
+    expect(calls[0].allowPrivateHosts).toEqual(["auth.lan"]);
+    expect(calls[1].allowPrivateHosts).toBeUndefined();
+  });
+
+  it("refuses to run before activate", async () => {
+    setOidcFetch(null);
+    await expect(fetchWithOptions("https://idp.example/")).rejects.toThrow(
+      /not active/,
+    );
   });
 });

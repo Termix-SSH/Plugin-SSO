@@ -35,6 +35,7 @@ export function createSsoApi(api: PluginApiClient) {
       const { data } = await api.get<{
         allowed: boolean;
         providers: SsoLink[];
+        result?: string;
       }>("/links");
       return data;
     },
