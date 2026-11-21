@@ -1,6 +1,6 @@
 import type { PluginApiClient } from "@termix-ssh/plugin-sdk/frontend";
 
-export type SsoProviderType = "oidc" | "github" | "google";
+export type SsoProviderType = "oidc" | "github" | "google" | "saml";
 
 export interface SsoProvider {
   id: number;
@@ -11,7 +11,16 @@ export interface SsoProvider {
   legacyCallback: boolean;
   config: Record<string, unknown>;
   hasClientSecret: boolean;
+  hasSpPrivateKey?: boolean;
   redirectUri: string;
+  samlEntityId?: string;
+  samlMetadataUrl?: string;
+}
+
+export interface SamlIdpFields {
+  saml_idp_issuer: string;
+  saml_entry_point: string;
+  saml_idp_cert: string;
 }
 
 export interface SsoLink {
@@ -60,6 +69,10 @@ export function createSsoApi(api: PluginApiClient) {
     },
     async update(id: number, input: SsoProviderInput) {
       return (await api.put<SsoProvider>(`/providers/${id}`, input)).data;
+    },
+    async readSamlMetadata(source: { url?: string; xml?: string }) {
+      return (await api.post<SamlIdpFields>("/providers/saml-metadata", source))
+        .data;
     },
     async remove(id: number) {
       await api.delete(`/providers/${id}`);

@@ -29,6 +29,13 @@ import {
   ENV_PROVIDER_ID,
   type ProviderStore,
 } from "./providers.js";
+import type { Profile } from "@node-saml/node-saml";
+import {
+  SAML_ACS_PATH,
+  createSamlClient,
+  samlUser,
+  type SamlUser,
+} from "./saml.js";
 import type { OidcConfig, ResolvedProvider } from "./types.js";
 
 export const METHOD_ID = "oidc";
@@ -41,6 +48,9 @@ const LEGACY_CALLBACK_PATH = "/users/oidc/callback";
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const STATE_PREFIX = "state:";
+/** A posted SAML answer, waiting for the browser's redirect to the callback. */
+const SAML_RESPONSE_PREFIX = "saml-resp:";
+const SAML_RESPONSE_TTL_MS = 2 * 60 * 1000;
 /** Ties a web login's state to the browser that started it. */
 export const BINDING_COOKIE = "tmxp_sso_binding";
 
@@ -61,6 +71,12 @@ class RedirectLoginError extends LoginMethodError {
     super(message, status, code);
     this.name = "RedirectLoginError";
   }
+}
+
+/** The provider's answer: an OAuth code, or a stored SAML response. */
+interface Answer {
+  code?: string;
+  samlResponse?: string;
 }
 
 interface PendingState {
@@ -90,8 +106,11 @@ function header(request: PluginLoginRequest, name: string): string {
 
 export function redirectUriFor(
   baseUrl: string,
-  provider: Pick<ResolvedProvider, "legacyCallback">,
+  provider: Pick<ResolvedProvider, "legacyCallback"> & {
+    type?: ResolvedProvider["type"];
+  },
 ): string {
+  if (provider.type === "saml") return `${baseUrl}${SAML_ACS_PATH}`;
   return `${baseUrl}${provider.legacyCallback ? LEGACY_CALLBACK_PATH : CALLBACK_PATH}`;
 }
 
@@ -147,9 +166,9 @@ export function webReturnTo(referer: string, baseUrl: string): string {
 /** The old callback redirects here, so the cookie always lives on this path. */
 function bindingCookiePath(backendCallback: string): string {
   const path = new URL(backendCallback).pathname;
-  const suffix = path.endsWith(LEGACY_CALLBACK_PATH)
-    ? LEGACY_CALLBACK_PATH
-    : CALLBACK_PATH;
+  const suffix =
+    [LEGACY_CALLBACK_PATH, SAML_ACS_PATH].find((p) => path.endsWith(p)) ??
+    CALLBACK_PATH;
   return `${path.slice(0, -suffix.length)}${CALLBACK_PATH}`;
 }
 
@@ -269,6 +288,11 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       ...(options.linkUserId ? { linkUserId: options.linkUserId } : {}),
       createdAt: Date.now(),
     });
+
+    if (provider.type === "saml") {
+      const saml = createSamlClient(ctx, provider.config, baseUrl);
+      return { redirectUrl: await saml.getAuthorizeUrlAsync(state, {}) };
+    }
 
     const authUrl = new URL(provider.config.authorization_url);
     authUrl.searchParams.set("client_id", provider.config.client_id);
@@ -582,15 +606,136 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     }
   }
 
+  async function samlIdentity(
+    provider: ResolvedProvider,
+    samlResponse: string,
+    pending: PendingState,
+  ): Promise<PluginVerifiedIdentity> {
+    const { config } = provider;
+    const baseUrl = pending.backendCallback.slice(0, -SAML_ACS_PATH.length);
+    const saml = createSamlClient(ctx, config, baseUrl);
+    let profile: Profile | null;
+    try {
+      ({ profile } = await saml.validatePostResponseAsync({
+        SAMLResponse: samlResponse,
+      }));
+    } catch (error) {
+      ctx.log.warn(
+        `SAML answer refused: ${error instanceof Error ? error.message : String(error)}`,
+      );
+      throw new LoginMethodError("SAML authentication failed", 401);
+    }
+    if (!profile) throw new LoginMethodError("SAML authentication failed", 401);
+    let user: SamlUser;
+    try {
+      user = samlUser(profile, config);
+    } catch (error) {
+      throw new LoginMethodError(
+        error instanceof Error ? error.message : String(error),
+        400,
+      );
+    }
+    const isAdmin = config.admin_group
+      ? user.groups.includes(config.admin_group)
+      : undefined;
+    let roles: { desired: string[]; managed: string[] } | undefined;
+    const roleMap = parseOidcRoleMap(
+      config.role_map ?? process.env.OIDC_ROLE_MAP,
+    );
+    if (roleMap.size > 0) {
+      const { desired, managed } = resolveOidcMappedRoles(user.groups, roleMap);
+      roles = { desired: [...desired], managed: [...managed] };
+    }
+    return {
+      kind: "external",
+      provider: providerKey(provider),
+      subject: user.subject,
+      email: user.email,
+      name: user.name,
+      groups: user.groups,
+      isAdmin,
+      allowedUsers: config.allowed_users ?? null,
+      roles,
+      legacy: { identifier: user.subject, providerRowId: provider.rowId },
+      returnTo: pending.frontendOrigin,
+      rememberMe: pending.rememberMe,
+    };
+  }
+
   function identityFrom(
     provider: ResolvedProvider,
-    code: string,
+    answer: Answer,
     pending: PendingState,
   ) {
+    if (provider.type === "saml") {
+      if (!answer.samlResponse) {
+        throw new LoginMethodError("SAML response is required", 400);
+      }
+      return samlIdentity(provider, answer.samlResponse, pending);
+    }
+    if (!answer.code) throw new LoginMethodError("Code is required", 400);
     // GitHub does not issue OIDC id_tokens; it has its own token exchange.
     return provider.type === "github"
-      ? githubIdentity(provider, code, pending)
-      : oidcIdentity(provider, code, pending);
+      ? githubIdentity(provider, answer.code, pending)
+      : oidcIdentity(provider, answer.code, pending);
+  }
+
+  /** Keeps a posted SAML answer for the redirect that follows. */
+  async function stashSamlResponse(
+    relayState: unknown,
+    samlResponse: unknown,
+  ): Promise<string | null> {
+    if (!nonEmpty(relayState) || !nonEmpty(samlResponse)) return null;
+    if (samlResponse.length > 512 * 1024) return null;
+    const pending = (await ctx.kv.get(`${STATE_PREFIX}${relayState}`)) as
+      PendingState | undefined;
+    if (!pending || Date.now() - pending.createdAt > STATE_TTL_MS) return null;
+    const token = crypto.randomBytes(24).toString("base64url");
+    await ctx.kv.set(`${SAML_RESPONSE_PREFIX}${token}`, {
+      response: samlResponse,
+      state: relayState,
+      createdAt: Date.now(),
+    });
+    return token;
+  }
+
+  /** The request's answer, taking a stashed SAML response out of kv. */
+  async function readAnswer(
+    source: Record<string, unknown>,
+    state: string,
+  ): Promise<Answer> {
+    const { code, saml } = source;
+    if (!nonEmpty(saml)) return nonEmpty(code) ? { code } : {};
+    const key = `${SAML_RESPONSE_PREFIX}${saml}`;
+    const entry = (await ctx.kv.get(key)) as {
+      response: string;
+      state: string;
+      createdAt: number;
+    } | null;
+    if (!entry) return {};
+    await ctx.kv.delete(key);
+    if (
+      entry.state !== state ||
+      Date.now() - entry.createdAt > SAML_RESPONSE_TTL_MS
+    ) {
+      return {};
+    }
+    return { samlResponse: entry.response };
+  }
+
+  function readSource(request: PluginLoginRequest) {
+    const source = {
+      ...request.query,
+      ...(request.body ?? {}),
+    } as Record<string, unknown>;
+    const { state } = source;
+    if (
+      !nonEmpty(state) ||
+      (!nonEmpty(source.code) && !nonEmpty(source.saml))
+    ) {
+      throw new LoginMethodError("Code and state are required", 400);
+    }
+    return { source, state };
   }
 
   /** Whether this callback finishes a link instead of a sign in. */
@@ -603,11 +748,8 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
 
   /** Ties the provider's answer to the user who started it. Returns the page to go back to. */
   async function finishLink(request: PluginLoginRequest): Promise<string> {
-    const source = { ...request.query, ...(request.body ?? {}) };
-    const { code, state } = source as Record<string, unknown>;
-    if (!nonEmpty(code) || !nonEmpty(state)) {
-      throw new LoginMethodError("Code and state are required", 400);
-    }
+    const { source, state } = readSource(request);
+    const answer = await readAnswer(source, state);
     const pending = await takeState(state);
     if (!pending?.linkUserId) {
       throw new LoginMethodError("Invalid state parameter", 400);
@@ -621,7 +763,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
       assertSameBrowser(request, pending);
       const provider = await store.resolve(pending.providerId);
       if (!provider) throw new LoginMethodError("OIDC not configured", 500);
-      const identity = await identityFrom(provider, code, pending);
+      const identity = await identityFrom(provider, answer, pending);
       if (identity.kind !== "external") {
         throw new LoginMethodError("Unexpected SSO identity", 500);
       }
@@ -648,11 +790,8 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
   async function callback(
     request: PluginLoginRequest,
   ): Promise<PluginVerifiedIdentity> {
-    const source = { ...request.query, ...(request.body ?? {}) };
-    const { code, state } = source as Record<string, unknown>;
-    if (!nonEmpty(code) || !nonEmpty(state)) {
-      throw new LoginMethodError("Code and state are required", 400);
-    }
+    const { source, state } = readSource(request);
+    const answer = await readAnswer(source, state);
     const pending = await takeState(state);
     if (!pending) throw new LoginMethodError("Invalid state parameter", 400);
     assertSameBrowser(request, pending);
@@ -660,7 +799,7 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     try {
       const provider = await store.resolve(pending.providerId);
       if (!provider) throw new LoginMethodError("OIDC not configured", 500);
-      return await identityFrom(provider, code, pending);
+      return await identityFrom(provider, answer, pending);
     } catch (error) {
       if (error instanceof LoginMethodError) {
         throw new RedirectLoginError(
@@ -682,5 +821,12 @@ export function createSsoLogin(ctx: PluginContext, store: ProviderStore) {
     }
   }
 
-  return { start, callback, isLink, finishLink, providerKeyOf };
+  return {
+    start,
+    callback,
+    isLink,
+    finishLink,
+    providerKeyOf,
+    stashSamlResponse,
+  };
 }

@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registreer hierdie URL as die herlei- of terugbels-URL in jou identiteitslewerder.",
     "legacyCallback": "Behou die ou herlei-URI",
     "legacyCallbackDesc": "Hierdie lewerder is voor Termix 2.9 opgestel en gebruik steeds die ou herlei-URI, wat steeds werk. Om na die nuwe een te skuif, voeg eers {{uri}} by in jou identiteitslewerder, en skakel dan hierdie opsie af.",
-    "authorizationUrl": "Otoriserings-URL: {{url}}"
+    "authorizationUrl": "Otoriserings-URL: {{url}}",
+    "sectionSignOut": "Teken uit",
+    "acsUrl": "ACS-URL",
+    "acsUrlDesc": "Registreer hierdie URL as die Assertion Consumer Service (antwoord)-URL by jou identiteitsverskaffer.",
+    "entityId": "Entiteit-ID",
+    "entityIdDesc": "Die identifiseerder van Termix, ook bekend as die gehoor- of vertroude party-identifiseerder.",
+    "metadataUrl": "Metadata-URL",
+    "metadataUrlDesc": "Sommige identiteitsverskaffers kan die opstelling vanaf hierdie URL lees.",
+    "metadataAfterSave": "Die metadata-URL word hier vertoon nadat jy stoor.",
+    "sectionIdp": "Identiteitsverskaffer",
+    "sectionServer": "Hierdie bediener",
+    "sectionAttributes": "Eienskappe",
+    "readMetadata": "Vul in vanaf metadata",
+    "readMetadataDone": "Ingevul vanaf die metadata",
+    "readMetadataFailed": "Kon nie die metadata lees nie"
   },
   "fields": {
     "clientId": "Kliënt-ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Admin-groep",
     "adminGroupDesc": "By elke aanmelding kry gebruikers in hierdie groep admin-toegang en almal anders verloor dit, selfs as hulle in Termix bevorder is. Laat leeg om administrateurs in Termix te bestuur.",
     "caCert": "Aangepaste CA-sertifikaat",
-    "caCertDesc": "Opsioneel. PEM-gekodeerde CA-sertifikaat vir OIDC-lewerders wat 'n privaat of self-ondertekende CA gebruik. Laat leeg om die stelsel se vertrouensberging te gebruik."
+    "caCertDesc": "Opsioneel. PEM-gekodeerde CA-sertifikaat vir OIDC-lewerders wat 'n privaat of self-ondertekende CA gebruik. Laat leeg om die stelsel se vertrouensberging te gebruik.",
+    "signOutAtProvider": "Teken ook af by die verskaffer",
+    "signOutAtProviderDesc": "Wanneer iemand van Termix afteken, stuur hulle na die verskaffer se afmeldbladsy sodat hulle daar ook afteken. Voeg hierdie Termix-adres by as 'n toegelate afmeld-herleiding by die verskaffer. Vereis Termix 26.11.3 en werk slegs in die blaaier.",
+    "endSessionUrl": "Afmeld-URL",
+    "endSessionUrlDesc": "Laat leeg om die end_session_endpoint te gebruik wat die verskaffer in sy ontdekkingsdokument lys.",
+    "samlMetadata": "IdP-metadata-URL",
+    "samlMetadataDesc": "Opsioneel. Plak die identiteitsverskaffer se metadata-URL en druk Vul in vanaf metadata.",
+    "samlEntryPoint": "Aanmeld-URL",
+    "samlEntryPointDesc": "Die identiteitsverskaffer se SAML-aanmeld-URL vir die HTTP-Redirect-binding.",
+    "samlIdpIssuer": "IdP-Entiteit-ID",
+    "samlIdpIssuerDesc": "Opsioneel. Antwoorde van enige ander uitgewer word geweier.",
+    "samlIdpCert": "IdP-handtekening-sertifikaat",
+    "samlIdpCertDesc": "PEM. Plak meer as een tydens 'n sertifikaatwisseling.",
+    "samlSpEntityId": "Entiteit-ID",
+    "samlNameIdFormat": "NameID-formaat",
+    "samlNameIdFormatDesc": "Opsioneel. Laat leeg sodat die identiteitsverskaffer kan kies.",
+    "samlIdentifierAttr": "Gebruiker-identifiseerder-attribuut",
+    "samlIdentifierAttrDesc": "Laat leeg om die NameID te gebruik.",
+    "samlEmailAttr": "E-pos-eienskap",
+    "samlNameAttr": "Gebruikersnaam-eienskap",
+    "samlGroupsAttr": "Groep-eienskap",
+    "samlAttrDesc": "Laat leeg om die algemene name te probeer. Skei meer as een met kommas.",
+    "samlWantResponseSigned": "Die hele antwoord moet geteken wees",
+    "samlWantResponseSignedDesc": "Af: slegs die bewering moet geteken wees, wat elke identiteitsverskaffer doen.",
+    "samlSpKey": "Versoek-ondertekeningsleutel",
+    "samlSpKeyDesc": "Opsioneel. 'n PEM-privaatleutel om aanmeldversoeke mee te onderteken, vir verskaffers wat dit benodig.",
+    "samlSpKeyKeep": "'n Sleutel is gestoor. Laat dit leeg om dit te behou.",
+    "samlSpCert": "Aanvraag-ondertekeningsertifikaat",
+    "samlSpCertDesc": "Die sertifikaat vir die sleutel hierbo. Dit gaan in die metadata."
   },
   "links": {
     "description": "Koppel 'n enkelteken-in-rekening om met daardie rekening by hierdie Termix-rekening aan te meld. Jou gasheerbedieners en instellings bly soos hulle is.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Enkele aanmelding",
-    "description": "Meld aan met enige OpenID Connect-lewerder, GitHub of Google."
+    "description": "Meld aan met enige OpenID Connect- of SAML-lewerder, GitHub of Google."
   }
 }

@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registreeri see URL oma identiteedipakkuja ümbersuunamis- või tagasihelistamis-URL-ina.",
     "legacyCallback": "Hoia vana ümbersuunamise URI",
     "legacyCallbackDesc": "See pakkuja seati üles enne Termixi versiooni 2.9 ja kasutab endiselt vanat ümbersuunamise URI-d, mis töötab edasi. Uuele üleminekuks lisa {{uri}} oma identiteedipakkuja juurde ja lülita see seejärel välja.",
-    "authorizationUrl": "Autoriseerimise URL: {{url}}"
+    "authorizationUrl": "Autoriseerimise URL: {{url}}",
+    "sectionSignOut": "Logi välja",
+    "acsUrl": "ACS-i URL",
+    "acsUrlDesc": "Salvestage see URL oma identiteedipakkuja seadistustes Assertion Consumer Service (vastuse) URL-ina.",
+    "entityId": "Entiteedi ID",
+    "entityIdDesc": "Termixi identifikaator, mida tuntakse ka kui sihtrühma või usalduspartei identifikaatorit.",
+    "metadataUrl": "Metaandmete URL",
+    "metadataUrlDesc": "Mõned identiteedipakkujad saavad selle URL-i põhjal seadistuse lugeda.",
+    "metadataAfterSave": "Metaandmete URL kuvatakse pärast salvestamist.",
+    "sectionIdp": "Identiteedipakkuja",
+    "sectionServer": "See server",
+    "sectionAttributes": "Atribuudid",
+    "readMetadata": "Täida metandanditest",
+    "readMetadataDone": "Täidetud metandanditest",
+    "readMetadataFailed": "Metandandite lugemine ebaõnnestus"
   },
   "fields": {
     "clientId": "Kliendi ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Administraatorite grupp",
     "adminGroupDesc": "Iga sisselogimise korral saavad selle grupi kasutajad administraatori õigused ja kõik teised kaotavad need, isegi kui neid Termixis on edendatud. Jäta tühjaks, kui soovid administraatoreid haldada Termixis.",
     "caCert": "Kohandatud CA-sertifikaat",
-    "caCertDesc": "Valikuline. PEM-kodeeritud CA-sertifikaat OIDC-pakkujatele, kes kasutavad privaatset või isesertifitseeritud CA-d. Jäta tühjaks, et kasutada süsteemi usalduskaupa."
+    "caCertDesc": "Valikuline. PEM-kodeeritud CA-sertifikaat OIDC-pakkujatele, kes kasutavad privaatset või isesertifitseeritud CA-d. Jäta tühjaks, et kasutada süsteemi usalduskaupa.",
+    "signOutAtProvider": "Logi välja ka teenusepakkujast",
+    "signOutAtProviderDesc": "Kui keegi logib Termixist välja, suunage ta teenusepakkuja väljalogimislehele, et ka sealt välja logida. Lisage see Termixi aadress lubatud väljalogimise ümbersuunamise aadressina teenusepakkujale. Nõuab Termixi versiooni 26.11.3 ja toimib ainult brauseris.",
+    "endSessionUrl": "Väljalogimise URL",
+    "endSessionUrlDesc": "Jätke tühjaks, et kasutada teenusepakkuja avastusdokumendis loetletud end_session_endpointi.",
+    "samlMetadata": "IdP metandandite URL",
+    "samlMetadataDesc": "Valikuline. Kleepige identiteediteenuse pakkuja metandandite URL ja vajutage Täida metandanditest.",
+    "samlEntryPoint": "Sisselogimise URL",
+    "samlEntryPointDesc": "Identiteedipakkuja SAML-i sisselogimise URL HTTP-Redirect sideme jaoks.",
+    "samlIdpIssuer": "IdP üksuse ID",
+    "samlIdpIssuerDesc": "Valikuline. Teiste väljastajate vastused lükatakse tagasi.",
+    "samlIdpCert": "IdP allkirjastamise sertifikaat",
+    "samlIdpCertDesc": "PEM. Sertifikaadi vahetamisel kleepige siia mitu sertifikaati.",
+    "samlSpEntityId": "Üksuse ID",
+    "samlNameIdFormat": "NameID vorming",
+    "samlNameIdFormatDesc": "Valikuline. Jätke tühjaks, et identiteedipakkuja saaks vormingu valida.",
+    "samlIdentifierAttr": "Kasutaja identifikaatori atribuut",
+    "samlIdentifierAttrDesc": "Jäta tühjaks, et kasutada NameID-d.",
+    "samlEmailAttr": "E-posti atribuut",
+    "samlNameAttr": "Kasutajanime atribuut",
+    "samlGroupsAttr": "Gruppide atribuut",
+    "samlAttrDesc": "Jäta tühjaks, et proovida tavapäraseid nimesid. Eralda mitu atribuuti koolonitega.",
+    "samlWantResponseSigned": "Nõuda kogu vastuse allkirjastamist",
+    "samlWantResponseSignedDesc": "Kui välja lülitatud, piisab vaid väite allkirjastamisest, mida teevad kõik identiteedipakkujad.",
+    "samlSpKey": "Päringu allkirjastamise võti",
+    "samlSpKeyDesc": "Valikuline. PEM-vormingus privaatvõti, mida kasutatakse sisselogimispäringute allkirjastamiseks pakkujate jaoks, kes seda nõuavad.",
+    "samlSpKeyKeep": "Võti on salvestatud. Jäta see tühjaks, et see säilitada.",
+    "samlSpCert": "Taotluse allkirjastamise sertifikaat",
+    "samlSpCertDesc": "Ülaltoodud võtme sertifikaat. See lisatakse metandatesse."
   },
   "links": {
     "description": "Seosta üks sisselogimisega (SSO) konto, et saaksid sellega selle Termixi konto sisse logida. Sinu hostid ja seaded jäävad samaks.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Üksik sisselogimine",
-    "description": "Logi sisse mis iganes OpenID Connect-pakkuja, GitHub või Google kaudu."
+    "description": "Logi sisse mis tahes OpenID Connecti või SAML pakkujaga, GitHubiga või Google'iga."
   }
 }

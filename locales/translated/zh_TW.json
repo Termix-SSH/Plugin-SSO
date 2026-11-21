@@ -38,7 +38,21 @@
     "redirectUriDesc": "在您的身分提供者中，將此 URL 註冊為重新導向或回呼 URL。",
     "legacyCallback": "保留舊版重新導向 URI",
     "legacyCallbackDesc": "此提供者是在 Termix 2.9 之前設定的，仍使用舊版重新導向 URI，目前仍可正常運作。若要遷移至新版，請先在您的身分提供者中加入 {{uri}}，然後關閉此選項。",
-    "authorizationUrl": "授權 URL：{{url}}"
+    "authorizationUrl": "授權 URL：{{url}}",
+    "sectionSignOut": "登出",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "在您的身分提供者中，將此 URL 註冊為 Assertion Consumer Service（回覆）URL。",
+    "entityId": "Entity ID",
+    "entityIdDesc": "Termix 的識別碼，也稱為受眾（audience）或依賴方（relying party）識別碼。",
+    "metadataUrl": "Metadata URL",
+    "metadataUrlDesc": "某些身分提供者可以從此 URL 讀取設定。",
+    "metadataAfterSave": "儲存後，Metadata URL 會顯示在此處。",
+    "sectionIdp": "身分提供者",
+    "sectionServer": "此伺服器",
+    "sectionAttributes": "屬性",
+    "readMetadata": "從 Metadata 填入",
+    "readMetadataDone": "已從 Metadata 填入",
+    "readMetadataFailed": "無法讀取 Metadata"
   },
   "fields": {
     "clientId": "用戶端 ID",
@@ -58,7 +72,35 @@
     "adminGroup": "管理員群組",
     "adminGroupDesc": "每次登入時，此群組中的使用者會取得管理員權限，而其他使用者則會失去該權限，即使在 Termix 中已被提升為管理員亦然。留空即可在 Termix 中管理管理員。",
     "caCert": "自訂 CA 憑證",
-    "caCertDesc": "選填。用於使用私人或自簽 CA 的 OIDC 提供者之 PEM 編碼 CA 憑證。留空表示使用系統信任儲存區。"
+    "caCertDesc": "選填。用於使用私人或自簽 CA 的 OIDC 提供者之 PEM 編碼 CA 憑證。留空表示使用系統信任儲存區。",
+    "signOutAtProvider": "同時登出提供者",
+    "signOutAtProviderDesc": "當使用者登出 Termix 時，將其導向提供者的登出頁面，使其在該處也登出。請將此 Termix 地址新增為提供者允許的登出重定向。需要 Termix 26.11.3 以上版本，且僅在瀏覽器中有效。",
+    "endSessionUrl": "登出 URL",
+    "endSessionUrlDesc": "留空以使用提供者在發現文件（discovery document）中列出的 end_session_endpoint。",
+    "samlMetadata": "IdP Metadata URL",
+    "samlMetadataDesc": "選填。貼上身分提供者的 Metadata URL，然後按下「從 Metadata 填入」。",
+    "samlEntryPoint": "登入 URL",
+    "samlEntryPointDesc": "身分提供者用於 HTTP-Redirect 綁定的 SAML 登入 URL。",
+    "samlIdpIssuer": "IdP Entity ID",
+    "samlIdpIssuerDesc": "選填。拒絕來自任何其他發行者（issuer）的回應。",
+    "samlIdpCert": "IdP 簽署憑證",
+    "samlIdpCertDesc": "PEM 格式。在憑證更換期間，可貼上多個憑證。",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "NameID 格式",
+    "samlNameIdFormatDesc": "選填。留空以讓身分提供者自行選擇。",
+    "samlIdentifierAttr": "使用者識別碼屬性",
+    "samlIdentifierAttrDesc": "留空以使用 NameID。",
+    "samlEmailAttr": "電子郵件屬性",
+    "samlNameAttr": "使用者名稱屬性",
+    "samlGroupsAttr": "群組屬性",
+    "samlAttrDesc": "留空以嘗試常用名稱。多個名稱請以逗號分隔。",
+    "samlWantResponseSigned": "需要整個回應簽署",
+    "samlWantResponseSignedDesc": "關閉時，僅需簽署斷言（assertion），這是所有身分提供者都會執行的。",
+    "samlSpKey": "請求簽署金鑰",
+    "samlSpKeyDesc": "選填。用於簽署登入請求的 PEM 私鑰，適用於需要此功能的提供者。",
+    "samlSpKeyKeep": "已儲存金鑰。留空以保留現有金鑰。",
+    "samlSpCert": "請求簽署憑證",
+    "samlSpCertDesc": "上述金鑰的憑證。它會包含在 Metadata 中。"
   },
   "links": {
     "description": "將單一登入帳戶連結至此 Termix 帳戶，以便使用該帳戶登入。您的主機與設定將維持不變。",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "單一登入",
-    "description": "使用任何 OpenID Connect 提供者、GitHub 或 Google 登入。"
+    "description": "使用任何 OpenID Connect 或 SAML 提供者、GitHub 或 Google 登入。"
   }
 }

@@ -38,7 +38,21 @@
     "redirectUriDesc": "在您的身份提供商中将此 URL 注册为重定向或回调 URL。",
     "legacyCallback": "保留旧的重定向 URI",
     "legacyCallbackDesc": "此提供商是在 Termix 2.9 之前设置的，仍使用旧的重定向 URI，该 URI 仍可正常工作。要迁移到新的 URI，请先在您的身份提供商中添加 {{uri}}，然后关闭此选项。",
-    "authorizationUrl": "授权 URL：{{url}}"
+    "authorizationUrl": "授权 URL：{{url}}",
+    "sectionSignOut": "退出登录",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "将此 URL 注册为您的身份提供商的断言消费者服务（回复）URL。",
+    "entityId": "实体 ID",
+    "entityIdDesc": "Termix 的标识符，也称为受众或依赖方标识符。",
+    "metadataUrl": "元数据 URL",
+    "metadataUrlDesc": "某些身份提供商可以从该 URL 读取设置。",
+    "metadataAfterSave": "保存后，此处将显示元数据 URL。",
+    "sectionIdp": "身份提供商",
+    "sectionServer": "此服务器",
+    "sectionAttributes": "属性",
+    "readMetadata": "从元数据填充",
+    "readMetadataDone": "已从元数据填充",
+    "readMetadataFailed": "无法读取元数据"
   },
   "fields": {
     "clientId": "客户端 ID",
@@ -58,7 +72,35 @@
     "adminGroup": "管理员组",
     "adminGroupDesc": "每次登录时，该组中的用户将获得管理员权限，而其他用户将失去管理员权限，即使在 Termix 中已被提升。留空以在 Termix 中管理管理员。",
     "caCert": "自定义 CA 证书",
-    "caCertDesc": "可选。使用私有或自签名 CA 的 OIDC 提供商的 PEM 编码 CA 证书。留空以使用系统信任库。"
+    "caCertDesc": "可选。使用私有或自签名 CA 的 OIDC 提供商的 PEM 编码 CA 证书。留空以使用系统信任库。",
+    "signOutAtProvider": "同时退出提供商登录",
+    "signOutAtProviderDesc": "当用户退出 Termix 时，将其重定向到提供商的退出页面，以便同时退出提供商的登录。请将此 Termix 地址添加为提供商允许的重定向地址。需要 Termix 26.11.3 或更高版本，且仅在浏览器中有效。",
+    "endSessionUrl": "退出登录 URL",
+    "endSessionUrlDesc": "留空以使用提供商在其发现文档中列出的 end_session_endpoint。",
+    "samlMetadata": "IdP 元数据 URL",
+    "samlMetadataDesc": "可选。粘贴身份提供商的元数据 URL，然后按“从元数据填充”。",
+    "samlEntryPoint": "登录 URL",
+    "samlEntryPointDesc": "身份提供商用于 HTTP-Redirect 绑定的 SAML 登录 URL。",
+    "samlIdpIssuer": "IdP 实体 ID",
+    "samlIdpIssuerDesc": "可选。拒绝来自任何其他发行者的响应。",
+    "samlIdpCert": "IdP 签名证书",
+    "samlIdpCertDesc": "PEM 格式。在证书更换期间，可以粘贴多个证书。",
+    "samlSpEntityId": "实体 ID",
+    "samlNameIdFormat": "NameID 格式",
+    "samlNameIdFormatDesc": "可选。留空以让身份提供商选择。",
+    "samlIdentifierAttr": "用户标识符属性",
+    "samlIdentifierAttrDesc": "留空以使用 NameID。",
+    "samlEmailAttr": "电子邮件属性",
+    "samlNameAttr": "用户名属性",
+    "samlGroupsAttr": "组属性",
+    "samlAttrDesc": "留空以尝试常用名称。多个名称请用逗号分隔。",
+    "samlWantResponseSigned": "需要整个响应签名",
+    "samlWantResponseSignedDesc": "关闭时，只需对断言进行签名，所有身份提供商都会这样做。",
+    "samlSpKey": "请求签名密钥",
+    "samlSpKeyDesc": "可选。用于对登录请求进行签名的 PEM 私钥，适用于需要此功能的提供商。",
+    "samlSpKeyKeep": "已保存密钥。留空以保留它。",
+    "samlSpCert": "请求签名证书",
+    "samlSpCertDesc": "上述密钥的证书。它将包含在元数据中。"
   },
   "links": {
     "description": "将单点登录账户关联到此 Termix 账户，以便使用该账户登录。您的主机和设置将保持不变。",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "单点登录",
-    "description": "使用任意 OpenID Connect 提供商、GitHub 或 Google 登录。"
+    "description": "使用任何 OpenID Connect 或 SAML 提供商、GitHub 或 Google 登录。"
   }
 }

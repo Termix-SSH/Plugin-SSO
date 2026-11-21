@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registrer denne URL-en som omdirigerings- eller tilbakekalle-URL i identitetsleverandøren din.",
     "legacyCallback": "Behold den gamle omdirigerings-URI-en",
     "legacyCallbackDesc": "Denne leverandøren ble oppsatt før Termix 2.9 og bruker fortsatt den gamle omdirigerings-URI-en, som fortsatt fungerer. For å bytte til den nye, må du først legge til {{uri}} i identitetsleverandøren din, og deretter slå av dette.",
-    "authorizationUrl": "Autoriserings-URL: {{url}}"
+    "authorizationUrl": "Autoriserings-URL: {{url}}",
+    "sectionSignOut": "Logg ut",
+    "acsUrl": "ACS-URL",
+    "acsUrlDesc": "Registrer denne URL-en som Assertion Consumer Service (svar)-URL-en i identitetsleverandøren din.",
+    "entityId": "Entitets-ID",
+    "entityIdDesc": "Identifikatoren for Termix, også kalt audience eller relying party-identifikator.",
+    "metadataUrl": "Metadata-URL",
+    "metadataUrlDesc": "Noen identitetsleverandører kan lese oppsettet fra denne URL-en.",
+    "metadataAfterSave": "Metadata-URL-en vises her etter at du har lagret.",
+    "sectionIdp": "Identitetsleverandør",
+    "sectionServer": "Denne serveren",
+    "sectionAttributes": "Attributter",
+    "readMetadata": "Fyll ut fra metadata",
+    "readMetadataDone": "Udfylt fra metadata",
+    "readMetadataFailed": "Kunne ikke lese metadata"
   },
   "fields": {
     "clientId": "Klient-ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Administratørgruppe",
     "adminGroupDesc": "Ved hver pålogging får brukere i denne gruppen admin-tilgang, og alle andre mister den, selv om de har fått oppgradert tilgang i Termix. La feltet være tomt for å administrere administratorer i Termix.",
     "caCert": "Tilpasset CA-sertifikat",
-    "caCertDesc": "Valgfritt. PEM-kodet CA-sertifikat for OIDC-leverandører som bruker en privat eller selvsignert CA. La stå tomt for å bruke systemets tillitslager."
+    "caCertDesc": "Valgfritt. PEM-kodet CA-sertifikat for OIDC-leverandører som bruker en privat eller selvsignert CA. La stå tomt for å bruke systemets tillitslager.",
+    "signOutAtProvider": "Logg også ut av leverandøren",
+    "signOutAtProviderDesc": "Når noen logger ut av Termix, send dem til leverandørens utloggingsside slik at de også blir logget ut der. Legg til denne Termix-adressen som en tillatt omdirigeringsadresse for utlogging hos leverandøren. Krever Termix 26.11.3 og fungerer kun i nettleseren.",
+    "endSessionUrl": "Utlogging-URL",
+    "endSessionUrlDesc": "La stå tomt for å bruke end_session_endpoint som leverandøren oppgir i oppdagelsesdokumentet.",
+    "samlMetadata": "IdP-metadata-URL",
+    "samlMetadataDesc": "Valgfritt. Lim inn identitetsleverandørens metadata-URL og trykk Fyll ut fra metadata.",
+    "samlEntryPoint": "Innlogging-URL",
+    "samlEntryPointDesc": "Identitetsleverandørens SAML-innlogging-URL for HTTP-Redirect-bindingen.",
+    "samlIdpIssuer": "IdP-entitets-ID",
+    "samlIdpIssuerDesc": "Valgfritt. Svar fra andre utstedere avslås.",
+    "samlIdpCert": "IdP-signeringssertifikat",
+    "samlIdpCertDesc": "PEM. Lim inn flere enn ett under sertifikatbytte.",
+    "samlSpEntityId": "Entitets-ID",
+    "samlNameIdFormat": "NameID-format",
+    "samlNameIdFormatDesc": "Valgfritt. La stå tomt for å la identitetsleverandøren velge.",
+    "samlIdentifierAttr": "Attributt for brukeridentifikator",
+    "samlIdentifierAttrDesc": "La stå tomt for å bruke NameID.",
+    "samlEmailAttr": "E-post-attributt",
+    "samlNameAttr": "Brukernavn-attributt",
+    "samlGroupsAttr": "Grupper-attributt",
+    "samlAttrDesc": "La stå tomt for å prøve de vanlige navnene. Skill flere enn ett med komma.",
+    "samlWantResponseSigned": "Hele svaret må være signert",
+    "samlWantResponseSignedDesc": "Av: Kun påstanden må være signert, noe alle identitetsleverandører gjør.",
+    "samlSpKey": "Nøkkel for forespørselssignering",
+    "samlSpKeyDesc": "Valgfritt. En privat PEM-nøkkel for å signere innloggingssøknader med, for leverandører som krever det.",
+    "samlSpKeyKeep": "En nøkkel er lagret. La dette stå tomt for å beholde den.",
+    "samlSpCert": "Sertifikat for forespørselssignering",
+    "samlSpCertDesc": "Sertifikatet for nøkkelen over. Det legges inn i metadata."
   },
   "links": {
     "description": "Koble til en enkelt pålogging-konto for å logge inn på denne Termix-kontoen med den. Vertene og innstillingene dine forblir uendret.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Enkel innlogging",
-    "description": "Logg inn med hvilken som helst OpenID Connect-tilbyder, GitHub eller Google."
+    "description": "Logg inn med hvilken som helst OpenID Connect- eller SAML-leverandør, GitHub eller Google."
   }
 }

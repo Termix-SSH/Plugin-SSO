@@ -38,7 +38,21 @@
     "redirectUriDesc": "Rekisteröi tämä URL-osoite uudelleenohjaus- tai kutsutakaisin-osoitteeksi identiteettipalvelussasi.",
     "legacyCallback": "Säilytä vanha uudelleenohjaus-URI",
     "legacyCallbackDesc": "Tämä palvelu on määritetty ennen Termix 2.9:ää ja käyttää edelleen vanhaa uudelleenohjaus-URI:ta, joka toimii edelleen. Siirtyäksesi uuteen, lisää {{uri}} identiteettipalveluusi ensin ja poista tämä käytöstä.",
-    "authorizationUrl": "Valtuutusosoite: {{url}}"
+    "authorizationUrl": "Valtuutusosoite: {{url}}",
+    "sectionSignOut": "Kirjaudu ulos",
+    "acsUrl": "ACS-URL",
+    "acsUrlDesc": "Rekisteröi tämä URL tunnistetietojen tarjoajan Assertion Consumer Service -vastausosoitteeksi.",
+    "entityId": "Entiteetin tunniste",
+    "entityIdDesc": "Termixin tunniste, jota kutsutaan myös yleisöksi tai luottamuspuolen tunnisteeksi.",
+    "metadataUrl": "Metatietojen URL",
+    "metadataUrlDesc": "Jotkut tunnistetietojen tarjoajat voivat lukea asetukset tästä URL-osoitteesta.",
+    "metadataAfterSave": "Metatietojen URL näkyy täällä tallennuksen jälkeen.",
+    "sectionIdp": "Tunnistetietojen tarjoaja",
+    "sectionServer": "Tämä palvelin",
+    "sectionAttributes": "Määritteet",
+    "readMetadata": "Täytä metatiedoista",
+    "readMetadataDone": "Täytetty metatiedoista",
+    "readMetadataFailed": "Metatietoja ei voitu lukea"
   },
   "fields": {
     "clientId": "Asiakastunnus",
@@ -58,7 +72,35 @@
     "adminGroup": "Ylläpitäjäryhmä",
     "adminGroupDesc": "Jokaisessa kirjautumisessa tämän ryhmän käyttäjät saavat ylläpitäjän oikeudet ja muut menettävät ne, vaikka ne olisi myönnetty Termixissä. Jätä tyhjäksi, jos haluat hallita ylläpitäjiä Termixissä.",
     "caCert": "Mukautettu CA-varmenne",
-    "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluille, jotka käyttävät yksityistä tai itseallekirjoitettua CA:ta. Jätä tyhjäksi käyttääksesi järjestelmän luottamusvarastoa."
+    "caCertDesc": "Valinnainen. PEM-koodattu CA-varmenne OIDC-palveluille, jotka käyttävät yksityistä tai itseallekirjoitettua CA:ta. Jätä tyhjäksi käyttääksesi järjestelmän luottamusvarastoa.",
+    "signOutAtProvider": "Kirjaudu myös ulos tarjoajasta",
+    "signOutAtProviderDesc": "Kun joku kirjautuu ulos Termixistä, ohjaa hänet tarjoajan kirjautumissivulle, jotta hän kirjautuu myös sieltä ulos. Lisää tämä Termix-osoite sallituksi kirjautumisen uudelleenohjaukseksi tarjoajalla. Vaatii Termix-version 26.11.3 ja toimii vain selaimessa.",
+    "endSessionUrl": "Kirjautumisen päättymis-URL",
+    "endSessionUrlDesc": "Jätä tyhjäksi käyttääksesi tarjoajan löytöasiakirjassaan listattua end_session_endpoint-osoitetta.",
+    "samlMetadata": "IdP:n metatietojen URL",
+    "samlMetadataDesc": "Valinnainen. Liitä tunnistetietojen tarjoajan metatietojen URL ja paina Täytä metatiedoista.",
+    "samlEntryPoint": "Kirjautumis-URL",
+    "samlEntryPointDesc": "Tunnistetietojen tarjoajan SAML-kirjautumis-URL HTTP-Redirect-sidonnaisuudelle.",
+    "samlIdpIssuer": "IdP:n entiteetin tunniste",
+    "samlIdpIssuerDesc": "Valinnainen. Muiden lähettäjien vastaukset hylätään.",
+    "samlIdpCert": "IdP:n allekirjoitussertifikaatti",
+    "samlIdpCertDesc": "PEM. Liitä useampi sertifikaatti vaihdon aikana.",
+    "samlSpEntityId": "Entiteetin tunniste",
+    "samlNameIdFormat": "NameID-muoto",
+    "samlNameIdFormatDesc": "Valinnainen. Jätä tyhjäksi, jotta tunnistetietojen tarjoaja voi valita.",
+    "samlIdentifierAttr": "Käyttäjän tunnisteominaisuus",
+    "samlIdentifierAttrDesc": "Jätä tyhjäksi käyttääksesi NameID:tä.",
+    "samlEmailAttr": "Sähköpostiominaisuus",
+    "samlNameAttr": "Käyttäjänimiominaisuus",
+    "samlGroupsAttr": "Ryhmäominaisuus",
+    "samlAttrDesc": "Jätä tyhjäksi kokeillaksesi yleisiä nimiä. Erottele useampi pilkulla.",
+    "samlWantResponseSigned": "Koko vastauksen on oltava allekirjoitettu",
+    "samlWantResponseSignedDesc": "Poissa käytöstä: vain väitteen on oltava allekirjoitettu, minkä jokainen tunnistetietojen tarjoaja tekee.",
+    "samlSpKey": "Pyyntöjen allekirjoitusavain",
+    "samlSpKeyDesc": "Valinnainen. PEM-yksityisavain, jota käytetään kirjautumispyyntöjen allekirjoittamiseen tarjoajille, jotka vaativat sen.",
+    "samlSpKeyKeep": "Avain on tallennettu. Jätä tämä tyhjäksi säilyttääksesi sen.",
+    "samlSpCert": "Pyyntöjen allekirjoitussertifikaatti",
+    "samlSpCertDesc": "Yllä olevan avaimen sertifikaatti. Se menee metatietoihin."
   },
   "links": {
     "description": "Linkaa yksittäinen kirjautumistili (SSO) tähän Termix-tiliin voidaksesi kirjautua sillä. Isäntäsi ja asetukset pysyvät ennallaan.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Yksittäinen kirjautuminen",
-    "description": "Kirjaudu sisään mille tahansa OpenID Connect -palveluntarjoajalle, GitHubiin tai Googleen."
+    "description": "Kirjaudu sisään mille tahansa OpenID Connect- tai SAML-tarjoajalle, GitHubille tai Googlelle."
   }
 }

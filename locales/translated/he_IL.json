@@ -38,7 +38,21 @@
     "redirectUriDesc": "רשום את כתובת ה-URL הזו ככתובת הפניה או חזרה (callback) בספק הזהות שלך.",
     "legacyCallback": "שמור את כתובת ההפניה הישנה",
     "legacyCallbackDesc": "ספק זה הוגדר לפני Termix 2.9 ועדיין משתמש בכתובת ההפניה הישנה, שעדיין עובדת. כדי לעבור לחדשה, הוסף תחילה את {{uri}} בספק הזהות שלך, ואז כבה אפשרות זו.",
-    "authorizationUrl": "כתובת הרשאה: {{url}}"
+    "authorizationUrl": "כתובת הרשאה: {{url}}",
+    "sectionSignOut": "התנתק",
+    "acsUrl": "כתובת ACS",
+    "acsUrlDesc": "רשום את כתובת זו ככתובת שירות צרכן האישור (תגובה) בספק הזהות שלך.",
+    "entityId": "מזהה ישות",
+    "entityIdDesc": "המזהה של Termix, המכונה גם מזהה הקהל או מזהה צד הסומך.",
+    "metadataUrl": "כתובת מטא-נתונים",
+    "metadataUrlDesc": "חלק מספקי הזהות יכולים לקרוא את ההגדרות מכתובת זו.",
+    "metadataAfterSave": "כתובת המטא-נתונים תופיע כאן לאחר השמירה.",
+    "sectionIdp": "ספק זהות",
+    "sectionServer": "שרת זה",
+    "sectionAttributes": "תכונות",
+    "readMetadata": "מלא מנתונים מטא",
+    "readMetadataDone": "מולא מנתוני המטא",
+    "readMetadataFailed": "לא ניתן לקרוא את נתוני המטא"
   },
   "fields": {
     "clientId": "מזהה לקוח (Client ID)",
@@ -58,7 +72,35 @@
     "adminGroup": "קבוצת מנהל",
     "adminGroupDesc": "בכל כניסה למערכת, משתמשים בקבוצה זו מקבלים הרשאות מנהל, וכל השאר מאבדים אותן, גם אם הועלו לדרגת מנהל ב-Termix. השאר ריק כדי לנהל מנהלים ישירות ב-Termix.",
     "caCert": "תעודת CA מותאמת אישית",
-    "caCertDesc": "אופציונלי. תעודת CA מקודדת ב-PEM לספקי OIDC המשתמשים ב-CA פרטי או חתום עצמית. השאר ריק כדי להשתמש במאגר האמון של המערכת."
+    "caCertDesc": "אופציונלי. תעודת CA מקודדת ב-PEM לספקי OIDC המשתמשים ב-CA פרטי או חתום עצמית. השאר ריק כדי להשתמש במאגר האמון של המערכת.",
+    "signOutAtProvider": "התנתק גם מספק השירות",
+    "signOutAtProviderDesc": "כשמשתמש מתנתק מ-Termix, שלח אותו לדף ההתנתקות של ספק השירות כדי שיתנתק גם משם. הוסף את כתובת ה-Termix הזו ככתובת הפניה מותרת להתנתקות אצל ספק השירות. דורש Termix 26.11.3 ומתפקד רק בדפדפן.",
+    "endSessionUrl": "כתובת URL להתנתקות",
+    "endSessionUrlDesc": "השאר ריק כדי להשתמש ב-end_session_endpoint שספק השירות מפרסם במסמך הגילוי שלו.",
+    "samlMetadata": "כתובת URL לנתוני מטא של ספק זהות (IdP)",
+    "samlMetadataDesc": "אופציונלי. הדבק את כתובת ה-URL לנתוני המטא של ספק הזהות ולחץ על \"מלא מנתונים מטא\".",
+    "samlEntryPoint": "כתובת URL להתחברות",
+    "samlEntryPointDesc": "כתובת ה-URL של SAML להתחברות מספק הזהות, עבור קישור HTTP-Redirect.",
+    "samlIdpIssuer": "מזהה ישות של IdP",
+    "samlIdpIssuerDesc": "אופציונלי. תשובות מכל מנפיק אחר יידחו.",
+    "samlIdpCert": "תעודת חתימה של IdP",
+    "samlIdpCertDesc": "PEM. הדבק יותר מתעודה אחת במהלך החלפת תעודה.",
+    "samlSpEntityId": "מזהה ישות",
+    "samlNameIdFormat": "פורמט NameID",
+    "samlNameIdFormatDesc": "אופציונלי. השאר ריק כדי לאפשר לספק הזהות לבחור.",
+    "samlIdentifierAttr": "תכונת מזהה משתמש",
+    "samlIdentifierAttrDesc": "השאר ריק כדי להשתמש ב-NameID.",
+    "samlEmailAttr": "מאפיין דוא״ל",
+    "samlNameAttr": "מאפיין שם משתמש",
+    "samlGroupsAttr": "מאפיין קבוצות",
+    "samlAttrDesc": "השאר ריק כדי לנסות את השמות המקובלים. הפרד בין מספר שמות באמצעות פסיקים.",
+    "samlWantResponseSigned": "נדרש חתימה על כל התשובה",
+    "samlWantResponseSignedDesc": "כבוי: רק ההצהרה חייבת להיות חתומה, מה שכל ספק זהות עושה.",
+    "samlSpKey": "מפתח חתימת בקשה",
+    "samlSpKeyDesc": "אופציונלי. מפתח פרטי PEM לחתימה על בקשות התחברות, עבור ספקים הדורשים זאת.",
+    "samlSpKeyKeep": "מפתח שמור. השאר ריק כדי לשמור אותו.",
+    "samlSpCert": "תעודת חתימה לבקשה",
+    "samlSpCertDesc": "התעודה עבור המפתח למעלה. היא מופיעה במטא-נתונים."
   },
   "links": {
     "description": "קשר חשבון כניסה מאוחד כדי להיכנס לחשבון Termix זה באמצעותו. המארחים וההגדרות שלך יישארו כפי שהם.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "התחברות חד-פעמית (Single sign-on)",
-    "description": "התחבר באמצעות ספק OpenID Connect, GitHub או Google."
+    "description": "התחבר באמצעות ספק OpenID Connect או SAML כלשהו, GitHub או Google."
   }
 }

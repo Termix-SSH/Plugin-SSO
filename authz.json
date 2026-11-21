@@ -60,6 +60,17 @@
     },
     "GET /plugin-api/sso/start": {
       "access": "public"
+    },
+    "POST /plugin-api/sso/saml/acs": {
+      "access": "public",
+      "note": "Only keeps an answer for a login that is waiting; anything else gets 400."
+    },
+    "GET /plugin-api/sso/saml/metadata": {
+      "access": "public"
+    },
+    "POST /plugin-api/sso/providers/saml-metadata": {
+      "access": "user",
+      "permission": "sso.manage"
     }
   }
 }

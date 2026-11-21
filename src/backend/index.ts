@@ -5,6 +5,7 @@ import { createProviderStore } from "./providers.js";
 import { createSsoLogin, METHOD_ID } from "./login.js";
 import { PUBLIC_PATHS, registerSsoRoutes } from "./routes.js";
 import { setOidcFetch } from "./oidc-protocol.js";
+import { createLogout } from "./logout.js";
 
 /**
  * Whether the login page starts the first provider without a click. The
@@ -39,6 +40,8 @@ export async function activate(ctx: PluginContext) {
     },
     start: login.start,
     callback: login.callback,
+    // Termix 26.11.3 and later ask for it on sign out; older ones skip it.
+    ...({ logoutRedirect: createLogout(ctx, store) } as object),
   });
 
   registerSsoRoutes(

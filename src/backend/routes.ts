@@ -6,6 +6,7 @@ import {
 } from "@termix-ssh/plugin-sdk/backend";
 import {
   applyProviderDefaults,
+  fetchWithOptions,
   isValidOidcIssuer,
   validateLogoutToken,
 } from "./oidc-protocol.js";
@@ -21,12 +22,21 @@ import {
 const LINK_GO_PREFIX = "link-go:";
 const LINK_GO_TTL_MS = 2 * 60 * 1000;
 import type { OidcConfig, ProviderRow, SsoProviderType } from "./types.js";
+import {
+  SAML_METADATA_PATH,
+  parseIdpMetadata,
+  samlEntityId,
+  samlMetadata,
+  splitCerts,
+} from "./saml.js";
 
 export const PUBLIC_PATHS = [
   "/start",
   "/callback",
   "/backchannel-logout",
   "/config",
+  "/saml/acs",
+  "/saml/metadata",
 ];
 
 const LOGOUT_JTI_TTL_MS = 5 * 60 * 1000;
@@ -37,7 +47,12 @@ const REQUIRED_OIDC_FIELDS = [
   "authorization_url",
   "token_url",
 ] as const;
-const URL_FIELDS = ["authorization_url", "token_url", "userinfo_url"] as const;
+const URL_FIELDS = [
+  "authorization_url",
+  "token_url",
+  "userinfo_url",
+  "end_session_url",
+] as const;
 
 function isHttpUrl(value: unknown): boolean {
   if (typeof value !== "string") return false;
@@ -72,7 +87,12 @@ export function registerSsoRoutes(
 
   async function present(req: Request, row: ProviderRow) {
     const config = await store.parseConfig(row.config);
-    const { client_secret: secret, ...rest } = config;
+    const {
+      client_secret: secret,
+      saml_sp_private_key: spKey,
+      ...rest
+    } = config;
+    const baseUrl = ctx.http.baseUrl(req);
     return {
       id: row.id,
       name: row.name,
@@ -82,14 +102,38 @@ export function registerSsoRoutes(
       legacyCallback: !!row.legacyCallback,
       config: rest,
       hasClientSecret: typeof secret === "string" && secret.length > 0,
-      redirectUri: redirectUriFor(ctx.http.baseUrl(req), {
+      hasSpPrivateKey: typeof spKey === "string" && spKey.length > 0,
+      redirectUri: redirectUriFor(baseUrl, {
         legacyCallback: !!row.legacyCallback,
+        type: row.type as SsoProviderType,
       }),
+      ...(row.type === "saml"
+        ? {
+            samlEntityId: samlEntityId(
+              baseUrl,
+              config as unknown as OidcConfig,
+            ),
+            samlMetadataUrl: `${baseUrl}${SAML_METADATA_PATH}?provider=${row.id}`,
+          }
+        : {}),
     };
   }
 
   /** Checks a full provider config; returns the error to show, if any. */
   function validate(type: SsoProviderType, config: Partial<OidcConfig>) {
+    if (type === "saml") {
+      if (!isHttpUrl(config.saml_entry_point)) {
+        return "The IdP sign in URL must be an HTTP(S) URL";
+      }
+      if (splitCerts(config.saml_idp_cert).length === 0) {
+        return "The IdP signing certificate is required";
+      }
+      const key = config.saml_sp_private_key?.trim();
+      if (key && !/-----BEGIN (RSA |EC )?PRIVATE KEY-----/.test(key)) {
+        return "The signing key must be a PEM private key";
+      }
+      return null;
+    }
     if (type === "oidc") {
       const missing = REQUIRED_OIDC_FIELDS.filter((field) => !config[field]);
       if (missing.length > 0) {
@@ -182,6 +226,86 @@ export function registerSsoRoutes(
   };
   router.get("/callback", callback);
   router.post("/callback", callback);
+
+  /**
+   * @openapi
+   * /plugin-api/sso/saml/acs:
+   *   post:
+   *     summary: SAML assertion consumer service
+   *     description: Public. The ACS URL to register with a SAML identity provider (HTTP-POST binding). Keeps the answer for a moment and sends the browser on to the callback, where the login is checked and finished. Only answers to a login Termix started are taken.
+   *     tags:
+   *       - SSO
+   *     requestBody:
+   *       content:
+   *         application/x-www-form-urlencoded:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               SAMLResponse:
+   *                 type: string
+   *               RelayState:
+   *                 type: string
+   *     responses:
+   *       303:
+   *         description: On to the callback.
+   *       400:
+   *         description: No login is waiting for this answer.
+   */
+  router.post("/saml/acs", async (req: Request, res: Response) => {
+    try {
+      const relayState = req.body?.RelayState;
+      const token = await login.stashSamlResponse(
+        relayState,
+        req.body?.SAMLResponse,
+      );
+      if (!token) {
+        res.status(400).json({ error: "No login is waiting for this answer" });
+        return;
+      }
+      const next = new URL(`${ctx.http.baseUrl(req)}/plugin-api/sso/callback`);
+      next.searchParams.set("state", String(relayState));
+      next.searchParams.set("saml", token);
+      res.redirect(303, next.toString());
+    } catch (error) {
+      fail(ctx, res, "Failed to take the SAML answer", error);
+    }
+  });
+
+  /**
+   * @openapi
+   * /plugin-api/sso/saml/metadata:
+   *   get:
+   *     summary: SAML service provider metadata
+   *     description: Public. The metadata XML of one SAML provider, to give to the identity provider.
+   *     tags:
+   *       - SSO
+   *     parameters:
+   *       - in: query
+   *         name: provider
+   *         required: true
+   *         schema:
+   *           type: integer
+   *     responses:
+   *       200:
+   *         description: Metadata XML.
+   *       404:
+   *         description: No enabled SAML provider with that id.
+   */
+  router.get("/saml/metadata", async (req: Request, res: Response) => {
+    try {
+      const id = Number.parseInt(String(req.query.provider ?? ""), 10);
+      const provider = Number.isInteger(id) ? await store.resolve(id) : null;
+      if (!provider || provider.type !== "saml") {
+        res.status(404).json({ error: "SAML provider not found" });
+        return;
+      }
+      res
+        .type("application/samlmetadata+xml")
+        .send(samlMetadata(ctx, provider.config, ctx.http.baseUrl(req)));
+    } catch (error) {
+      fail(ctx, res, "Failed to build SAML metadata", error);
+    }
+  });
 
   async function selfLinkAllowed(): Promise<boolean> {
     return (await ctx.settings.get("allowSelfLink")) !== false;
@@ -503,7 +627,7 @@ export function registerSsoRoutes(
    * /plugin-api/sso/providers:
    *   get:
    *     summary: List SSO providers
-   *     description: Every OIDC, GitHub and Google provider with its redirect URI. Secrets are never sent, only whether one is set. Needs sso.manage.
+   *     description: Every OIDC, GitHub, Google and SAML provider with its redirect URI or ACS URL. Secrets are never sent, only whether one is set. Needs sso.manage.
    *     tags:
    *       - SSO
    *     responses:
@@ -531,7 +655,7 @@ export function registerSsoRoutes(
    * /plugin-api/sso/providers:
    *   post:
    *     summary: Add an SSO provider
-   *     description: Adds an OIDC, GitHub or Google provider. GitHub and Google fill in their own endpoints. Needs sso.manage.
+   *     description: Adds an OIDC, GitHub, Google or SAML provider. GitHub and Google fill in their own endpoints. Needs sso.manage.
    *     tags:
    *       - SSO
    *     requestBody:
@@ -545,7 +669,7 @@ export function registerSsoRoutes(
    *                 type: string
    *               type:
    *                 type: string
-   *                 enum: [oidc, github, google]
+   *                 enum: [oidc, github, google, saml]
    *               enabled:
    *                 type: boolean
    *               config:
@@ -558,6 +682,72 @@ export function registerSsoRoutes(
    *       403:
    *         description: Missing permission.
    */
+  /**
+   * @openapi
+   * /plugin-api/sso/providers/saml-metadata:
+   *   post:
+   *     summary: Read a SAML identity provider's metadata
+   *     description: Fetches the metadata from a URL, or reads pasted XML, and returns the sign in URL, entity id and signing certificates for the provider form. Saves nothing. Needs sso.manage.
+   *     tags:
+   *       - SSO
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               url:
+   *                 type: string
+   *               xml:
+   *                 type: string
+   *     responses:
+   *       200:
+   *         description: The fields read from the metadata.
+   *       400:
+   *         description: The metadata could not be read.
+   *       403:
+   *         description: Missing permission.
+   */
+  router.post(
+    "/providers/saml-metadata",
+    manage,
+    async (req: Request, res: Response) => {
+      const { url, xml } = req.body ?? {};
+      let text = typeof xml === "string" ? xml : "";
+      try {
+        if (!text) {
+          if (!isHttpUrl(url)) {
+            res
+              .status(400)
+              .json({ error: "A metadata URL or XML is required" });
+            return;
+          }
+          // An admin typed this address, so a private host is fine.
+          const response = await fetchWithOptions(String(url), {
+            allowHosts: [new URL(String(url)).hostname],
+          });
+          if (!response.ok) {
+            res
+              .status(400)
+              .json({ error: `The metadata URL answered ${response.status}` });
+            return;
+          }
+          text = await response.text();
+        }
+        if (text.length > 2 * 1024 * 1024) {
+          res.status(400).json({ error: "The metadata is too large" });
+          return;
+        }
+        res.json(parseIdpMetadata(text));
+      } catch (error) {
+        res.status(400).json({
+          error: error instanceof Error ? error.message : String(error),
+        });
+      }
+    },
+  );
+
   router.post("/providers", manage, async (req: Request, res: Response) => {
     try {
       const {
@@ -653,6 +843,7 @@ export function registerSsoRoutes(
       if (config && typeof config === "object") {
         const incoming = { ...(config as Record<string, unknown>) };
         if (!incoming.client_secret) delete incoming.client_secret;
+        if (!incoming.saml_sp_private_key) delete incoming.saml_sp_private_key;
         const merged = {
           ...(await store.parseConfig(row.config)),
           ...incoming,

@@ -38,7 +38,21 @@
     "redirectUriDesc": "この URL をアイデンティティプロバイダのリダイレクト URL またはコールバック URL として登録してください。",
     "legacyCallback": "旧リダイレクト URI を維持する",
     "legacyCallbackDesc": "このプロバイダは Termix 2.9 以前に設定されており、動作し続ける旧リダイレクト URI を使用しています。新しい URI に移行するには、まずアイデンティティプロバイダに {{uri}} を追加し、その後このオプションをオフにしてください。",
-    "authorizationUrl": "認可 URL: {{url}}"
+    "authorizationUrl": "認可 URL: {{url}}",
+    "sectionSignOut": "サインアウト",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "この URL を、アイデンティティプロバイダーの Assertion Consumer Service（返信）URL として登録してください。",
+    "entityId": "エンティティ ID",
+    "entityIdDesc": "Termix の識別子です。オーディエンスまたはリライアンパーティ識別子とも呼ばれます。",
+    "metadataUrl": "メタデータ URL",
+    "metadataUrlDesc": "一部のアイデンティティプロバイダーは、この URL から設定を読み取ることができます。",
+    "metadataAfterSave": "メタデータ URL は保存後にここに表示されます。",
+    "sectionIdp": "アイデンティティプロバイダー",
+    "sectionServer": "このサーバー",
+    "sectionAttributes": "属性",
+    "readMetadata": "メタデータから入力",
+    "readMetadataDone": "メタデータから入力しました",
+    "readMetadataFailed": "メタデータを読み取れませんでした"
   },
   "fields": {
     "clientId": "クライアント ID",
@@ -58,7 +72,35 @@
     "adminGroup": "管理者グループ",
     "adminGroupDesc": "このグループに属するユーザーは、ログイン時に常に管理者権限を取得し、Termix 内で昇格していた他のユーザーは権限を失います。Termix 内で管理者を管理する場合は空白のままにしてください。",
     "caCert": "カスタム CA 証明書",
-    "caCertDesc": "オプション。プライベートまたは自己署名 CA を使用する OIDC プロバイダ用の PEM エンコード CA 証明書です。システムの信頼ストアを使用する場合は空のままにしてください。"
+    "caCertDesc": "オプション。プライベートまたは自己署名 CA を使用する OIDC プロバイダ用の PEM エンコード CA 証明書です。システムの信頼ストアを使用する場合は空のままにしてください。",
+    "signOutAtProvider": "プロバイダーからもサインアウトする",
+    "signOutAtProviderDesc": "Termix からサインアウトした際、プロバイダーのサインアウトページにリダイレクトし、そちらでもサインアウト状態にします。この Termix のアドレスを、プロバイダーで許可されたサインアウトリダイレクト先に追加してください。Termix 26.11.3 以降が必要で、ブラウザでのみ動作します。",
+    "endSessionUrl": "サインアウト URL",
+    "endSessionUrlDesc": "プロバイダーのディスカバリードキュメントに記載されている end_session_endpoint を使用するには空のままにしてください。",
+    "samlMetadata": "IdP メタデータ URL",
+    "samlMetadataDesc": "任意。アイデンティティプロバイダーのメタデータ URL を貼り付け、「メタデータから入力」を押してください。",
+    "samlEntryPoint": "サインイン URL",
+    "samlEntryPointDesc": "HTTP-Redirect バインディング用の、アイデンティティプロバイダーの SAML サインイン URL です。",
+    "samlIdpIssuer": "IdP エンティティ ID",
+    "samlIdpIssuerDesc": "任意。他の発行者からの応答は拒否されます。",
+    "samlIdpCert": "IdP 署名証明書",
+    "samlIdpCertDesc": "PEM 形式。証明書変更時は複数の証明書を貼り付けてください。",
+    "samlSpEntityId": "エンティティ ID",
+    "samlNameIdFormat": "NameID 形式",
+    "samlNameIdFormatDesc": "任意。アイデンティティプロバイダーに選択させる場合は空のままにしてください。",
+    "samlIdentifierAttr": "ユーザー識別子属性",
+    "samlIdentifierAttrDesc": "NameID を使用するには空のままにしてください。",
+    "samlEmailAttr": "メール属性",
+    "samlNameAttr": "ユーザー名属性",
+    "samlGroupsAttr": "グループ属性",
+    "samlAttrDesc": "一般的な名前を試すには空のままにしてください。複数の場合はカンマで区切ってください。",
+    "samlWantResponseSigned": "応答全体に署名が必要",
+    "samlWantResponseSignedDesc": "オフの場合、アサーションのみが署名されればよく、これはすべてのアイデンティティプロバイダーが行います。",
+    "samlSpKey": "リクエスト署名キー",
+    "samlSpKeyDesc": "任意。署名が必要なプロバイダー向けに、サインインリクエストに署名するための PEM 形式の秘密鍵です。",
+    "samlSpKeyKeep": "キーが保存されています。保持するには空のままにしてください。",
+    "samlSpCert": "リクエスト署名証明書",
+    "samlSpCertDesc": "上記のキー用の証明書です。メタデータに含まれます。"
   },
   "links": {
     "description": "シングルサインオンアカウントをリンクして、そのアカウントでこの Termix アカウントにサインインします。ホストと設定はそのまま維持されます。",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "シングルサインオン",
-    "description": "任意の OpenID Connect プロバイダー、GitHub、または Google でサインインします。"
+    "description": "任意の OpenID Connect または SAML プロバイダー、GitHub、Google でサインインできます。"
   }
 }

@@ -4,7 +4,7 @@
 
 <h1>Single sign-on</h1>
 
-<p>Sign in with any OpenID Connect provider, GitHub or Google</p>
+<p>Sign in with any OpenID Connect or SAML provider, GitHub or Google</p>
 
 <!-- VIDEO:START -->
 

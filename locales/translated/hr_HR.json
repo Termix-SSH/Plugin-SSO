@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registrirajte ovaj URL kao URL za preusmjeravanje ili povratni poziv u svom pružatelju identiteta.",
     "legacyCallback": "Zadrži stari URI za preusmjeravanje",
     "legacyCallbackDesc": "Ovaj pružatelj je postavljen prije Termix 2.9 i još uvijek koristi stari URI za preusmjeravanje, koji i dalje radi. Da biste prešli na novi, prvo dodajte {{uri}} u svog pružatelja identiteta, a zatim isključite ovu opciju.",
-    "authorizationUrl": "URL za autorizaciju: {{url}}"
+    "authorizationUrl": "URL za autorizaciju: {{url}}",
+    "sectionSignOut": "Odjava",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Registrirajte ovaj URL kao Assertion Consumer Service (reply) URL u vašem pružatelju identiteta.",
+    "entityId": "Entity ID",
+    "entityIdDesc": "Identifikator Termixa, također poznat kao audience ili relying party identifikator.",
+    "metadataUrl": "URL metapodataka",
+    "metadataUrlDesc": "Neki pružatelji identiteta mogu pročitati postavke s ovog URL-a.",
+    "metadataAfterSave": "URL metapodataka prikazuje se ovdje nakon spremanja.",
+    "sectionIdp": "Pružatelj identiteta",
+    "sectionServer": "Ovaj poslužitelj",
+    "sectionAttributes": "Atributi",
+    "readMetadata": "Popuni iz metapodataka",
+    "readMetadataDone": "Popunjeno iz metapodataka",
+    "readMetadataFailed": "Nije moguće pročitati metapodatke"
   },
   "fields": {
     "clientId": "ID klijenta",
@@ -58,7 +72,35 @@
     "adminGroup": "Admin grupa",
     "adminGroupDesc": "Kod svake prijave korisnici u ovoj skupini dobivaju administratorska prava, a svi ostali ih gube, čak i ako su unaprijeđeni u Termixu. Ostavite prazno za upravljanje administratorima u Termixu.",
     "caCert": "Prilagođeni CA certifikat",
-    "caCertDesc": "Opcionalno. PEM-kodirani CA certifikat za OIDC pružatelje koji koriste privatni ili samopotpisani CA. Ostavite prazno da biste koristili sustavski spremnik povjerenja."
+    "caCertDesc": "Opcionalno. PEM-kodirani CA certifikat za OIDC pružatelje koji koriste privatni ili samopotpisani CA. Ostavite prazno da biste koristili sustavski spremnik povjerenja.",
+    "signOutAtProvider": "Odjavi se i od pružatelja",
+    "signOutAtProviderDesc": "Kada se netko odjavi iz Termixa, preusmjerite ga na stranicu za odjavu pružatelja kako bi se odjavio i tamo. Dodajte ovu Termix adresu kao dopušteno preusmjeravanje za odjavu kod pružatelja. Zahtijeva Termix 26.11.3 i radi samo u pregledniku.",
+    "endSessionUrl": "URL za odjavu",
+    "endSessionUrlDesc": "Ostavite prazno kako biste koristili end_session_endpoint koji pružatelj navodi u svom dokumentu za otkrivanje.",
+    "samlMetadata": "URL metapodataka IdP-a",
+    "samlMetadataDesc": "Opcionalno. Zalijepite URL metapodataka pružatelja identiteta i pritisnite Popuni iz metapodataka.",
+    "samlEntryPoint": "URL za prijavu",
+    "samlEntryPointDesc": "SAML URL za prijavu pružatelja identiteta za HTTP-Redirect vezu.",
+    "samlIdpIssuer": "Entity ID IdP-a",
+    "samlIdpIssuerDesc": "Opcionalno. Odgovori od bilo kojeg drugog izdavača bit će odbijeni.",
+    "samlIdpCert": "Potpisni certifikat IdP-a",
+    "samlIdpCertDesc": "PEM. Zalijepite više od jednog tijekom promjene certifikata.",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "Format NameID-a",
+    "samlNameIdFormatDesc": "Opcionalno. Ostavite prazno kako biste pustili pružatelja identiteta da odabere.",
+    "samlIdentifierAttr": "Atribut identifikatora korisnika",
+    "samlIdentifierAttrDesc": "Ostavite prazno kako biste koristili NameID.",
+    "samlEmailAttr": "Atribut e-pošte",
+    "samlNameAttr": "Atribut korisničkog imena",
+    "samlGroupsAttr": "Atribut grupa",
+    "samlAttrDesc": "Ostavite prazno kako biste pokušali s uobičajenim nazivima. Odvojite više od jednog zarezom.",
+    "samlWantResponseSigned": "Cijeli odgovor mora biti potpisan",
+    "samlWantResponseSignedDesc": "Isključeno, samo tvrdnja mora biti potpisana, što svaki pružatelj identiteta radi.",
+    "samlSpKey": "Ključ za potpisivanje zahtjeva",
+    "samlSpKeyDesc": "Opcionalno. PEM privatni ključ za potpisivanje zahtjeva za prijavu, za pružatelje koji to zahtijevaju.",
+    "samlSpKeyKeep": "Ključ je spremljen. Ostavite ovo prazno kako biste ga zadržali.",
+    "samlSpCert": "Certifikat za potpisivanje zahtjeva",
+    "samlSpCertDesc": "Certifikat za ključ iznad. Ulazi u metapodatke."
   },
   "links": {
     "description": "Povežite račun za jedinstvenu prijavu kako biste se s njim prijavili u ovaj Termix račun. Vaši hostovi i postavke ostaju nepromijenjeni.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Jedinstvena prijava",
-    "description": "Prijava putem bilo kojeg OpenID Connect pružatelja, GitHuba ili Googlea."
+    "description": "Prijavite se s bilo kojim OpenID Connect ili SAML pružateljem, GitHubom ili Googleom."
   }
 }

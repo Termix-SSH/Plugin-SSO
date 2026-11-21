@@ -38,7 +38,21 @@
     "redirectUriDesc": "Daftarkan URL ini sebagai URL pengalihan atau callback di penyedia identitas Anda.",
     "legacyCallback": "Pertahankan URI pengalihan lama",
     "legacyCallbackDesc": "Penyedia ini diatur sebelum Termix 2.9 dan masih menggunakan URI pengalihan lama, yang tetap berfungsi. Untuk beralih ke yang baru, tambahkan {{uri}} di penyedia identitas Anda terlebih dahulu, lalu nonaktifkan ini.",
-    "authorizationUrl": "URL Otorisasi: {{url}}"
+    "authorizationUrl": "URL Otorisasi: {{url}}",
+    "sectionSignOut": "Keluar",
+    "acsUrl": "URL ACS",
+    "acsUrlDesc": "Daftarkan URL ini sebagai URL Assertion Consumer Service (balasan) di penyedia identitas Anda.",
+    "entityId": "ID Entitas",
+    "entityIdDesc": "Pengidentifikasi Termix, juga disebut sebagai pengidentifikasi audiens atau pihak yang diandalkan.",
+    "metadataUrl": "URL Metadata",
+    "metadataUrlDesc": "Beberapa penyedia identitas dapat membaca pengaturan dari URL ini.",
+    "metadataAfterSave": "URL metadata akan muncul di sini setelah Anda menyimpan.",
+    "sectionIdp": "Penyedia identitas",
+    "sectionServer": "Server ini",
+    "sectionAttributes": "Atribut",
+    "readMetadata": "Isi dari metadata",
+    "readMetadataDone": "Terisi dari metadata",
+    "readMetadataFailed": "Tidak dapat membaca metadata"
   },
   "fields": {
     "clientId": "ID Klien",
@@ -58,7 +72,35 @@
     "adminGroup": "Grup Admin",
     "adminGroupDesc": "Setiap kali masuk, pengguna dalam grup ini menjadi admin dan yang lain kehilangan status admin, bahkan jika dipromosikan di Termix. Kosongkan untuk mengelola admin di Termix.",
     "caCert": "Sertifikat CA Kustom",
-    "caCertDesc": "Opsional. Sertifikat CA yang dikodekan PEM untuk penyedia OIDC yang menggunakan CA pribadi atau self-signed. Kosongkan untuk menggunakan penyimpanan kepercayaan sistem."
+    "caCertDesc": "Opsional. Sertifikat CA yang dikodekan PEM untuk penyedia OIDC yang menggunakan CA pribadi atau self-signed. Kosongkan untuk menggunakan penyimpanan kepercayaan sistem.",
+    "signOutAtProvider": "Keluar dari penyedia juga",
+    "signOutAtProviderDesc": "Ketika seseorang keluar dari Termix, arahkan mereka ke halaman keluar penyedia agar mereka juga keluar di sana. Tambahkan alamat Termix ini sebagai pengalihan keluar yang diizinkan di penyedia. Memerlukan Termix 26.11.3 dan hanya berfungsi di browser.",
+    "endSessionUrl": "URL Keluar",
+    "endSessionUrlDesc": "Biarkan kosong untuk menggunakan end_session_endpoint yang terdaftar penyedia dalam dokumen penemuan.",
+    "samlMetadata": "URL Metadata IdP",
+    "samlMetadataDesc": "Opsional. Tempel URL metadata penyedia identitas dan tekan Isi dari metadata.",
+    "samlEntryPoint": "URL Masuk",
+    "samlEntryPointDesc": "URL masuk SAML penyedia identitas untuk pengikatan HTTP-Redirect.",
+    "samlIdpIssuer": "ID Entitas IdP",
+    "samlIdpIssuerDesc": "Opsional. Jawaban dari penerbit lain akan ditolak.",
+    "samlIdpCert": "Sertifikat Penandatanganan IdP",
+    "samlIdpCertDesc": "PEM. Tempel lebih dari satu selama perubahan sertifikat.",
+    "samlSpEntityId": "ID Entitas",
+    "samlNameIdFormat": "Format NameID",
+    "samlNameIdFormatDesc": "Opsional. Biarkan kosong agar penyedia identitas memilih.",
+    "samlIdentifierAttr": "Atribut Pengidentifikasi Pengguna",
+    "samlIdentifierAttrDesc": "Biarkan kosong untuk menggunakan NameID.",
+    "samlEmailAttr": "Atribut Email",
+    "samlNameAttr": "Atribut Nama Pengguna",
+    "samlGroupsAttr": "Atribut Grup",
+    "samlAttrDesc": "Biarkan kosong untuk mencoba nama yang umum. Pisahkan lebih dari satu dengan koma.",
+    "samlWantResponseSigned": "Seluruh jawaban harus ditandatangani",
+    "samlWantResponseSignedDesc": "Nonaktif, hanya asersi yang harus ditandatangani, yang dilakukan oleh setiap penyedia identitas.",
+    "samlSpKey": "Kunci Penandatanganan Permintaan",
+    "samlSpKeyDesc": "Opsional. Kunci privat PEM untuk menandatangani permintaan masuk, untuk penyedia yang membutuhkannya.",
+    "samlSpKeyKeep": "Kunci telah disimpan. Biarkan ini kosong untuk mempertahankannya.",
+    "samlSpCert": "Sertifikat Penandatanganan Permintaan",
+    "samlSpCertDesc": "Sertifikat untuk kunci di atas. Ini akan masuk ke metadata."
   },
   "links": {
     "description": "Hubungkan akun single sign-on untuk masuk ke akun Termix ini. Host dan pengaturan Anda tetap seperti semula.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single sign-on",
-    "description": "Masuk menggunakan penyedia OpenID Connect, GitHub, atau Google."
+    "description": "Masuk dengan penyedia OpenID Connect atau SAML apa pun, GitHub, atau Google."
   }
 }

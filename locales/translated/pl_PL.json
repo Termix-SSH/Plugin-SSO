@@ -38,7 +38,21 @@
     "redirectUriDesc": "Zarejestruj ten adres URL jako adres przekierowania lub wywołania zwrotnego w swoim dostawcy tożsamości.",
     "legacyCallback": "Zachowaj stary URI przekierowania",
     "legacyCallbackDesc": "Ten dostawca został skonfigurowany przed Termix 2.9 i nadal używa starego URI przekierowania, który nadal działa. Aby przejść na nowy, najpierw dodaj {{uri}} w swoim dostawcy tożsamości, a następnie wyłącz tę opcję.",
-    "authorizationUrl": "URL autoryzacji: {{url}}"
+    "authorizationUrl": "URL autoryzacji: {{url}}",
+    "sectionSignOut": "Wyloguj się",
+    "acsUrl": "Adres URL ACS",
+    "acsUrlDesc": "Zarejestruj ten adres URL jako adres URL usługi Assertion Consumer Service (ACS) w swoim dostawcy tożsamości.",
+    "entityId": "Identyfikator podmiotu",
+    "entityIdDesc": "Identyfikator Termix, nazywany również identyfikatorem odbiorcy lub strony zaufanej.",
+    "metadataUrl": "Adres URL metadanych",
+    "metadataUrlDesc": "Niektórzy dostawcy tożsamości mogą odczytać konfigurację z tego adresu URL.",
+    "metadataAfterSave": "Adres URL metadanych pojawi się tutaj po zapisaniu.",
+    "sectionIdp": "Dostawca tożsamości",
+    "sectionServer": "Ten serwer",
+    "sectionAttributes": "Atrybuty",
+    "readMetadata": "Wypełnij z metadanych",
+    "readMetadataDone": "Wypełniono z metadanych",
+    "readMetadataFailed": "Nie udało się odczytać metadanych"
   },
   "fields": {
     "clientId": "ID klienta",
@@ -58,7 +72,35 @@
     "adminGroup": "Grupa administratorów",
     "adminGroupDesc": "Podczas każdego logowania użytkownicy z tej grupy uzyskują uprawnienia administratora, a wszyscy inni tracą je, nawet jeśli zostali awansowani w Termix. Pozostaw puste, aby zarządzać administratorami w Termix.",
     "caCert": "Niestandardowy certyfikat CA",
-    "caCertDesc": "Opcjonalnie. Certyfikat CA zakodowany w formacie PEM dla dostawców OIDC używających prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufania."
+    "caCertDesc": "Opcjonalnie. Certyfikat CA zakodowany w formacie PEM dla dostawców OIDC używających prywatnego lub samopodpisanego CA. Pozostaw puste, aby użyć systemowego magazynu zaufania.",
+    "signOutAtProvider": "Wyloguj się również z dostawcy",
+    "signOutAtProviderDesc": "Gdy użytkownik wyloguje się z Termix, przekieruj go do strony wylogowania dostawcy, aby wylogować się również tam. Dodaj ten adres Termix jako dozwolony adres przekierowania wylogowania u dostawcy. Wymaga Termix 26.11.3 i działa tylko w przeglądarce.",
+    "endSessionUrl": "Adres URL wylogowania",
+    "endSessionUrlDesc": "Pozostaw puste, aby użyć punktu końcowego end_session_endpoint wymienionego przez dostawcę w dokumencie discovery.",
+    "samlMetadata": "Adres URL metadanych IdP",
+    "samlMetadataDesc": "Opcjonalnie. Wklej adres URL metadanych dostawcy tożsamości i naciśnij Wypełnij z metadanych.",
+    "samlEntryPoint": "Adres URL logowania",
+    "samlEntryPointDesc": "Adres URL logowania SAML dostawcy tożsamości dla wiązania HTTP-Redirect.",
+    "samlIdpIssuer": "Identyfikator podmiotu IdP",
+    "samlIdpIssuerDesc": "Opcjonalnie. Odpowiedzi od innych wydawców są odrzucane.",
+    "samlIdpCert": "Certyfikat podpisujący IdP",
+    "samlIdpCertDesc": "PEM. Wklej więcej niż jeden podczas zmiany certyfikatu.",
+    "samlSpEntityId": "Identyfikator podmiotu",
+    "samlNameIdFormat": "Format NameID",
+    "samlNameIdFormatDesc": "Opcjonalnie. Pozostaw puste, aby pozwolić dostawcy tożsamości na wybór.",
+    "samlIdentifierAttr": "Atrybut identyfikatora użytkownika",
+    "samlIdentifierAttrDesc": "Pozostaw puste, aby użyć NameID.",
+    "samlEmailAttr": "Atrybut e-mail",
+    "samlNameAttr": "Atrybut nazwy użytkownika",
+    "samlGroupsAttr": "Atrybut grup",
+    "samlAttrDesc": "Pozostaw puste, aby spróbować standardowych nazw. Oddziel wiele nazw przecinkami.",
+    "samlWantResponseSigned": "Wymagaj podpisania całej odpowiedzi",
+    "samlWantResponseSignedDesc": "Wyłączone – tylko asercja musi być podpisana, co robi każdy dostawca tożsamości.",
+    "samlSpKey": "Klucz podpisujący żądania",
+    "samlSpKeyDesc": "Opcjonalnie. Prywatny klucz PEM do podpisywania żądań logowania, dla dostawców, którzy tego wymagają.",
+    "samlSpKeyKeep": "Klucz jest zapisany. Pozostaw to pole puste, aby go zachować.",
+    "samlSpCert": "Certyfikat podpisujący żądania",
+    "samlSpCertDesc": "Certyfikat dla klucza powyżej. Trafia do metadanych."
   },
   "links": {
     "description": "Połącz konto logowania jednokrotnego (SSO), aby móc się logować do tego konta Termix. Twoi hostowie i ustawienia pozostaną bez zmian.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Logowanie jednokrotne",
-    "description": "Zaloguj się za pomocą dowolnego dostawcy OpenID Connect, GitHub lub Google."
+    "description": "Loguj się za pomocą dowolnego dostawcy OpenID Connect lub SAML, GitHub lub Google."
   }
 }

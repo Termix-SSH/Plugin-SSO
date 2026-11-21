@@ -38,7 +38,21 @@
     "redirectUriDesc": "Savo tapatybės tiekėje užregistruokite šį URL kaip peradresavimo arba grįžtamąjį URL.",
     "legacyCallback": "Palikti seną peradresavimo URI",
     "legacyCallbackDesc": "Šis tiekėjas buvo sukonfigūruotas prieš Termix 2.9 ir vis dar naudoja seną peradresavimo URI, kuris veikia. Norint pereiti prie naujo, pirmiausia savo tapatybės tiekėje pridėkite {{uri}}, tada išjunkite šią parinktį.",
-    "authorizationUrl": "Autentifikavimo URL: {{url}}"
+    "authorizationUrl": "Autentifikavimo URL: {{url}}",
+    "sectionSignOut": "Atsijungti",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Įregistruokite šį URL kaip Assertion Consumer Service (atsakymo) URL savo tapatybės teikėjo sistemoje.",
+    "entityId": "Entiteto ID",
+    "entityIdDesc": "Termix identifikatorius, dar vadinamas auditorijos arba pasitikimo šalies identifikatoriumi.",
+    "metadataUrl": "Metaduomenų URL",
+    "metadataUrlDesc": "Kai kurie tapatybės teikėjai gali perskaityti nustatymus iš šio URL.",
+    "metadataAfterSave": "Metaduomenų URL bus rodomas čia, kai išsaugosite.",
+    "sectionIdp": "Tapatybės teikėjas",
+    "sectionServer": "Šis serveris",
+    "sectionAttributes": "Atributai",
+    "readMetadata": "Užpildyti iš metaduomenų",
+    "readMetadataDone": "Užpildyta iš metaduomenų",
+    "readMetadataFailed": "Nepavyko perskaityti metaduomenų"
   },
   "fields": {
     "clientId": "Kliento ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Administratoriaus grupė",
     "adminGroupDesc": "Kiekvieną kartą prisijungiant, šios grupės vartotojai tampa administratore, o visi kiti praranda šias teises, net jei Termix programoje jiems buvo suteiktos. Palikite tuščią, kad administratorių teises valdytumėte Termix programoje.",
     "caCert": "Nestandartinis CA sertifikatas",
-    "caCertDesc": "Neprivaloma. PEM koduotas CA sertifikatas OIDC tiekėjams, naudojantiems privačią arba savarankiškai pasirašytą CA. Palikite tuščią, kad naudotumėte sistemos patikimumo saugyklą."
+    "caCertDesc": "Neprivaloma. PEM koduotas CA sertifikatas OIDC tiekėjams, naudojantiems privačią arba savarankiškai pasirašytą CA. Palikite tuščią, kad naudotumėte sistemos patikimumo saugyklą.",
+    "signOutAtProvider": "Taip pat atsijungti nuo teikėjo",
+    "signOutAtProviderDesc": "Kai kas nors atsijungia nuo Termix, nukreipkite jį į teikėjo atsijungimo puslapį, kad jis atsijungtų ir ten. Pridėkite šį Termix adresą kaip leistiną atsijungimo peradresavimą teikėjo sistemoje. Reikia Termix 26.11.3 ir veikia tik naršyklėje.",
+    "endSessionUrl": "Atsijungimo URL",
+    "endSessionUrlDesc": "Palikite tuščią, kad būtų naudojamas end_session_endpoint, kurį teikėjas nurodo savo atradimo dokumente.",
+    "samlMetadata": "IdP metaduomenų URL",
+    "samlMetadataDesc": "Pasirinktinai. Įklijuokite tapatybės teikėjo metaduomenų URL ir spauskite „Užpildyti iš metaduomenų“.",
+    "samlEntryPoint": "Prisijungimo URL",
+    "samlEntryPointDesc": "Tapatybės teikėjo SAML prisijungimo URL HTTP-Redirect sujungimui.",
+    "samlIdpIssuer": "IdP entiteto ID",
+    "samlIdpIssuerDesc": "Pasirinktinai. Atsakymai iš bet kurio kito išdavėjo bus atmesti.",
+    "samlIdpCert": "IdP parašymo sertifikatas",
+    "samlIdpCertDesc": "PEM. Sertifikato keitimo metu įklijuokite daugiau nei vieną.",
+    "samlSpEntityId": "Entiteto ID",
+    "samlNameIdFormat": "NameID formatas",
+    "samlNameIdFormatDesc": "Pasirinktinai. Palikite tuščią, kad tapatybės teikėjas galėtų pasirinkti.",
+    "samlIdentifierAttr": "Vartotojo identifikatoriaus atributas",
+    "samlIdentifierAttrDesc": "Palikite tuščią, kad būtų naudojamas NameID.",
+    "samlEmailAttr": "El. pašto atributas",
+    "samlNameAttr": "Vartotojo vardo atributas",
+    "samlGroupsAttr": "Grupių atributas",
+    "samlAttrDesc": "Palikite tuščią, kad būtų bandomi įprasti pavadinimai. Jei reikia nurodyti daugiau nei vieną, atskirkite kableliais.",
+    "samlWantResponseSigned": "Reikia, kad visas atsakymas būtų pasirašytas",
+    "samlWantResponseSignedDesc": "Išjungus, turi būti pasirašytas tik teiginys, ką daro kiekvienas tapatybės teikėjas.",
+    "samlSpKey": "Užklausos parašymo raktas",
+    "samlSpKeyDesc": "Pasirinktinai. PEM privatus raktas, skirtas prisijungimo užklausoms pasirašyti, tiems teikėjams, kuriems to reikia.",
+    "samlSpKeyKeep": "Raktas išsaugotas. Palikite tuščią, kad jį išlaikytumėte.",
+    "samlSpCert": "Užklausos parašymo sertifikatas",
+    "samlSpCertDesc": "Sertifikatas aukščiau nurodytam raktui. Jis pateikiamas metaduomenyse."
   },
   "links": {
     "description": "Susiekite vieno prisijungimo (SSO) paskyrą, kad galėtumėte į ją prisijungti naudodami šią Termix paskyrą. Jūsų serveriai ir nustatymai liks nepakitę.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Vienkartinis prisijungimas",
-    "description": "Prisijunkite naudodami bet kurį OpenID Connect teikėją, „GitHub“ arba „Google“."
+    "description": "Prisijunkite naudodami bet kurį OpenID Connect arba SAML teikėją, „GitHub“ arba „Google“."
   }
 }

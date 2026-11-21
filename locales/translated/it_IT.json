@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registra questo URL come URL di reindirizzamento o callback nel tuo provider di identità.",
     "legacyCallback": "Mantieni l'URI di reindirizzamento precedente",
     "legacyCallbackDesc": "Questo provider è stato configurato prima di Termix 2.9 e utilizza ancora l'URI di reindirizzamento precedente, che continua a funzionare. Per passare a quello nuovo, aggiungi prima {{uri}} nel tuo provider di identità, poi disabilita questa opzione.",
-    "authorizationUrl": "URL di autorizzazione: {{url}}"
+    "authorizationUrl": "URL di autorizzazione: {{url}}",
+    "sectionSignOut": "Esci",
+    "acsUrl": "URL ACS",
+    "acsUrlDesc": "Registra questo URL come URL del servizio Assertion Consumer (risposta) nel tuo provider di identità.",
+    "entityId": "ID Entità",
+    "entityIdDesc": "L'identificativo di Termix, chiamato anche audience o identificativo della parte affidante.",
+    "metadataUrl": "URL Metadati",
+    "metadataUrlDesc": "Alcuni provider di identità possono leggere la configurazione da questo URL.",
+    "metadataAfterSave": "L'URL dei metadati verrà visualizzato qui dopo il salvataggio.",
+    "sectionIdp": "Provider di identità",
+    "sectionServer": "Questo server",
+    "sectionAttributes": "Attributi",
+    "readMetadata": "Compila dai metadati",
+    "readMetadataDone": "Compilato dai metadati",
+    "readMetadataFailed": "Impossibile leggere i metadati"
   },
   "fields": {
     "clientId": "ID client",
@@ -58,7 +72,35 @@
     "adminGroup": "Gruppo amministratori",
     "adminGroupDesc": "Ad ogni accesso, gli utenti in questo gruppo ottengono i privilegi di amministratore, mentre tutti gli altri li perdono, anche se sono stati promossi in Termix. Lascia vuoto per gestire gli amministratori in Termix.",
     "caCert": "Certificato CA personalizzato",
-    "caCertDesc": "Opzionale. Certificato CA in formato PEM per provider OIDC che usano una CA privata o autofirmata. Lascia vuoto per usare il trust store di sistema."
+    "caCertDesc": "Opzionale. Certificato CA in formato PEM per provider OIDC che usano una CA privata o autofirmata. Lascia vuoto per usare il trust store di sistema.",
+    "signOutAtProvider": "Esci anche dal provider",
+    "signOutAtProviderDesc": "Quando un utente esce da Termix, reindirizzalo alla pagina di disconnessione del provider in modo che esca anche da lì. Aggiungi questo indirizzo di Termix come reindirizzamento di disconnessione consentito nel provider. Richiede Termix 26.11.3 e funziona solo nel browser.",
+    "endSessionUrl": "URL di disconnessione",
+    "endSessionUrlDesc": "Lascia vuoto per utilizzare l'end_session_endpoint elencato dal provider nel suo documento di discovery.",
+    "samlMetadata": "URL Metadati IdP",
+    "samlMetadataDesc": "Opzionale. Incolla l'URL dei metadati del provider di identità e premi Compila dai metadati.",
+    "samlEntryPoint": "URL di accesso",
+    "samlEntryPointDesc": "L'URL di accesso SAML del provider di identità per il binding HTTP-Redirect.",
+    "samlIdpIssuer": "ID Entità IdP",
+    "samlIdpIssuerDesc": "Opzionale. Le risposte da qualsiasi altro emittente vengono rifiutate.",
+    "samlIdpCert": "Certificato di firma IdP",
+    "samlIdpCertDesc": "PEM. Incollane più di uno durante il cambio di certificato.",
+    "samlSpEntityId": "ID Entità",
+    "samlNameIdFormat": "Formato NameID",
+    "samlNameIdFormatDesc": "Opzionale. Lascia vuoto per lasciare che il provider di identità scelga.",
+    "samlIdentifierAttr": "Attributo identificativo utente",
+    "samlIdentifierAttrDesc": "Lascia vuoto per utilizzare il NameID.",
+    "samlEmailAttr": "Attributo email",
+    "samlNameAttr": "Attributo nome utente",
+    "samlGroupsAttr": "Attributo gruppi",
+    "samlAttrDesc": "Lascia vuoto per provare i nomi comuni. Separa più valori con le virgole.",
+    "samlWantResponseSigned": "È necessaria la firma dell'intera risposta",
+    "samlWantResponseSignedDesc": "Se disattivato, solo l'asserzione deve essere firmata, cosa che ogni provider di identità fa.",
+    "samlSpKey": "Chiave di firma richiesta",
+    "samlSpKeyDesc": "Opzionale. Una chiave privata PEM per firmare le richieste di accesso, per i provider che lo richiedono.",
+    "samlSpKeyKeep": "Una chiave è salvata. Lascia vuoto per mantenerla.",
+    "samlSpCert": "Certificato di firma richiesta",
+    "samlSpCertDesc": "Il certificato per la chiave sopra. Viene inserito nei metadati."
   },
   "links": {
     "description": "Collega un account di accesso singolo per accedere a questo account Termix. I tuoi host e le impostazioni rimarranno invariati.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single sign-on",
-    "description": "Accedi con qualsiasi provider OpenID Connect, GitHub o Google."
+    "description": "Accedi con qualsiasi provider OpenID Connect o SAML, GitHub o Google."
   }
 }

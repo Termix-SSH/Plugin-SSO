@@ -26,6 +26,7 @@ const TYPE_LABELS: Record<SsoProviderType, string> = {
   oidc: "OIDC",
   github: "GitHub",
   google: "Google",
+  saml: "SAML",
 };
 
 const AUTHORIZATION_URLS: Record<"github" | "google", string> = {
@@ -47,6 +48,20 @@ type Fields = {
   admin_group: string;
   group_claim: string;
   ca_cert: string;
+  sign_out_at_provider: string;
+  end_session_url: string;
+  saml_entry_point: string;
+  saml_idp_cert: string;
+  saml_idp_issuer: string;
+  saml_sp_entity_id: string;
+  saml_nameid_format: string;
+  saml_identifier_attr: string;
+  saml_email_attr: string;
+  saml_name_attr: string;
+  saml_groups_attr: string;
+  saml_want_response_signed: string;
+  saml_sp_private_key: string;
+  saml_sp_cert: string;
 };
 
 const EMPTY_FIELDS: Fields = {
@@ -63,7 +78,34 @@ const EMPTY_FIELDS: Fields = {
   admin_group: "",
   group_claim: "",
   ca_cert: "",
+  sign_out_at_provider: "",
+  end_session_url: "",
+  saml_entry_point: "",
+  saml_idp_cert: "",
+  saml_idp_issuer: "",
+  saml_sp_entity_id: "",
+  saml_nameid_format: "",
+  saml_identifier_attr: "",
+  saml_email_attr: "",
+  saml_name_attr: "",
+  saml_groups_attr: "",
+  saml_want_response_signed: "",
+  saml_sp_private_key: "",
+  saml_sp_cert: "",
 };
+
+const SECRET_FIELDS: Array<keyof Fields> = [
+  "client_secret",
+  "saml_sp_private_key",
+];
+const CLIENT_FIELDS: Array<keyof Fields> = ["client_id", "client_secret"];
+
+const isSamlField = (key: string) => key.startsWith("saml_");
+
+/** The ACS URL sits next to the OIDC callback. */
+function acsUrlFrom(redirectUri: string): string {
+  return redirectUri.replace(/\/callback$/, "/saml/acs");
+}
 
 const OIDC_ONLY_FIELDS: Array<keyof Fields> = [
   "issuer_url",
@@ -74,6 +116,8 @@ const OIDC_ONLY_FIELDS: Array<keyof Fields> = [
   "name_path",
   "scopes",
   "group_claim",
+  "sign_out_at_provider",
+  "end_session_url",
 ];
 
 function errorMessage(error: unknown, fallback: string): string {
@@ -165,6 +209,8 @@ function ProviderDialog({
   const [legacyCallback, setLegacyCallback] = useState(false);
   const [fields, setFields] = useState<Fields>(EMPTY_FIELDS);
   const [saving, setSaving] = useState(false);
+  const [metadataUrl, setMetadataUrl] = useState("");
+  const [reading, setReading] = useState(false);
 
   useEffect(() => {
     if (!open) return;
@@ -179,12 +225,28 @@ function ProviderDialog({
       if (typeof value === "string") next[key] = value;
     }
     next.client_secret = "";
+    next.saml_sp_private_key = "";
     setFields(next);
+    setMetadataUrl("");
   }, [open, provider]);
 
   const set = (key: keyof Fields) => (value: string) =>
     setFields((prev) => ({ ...prev, [key]: value }));
+  const isSaml = type === "saml";
   const simplified = type !== "oidc";
+
+  async function readMetadata() {
+    setReading(true);
+    try {
+      const read = await api.readSamlMetadata({ url: metadataUrl.trim() });
+      setFields((prev) => ({ ...prev, ...read }));
+      toast.success(t("providers.readMetadataDone"));
+    } catch (error) {
+      toast.error(errorMessage(error, t("providers.readMetadataFailed")));
+    } finally {
+      setReading(false);
+    }
+  }
 
   async function save() {
     if (!name.trim()) {
@@ -196,11 +258,14 @@ function ProviderDialog({
     // get their own endpoints and scopes, so the OIDC fields stay blank.
     const config: Record<string, string> = {};
     for (const [key, value] of Object.entries(fields)) {
-      if (key === "client_secret" && !value.trim()) continue;
-      config[key] =
-        simplified && OIDC_ONLY_FIELDS.includes(key as keyof Fields)
-          ? ""
-          : value.trim();
+      if (SECRET_FIELDS.includes(key as keyof Fields) && !value.trim()) {
+        continue;
+      }
+      const unused =
+        (simplified && OIDC_ONLY_FIELDS.includes(key as keyof Fields)) ||
+        (isSaml && CLIENT_FIELDS.includes(key as keyof Fields)) ||
+        (!isSaml && isSamlField(key));
+      config[key] = unused ? "" : value.trim();
     }
     const input: SsoProviderInput = {
       name: name.trim(),
@@ -226,9 +291,11 @@ function ProviderDialog({
   const secretHint = provider?.hasClientSecret
     ? t("fields.secretKeep")
     : undefined;
-  const redirectUri = legacyCallback
-    ? (provider?.redirectUri ?? newRedirectUri)
-    : newRedirectUri;
+  const redirectUri = isSaml
+    ? (provider?.redirectUri ?? acsUrlFrom(newRedirectUri))
+    : legacyCallback
+      ? (provider?.redirectUri ?? newRedirectUri)
+      : newRedirectUri;
 
   const text = (
     key: keyof Fields,
@@ -243,6 +310,165 @@ function ProviderDialog({
         placeholder={placeholder}
       />
     </Field>
+  );
+
+  const pem = (
+    key: keyof Fields,
+    label: string,
+    hint: string,
+    options: { required?: boolean; placeholder?: string } = {},
+  ) => (
+    <Field label={label} hint={hint} required={options.required}>
+      <Textarea
+        value={fields[key]}
+        onChange={(e) => set(key)(e.target.value)}
+        placeholder={
+          options.placeholder ??
+          "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+        }
+        rows={4}
+        className="font-mono resize-y"
+      />
+    </Field>
+  );
+
+  const samlSections = (
+    <>
+      <Section title={t("providers.sectionIdp")}>
+        <Field
+          label={t("fields.samlMetadata")}
+          hint={t("fields.samlMetadataDesc")}
+        >
+          <div className="flex gap-2">
+            <Input
+              value={metadataUrl}
+              onChange={(e) => setMetadataUrl(e.target.value)}
+              placeholder="https://idp.example/metadata.xml"
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              className="shrink-0"
+              disabled={reading || !metadataUrl.trim()}
+              onClick={() => void readMetadata()}
+            >
+              {t("providers.readMetadata")}
+            </Button>
+          </div>
+        </Field>
+        {text(
+          "saml_entry_point",
+          t("fields.samlEntryPoint"),
+          "https://idp.example/saml/sso",
+          { required: true, hint: t("fields.samlEntryPointDesc") },
+        )}
+        {text(
+          "saml_idp_issuer",
+          t("fields.samlIdpIssuer"),
+          "https://idp.example/saml",
+          { hint: t("fields.samlIdpIssuerDesc") },
+        )}
+        {pem(
+          "saml_idp_cert",
+          t("fields.samlIdpCert"),
+          t("fields.samlIdpCertDesc"),
+          { required: true },
+        )}
+      </Section>
+
+      <Section title={t("providers.sectionServer")}>
+        <Field
+          label={t("providers.entityId")}
+          hint={t("providers.entityIdDesc")}
+        >
+          <Input
+            value={fields.saml_sp_entity_id}
+            onChange={(e) => set("saml_sp_entity_id")(e.target.value)}
+            placeholder={
+              provider?.samlEntityId ??
+              acsUrlFrom(newRedirectUri).replace(/\/acs$/, "/metadata")
+            }
+          />
+        </Field>
+        <div className="flex flex-col gap-1.5">
+          <span className="text-xs font-semibold">
+            {t("providers.metadataUrl")}
+          </span>
+          {provider?.samlMetadataUrl ? (
+            <>
+              <RedirectUri uri={provider.samlMetadataUrl} />
+              <p className="text-[10px] text-muted-foreground leading-snug">
+                {t("providers.metadataUrlDesc")}
+              </p>
+            </>
+          ) : (
+            <p className="text-[10px] text-muted-foreground leading-snug">
+              {t("providers.metadataAfterSave")}
+            </p>
+          )}
+        </div>
+        {text(
+          "saml_nameid_format",
+          t("fields.samlNameIdFormat"),
+          "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+          { hint: t("fields.samlNameIdFormatDesc") },
+        )}
+        <div className="border border-border px-3">
+          <SettingRow
+            label={t("fields.samlWantResponseSigned")}
+            description={t("fields.samlWantResponseSignedDesc")}
+          >
+            <FakeSwitch
+              checked={fields.saml_want_response_signed === "1"}
+              onChange={(on) => set("saml_want_response_signed")(on ? "1" : "")}
+            />
+          </SettingRow>
+        </div>
+        <Field
+          label={t("fields.samlSpKey")}
+          hint={
+            provider?.hasSpPrivateKey
+              ? t("fields.samlSpKeyKeep")
+              : t("fields.samlSpKeyDesc")
+          }
+        >
+          <Textarea
+            value={fields.saml_sp_private_key}
+            onChange={(e) => set("saml_sp_private_key")(e.target.value)}
+            placeholder={
+              "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+            }
+            rows={3}
+            className="font-mono resize-y"
+          />
+        </Field>
+        {pem(
+          "saml_sp_cert",
+          t("fields.samlSpCert"),
+          t("fields.samlSpCertDesc"),
+        )}
+      </Section>
+
+      <Section title={t("providers.sectionAttributes")}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {text(
+            "saml_identifier_attr",
+            t("fields.samlIdentifierAttr"),
+            "NameID",
+            { hint: t("fields.samlIdentifierAttrDesc") },
+          )}
+          {text("saml_email_attr", t("fields.samlEmailAttr"), "email", {
+            hint: t("fields.samlAttrDesc"),
+          })}
+          {text("saml_name_attr", t("fields.samlNameAttr"), "uid", {
+            hint: t("fields.samlAttrDesc"),
+          })}
+          {text("saml_groups_attr", t("fields.samlGroupsAttr"), "groups", {
+            hint: t("fields.samlAttrDesc"),
+          })}
+        </div>
+      </Section>
+    </>
   );
 
   return (
@@ -303,14 +529,18 @@ function ProviderDialog({
           </div>
         </Section>
 
-        <Section title={t("providers.redirectUri")}>
+        <Section
+          title={isSaml ? t("providers.acsUrl") : t("providers.redirectUri")}
+        >
           <div className="flex flex-col gap-1.5">
             <RedirectUri uri={redirectUri} />
             <p className="text-[10px] text-muted-foreground leading-snug">
-              {t("providers.redirectUriDesc")}
+              {isSaml
+                ? t("providers.acsUrlDesc")
+                : t("providers.redirectUriDesc")}
             </p>
           </div>
-          {isEdit && provider.legacyCallback && (
+          {isEdit && !isSaml && provider.legacyCallback && (
             <div className="border border-border px-3">
               <SettingRow
                 label={t("providers.legacyCallback")}
@@ -327,55 +557,59 @@ function ProviderDialog({
           )}
         </Section>
 
-        <Section title={t("providers.sectionCredentials")}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {text("client_id", t("fields.clientId"), "your-client-id", {
-              required: true,
-            })}
-            <Field
-              label={t("fields.clientSecret")}
-              required={!provider?.hasClientSecret}
-              hint={secretHint}
-            >
-              <PasswordInput
-                className="h-8 pr-8 text-xs"
-                value={fields.client_secret}
-                onChange={(e) => set("client_secret")(e.target.value)}
-                placeholder="your-client-secret"
-              />
-            </Field>
-          </div>
-          {simplified ? (
-            <p className="text-[10px] text-muted-foreground break-all">
-              {t("providers.authorizationUrl", {
-                url: AUTHORIZATION_URLS[type as "github" | "google"],
-              })}
-            </p>
-          ) : (
-            <>
-              {text("issuer_url", t("fields.issuerUrl"), "https://provider", {
+        {isSaml && samlSections}
+
+        {!isSaml && (
+          <Section title={t("providers.sectionCredentials")}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {text("client_id", t("fields.clientId"), "your-client-id", {
                 required: true,
               })}
-              {text(
-                "authorization_url",
-                t("fields.authUrl"),
-                "https://provider/oauth2/auth",
-                { required: true },
-              )}
-              {text(
-                "token_url",
-                t("fields.tokenUrl"),
-                "https://provider/oauth2/token",
-                { required: true },
-              )}
-              {text(
-                "userinfo_url",
-                t("fields.userinfoUrl"),
-                "https://provider/oauth2/userinfo",
-              )}
-            </>
-          )}
-        </Section>
+              <Field
+                label={t("fields.clientSecret")}
+                required={!provider?.hasClientSecret}
+                hint={secretHint}
+              >
+                <PasswordInput
+                  className="h-8 pr-8 text-xs"
+                  value={fields.client_secret}
+                  onChange={(e) => set("client_secret")(e.target.value)}
+                  placeholder="your-client-secret"
+                />
+              </Field>
+            </div>
+            {simplified ? (
+              <p className="text-[10px] text-muted-foreground break-all">
+                {t("providers.authorizationUrl", {
+                  url: AUTHORIZATION_URLS[type as "github" | "google"],
+                })}
+              </p>
+            ) : (
+              <>
+                {text("issuer_url", t("fields.issuerUrl"), "https://provider", {
+                  required: true,
+                })}
+                {text(
+                  "authorization_url",
+                  t("fields.authUrl"),
+                  "https://provider/oauth2/auth",
+                  { required: true },
+                )}
+                {text(
+                  "token_url",
+                  t("fields.tokenUrl"),
+                  "https://provider/oauth2/token",
+                  { required: true },
+                )}
+                {text(
+                  "userinfo_url",
+                  t("fields.userinfoUrl"),
+                  "https://provider/oauth2/userinfo",
+                )}
+              </>
+            )}
+          </Section>
+        )}
 
         {!simplified && (
           <Section title={t("providers.sectionClaims")}>
@@ -401,6 +635,29 @@ function ProviderDialog({
           </Section>
         )}
 
+        {!simplified && (
+          <Section title={t("providers.sectionSignOut")}>
+            <div className="border border-border px-3">
+              <SettingRow
+                label={t("fields.signOutAtProvider")}
+                description={t("fields.signOutAtProviderDesc")}
+              >
+                <FakeSwitch
+                  checked={fields.sign_out_at_provider === "1"}
+                  onChange={(on) => set("sign_out_at_provider")(on ? "1" : "")}
+                />
+              </SettingRow>
+            </div>
+            {fields.sign_out_at_provider === "1" &&
+              text(
+                "end_session_url",
+                t("fields.endSessionUrl"),
+                "https://provider/oauth2/logout",
+                { hint: t("fields.endSessionUrlDesc") },
+              )}
+          </Section>
+        )}
+
         <Section title={t("providers.sectionAccess")}>
           <Field
             label={t("fields.allowedUsers")}
@@ -417,17 +674,8 @@ function ProviderDialog({
           {text("admin_group", t("fields.adminGroup"), "admin", {
             hint: t("fields.adminGroupDesc"),
           })}
-          <Field label={t("fields.caCert")} hint={t("fields.caCertDesc")}>
-            <Textarea
-              value={fields.ca_cert}
-              onChange={(e) => set("ca_cert")(e.target.value)}
-              placeholder={
-                "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
-              }
-              rows={4}
-              className="font-mono resize-y"
-            />
-          </Field>
+          {!isSaml &&
+            pem("ca_cert", t("fields.caCert"), t("fields.caCertDesc"))}
         </Section>
       </div>
 

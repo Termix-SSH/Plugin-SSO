@@ -38,7 +38,21 @@
     "redirectUriDesc": "ลงทะเบียน URL นี้เป็น redirect หรือ callback URL ในผู้ให้บริการตัวตนของคุณ",
     "legacyCallback": "คง Redirect URI แบบเก่าไว้",
     "legacyCallbackDesc": "ผู้ให้บริการนี้ถูกตั้งค่าก่อน Termix 2.9 และยังคงใช้ Redirect URI แบบเก่าซึ่งยังใช้งานได้ หากต้องการเปลี่ยนไปใช้แบบใหม่ ให้เพิ่ม {{uri}} ในผู้ให้บริการตัวตนของคุณก่อน แล้วจึงปิดการตั้งค่านี้",
-    "authorizationUrl": "Authorization URL: {{url}}"
+    "authorizationUrl": "Authorization URL: {{url}}",
+    "sectionSignOut": "ออกจากระบบ",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "ลงทะเบียน URL นี้เป็น Assertion Consumer Service (reply) URL ในผู้ให้บริการตัวตนของคุณ",
+    "entityId": "Entity ID",
+    "entityIdDesc": "ตัวระบุของ Termix ซึ่งอาจเรียกว่า audience หรือ relying party identifier",
+    "metadataUrl": "Metadata URL",
+    "metadataUrlDesc": "ผู้ให้บริการตัวตนบางรายสามารถอ่านการตั้งค่าจาก URL นี้ได้",
+    "metadataAfterSave": "Metadata URL จะแสดงที่นี่หลังจากที่คุณบันทึก",
+    "sectionIdp": "ผู้ให้บริการตัวตน",
+    "sectionServer": "เซิร์ฟเวอร์นี้",
+    "sectionAttributes": "แอตทริบิวต์",
+    "readMetadata": "กรอกจาก metadata",
+    "readMetadataDone": "กรอกข้อมูลจาก metadata เรียบร้อยแล้ว",
+    "readMetadataFailed": "ไม่สามารถอ่าน metadata ได้"
   },
   "fields": {
     "clientId": "Client ID",
@@ -58,7 +72,35 @@
     "adminGroup": "กลุ่มผู้ดูแลระบบ",
     "adminGroupDesc": "เมื่อเข้าสู่ระบบ ผู้ใช้ในกลุ่มนี้จะได้รับสิทธิ์ผู้ดูแลระบบ และผู้ใช้รายอื่นจะสูญเสียสิทธิ์นั้น แม้ว่าจะได้รับการเลื่อนขั้นใน Termix ไว้ก็ตาม เว้นว่างไว้เพื่อจัดการผู้ดูแลระบบใน Termix",
     "caCert": "ใบรับรอง CA แบบกำหนดเอง",
-    "caCertDesc": "ไม่บังคับ คือใบรับรอง CA แบบ PEM-encoded สำหรับผู้ให้บริการ OIDC ที่ใช้ CA ส่วนตัวหรือลงนามเอง เว้นว่างไว้หากต้องการใช้ trust store ของระบบ"
+    "caCertDesc": "ไม่บังคับ คือใบรับรอง CA แบบ PEM-encoded สำหรับผู้ให้บริการ OIDC ที่ใช้ CA ส่วนตัวหรือลงนามเอง เว้นว่างไว้หากต้องการใช้ trust store ของระบบ",
+    "signOutAtProvider": "ออกจากระบบของผู้ให้บริการด้วย",
+    "signOutAtProviderDesc": "เมื่อผู้ใช้ออกจากระบบ Termix ให้ส่งไปยังหน้าออกจากระบบของผู้ให้บริการ เพื่อให้ผู้ใช้ถูกออกจากระบบที่นั่นด้วย เพิ่มที่อยู่ Termix นี้เป็น redirect ที่ได้รับอนุญาตสำหรับการออกจากระบบที่ผู้ให้บริการ ต้องการ Termix 26.11.3 ขึ้นไป และใช้งานได้เฉพาะในเบราว์เซอร์",
+    "endSessionUrl": "URL ออกจากระบบ",
+    "endSessionUrlDesc": "เว้นว่างไว้เพื่อใช้ end_session_endpoint ที่ผู้ให้บริการระบุในเอกสาร discovery",
+    "samlMetadata": "IdP Metadata URL",
+    "samlMetadataDesc": "ไม่บังคับ วาง URL metadata ของผู้ให้บริการตัวตนแล้วกด กรอกจาก metadata",
+    "samlEntryPoint": "URL เข้าสู่ระบบ",
+    "samlEntryPointDesc": "URL เข้าสู่ระบบ SAML ของผู้ให้บริการตัวตนสำหรับการผูก HTTP-Redirect",
+    "samlIdpIssuer": "IdP Entity ID",
+    "samlIdpIssuerDesc": "ไม่บังคับ คำตอบจาก issuer อื่นๆ จะถูกปฏิเสธ",
+    "samlIdpCert": "ใบรับรองการลงนามของ IdP",
+    "samlIdpCertDesc": "PEM วางมากกว่าหนึ่งใบในช่วงเปลี่ยนใบรับรอง",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "รูปแบบ NameID",
+    "samlNameIdFormatDesc": "ไม่บังคับ เว้นว่างไว้เพื่อให้ผู้ให้บริการตัวตนเลือก",
+    "samlIdentifierAttr": "แอตทริบิวต์ตัวระบุผู้ใช้",
+    "samlIdentifierAttrDesc": "เว้นว่างไว้เพื่อใช้ NameID",
+    "samlEmailAttr": "แอตทริบิวต์อีเมล",
+    "samlNameAttr": "แอตทริบิวต์ชื่อผู้ใช้",
+    "samlGroupsAttr": "แอตทริบิวต์กลุ่ม",
+    "samlAttrDesc": "เว้นว่างไว้เพื่อใช้ชื่อมาตรฐาน แยกชื่อมากกว่าหนึ่งด้วยเครื่องหมายจุลภาค",
+    "samlWantResponseSigned": "ต้องการให้คำตอบทั้งหมดถูกลงนาม",
+    "samlWantResponseSignedDesc": "ปิด: เฉพาะ assertion เท่านั้นที่ต้องลงนาม ซึ่งผู้ให้บริการตัวตนทุกรายทำอยู่แล้ว",
+    "samlSpKey": "คีย์สำหรับลงนามคำขอ",
+    "samlSpKeyDesc": "ไม่บังคับ คีย์ส่วนตัว PEM สำหรับลงนามคำขอเข้าสู่ระบบ สำหรับผู้ให้บริการที่ต้องการ",
+    "samlSpKeyKeep": "มีคีย์ที่บันทึกไว้แล้ว เว้นช่องนี้ว่างไว้เพื่อเก็บคีย์เดิม",
+    "samlSpCert": "ใบรับรองสำหรับลงนามคำขอ",
+    "samlSpCertDesc": "ใบรับรองสำหรับคีย์ด้านบน จะถูกใส่ใน metadata"
   },
   "links": {
     "description": "เชื่อมโยงบัญชี Single Sign-On เพื่อเข้าสู่ระบบ Termix บัญชีนี้ด้วย บัญชีโฮสต์และการตั้งค่าของคุณจะยังคงเหมือนเดิม",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single sign-on",
-    "description": "ลงชื่อเข้าใช้ด้วยผู้ให้บริการ OpenID Connect, GitHub หรือ Google ใดๆ"
+    "description": "เข้าสู่ระบบด้วยผู้ให้บริการ OpenID Connect หรือ SAML ใดๆ, GitHub หรือ Google"
   }
 }

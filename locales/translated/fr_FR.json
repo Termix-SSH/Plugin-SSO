@@ -38,7 +38,21 @@
     "redirectUriDesc": "Enregistrez cette URL comme URL de redirection ou de rappel dans votre fournisseur d'identité.",
     "legacyCallback": "Conserver l'ancien URI de redirection",
     "legacyCallbackDesc": "Ce fournisseur a été configuré avant Termix 2.9 et utilise toujours l'ancien URI de redirection, qui continue de fonctionner. Pour passer au nouveau, ajoutez {{uri}} dans votre fournisseur d'identité, puis désactivez cette option.",
-    "authorizationUrl": "URL d'autorisation : {{url}}"
+    "authorizationUrl": "URL d'autorisation : {{url}}",
+    "sectionSignOut": "Se déconnecter",
+    "acsUrl": "URL ACS",
+    "acsUrlDesc": "Enregistrez cette URL comme URL de service de consommation d’assertion (réponse) auprès de votre fournisseur d’identité.",
+    "entityId": "ID d’entité",
+    "entityIdDesc": "L’identifiant de Termix, également appelé audience ou identifiant de la partie qui s’appuie sur le fournisseur.",
+    "metadataUrl": "URL des métadonnées",
+    "metadataUrlDesc": "Certains fournisseurs d’identité peuvent lire la configuration à partir de cette URL.",
+    "metadataAfterSave": "L’URL des métadonnées s’affiche ici après la sauvegarde.",
+    "sectionIdp": "Fournisseur d’identité",
+    "sectionServer": "Ce serveur",
+    "sectionAttributes": "Attributs",
+    "readMetadata": "Remplir à partir des métadonnées",
+    "readMetadataDone": "Rempli à partir des métadonnées",
+    "readMetadataFailed": "Impossible de lire les métadonnées"
   },
   "fields": {
     "clientId": "ID client",
@@ -58,7 +72,35 @@
     "adminGroup": "Groupe d'administrateurs",
     "adminGroupDesc": "À chaque connexion, les utilisateurs de ce groupe obtiennent les droits d'administrateur et tous les autres les perdent, même s'ils ont été promus dans Termix. Laissez vide pour gérer les administrateurs dans Termix.",
     "caCert": "Certificat CA personnalisé",
-    "caCertDesc": "Facultatif. Certificat CA encodé en PEM pour les fournisseurs OIDC utilisant une CA privée ou autosignée. Laissez vide pour utiliser le magasin de confiance du système."
+    "caCertDesc": "Facultatif. Certificat CA encodé en PEM pour les fournisseurs OIDC utilisant une CA privée ou autosignée. Laissez vide pour utiliser le magasin de confiance du système.",
+    "signOutAtProvider": "Se déconnecter également du fournisseur",
+    "signOutAtProviderDesc": "Lorsqu’un utilisateur se déconnecte de Termix, redirigez-le vers la page de déconnexion du fournisseur pour qu’il se déconnecte également de ce dernier. Ajoutez cette adresse Termix comme redirection de déconnexion autorisée auprès du fournisseur. Nécessite Termix 26.11.3 et ne fonctionne que dans le navigateur.",
+    "endSessionUrl": "URL de déconnexion",
+    "endSessionUrlDesc": "Laissez vide pour utiliser l’`end_session_endpoint` indiqué par le fournisseur dans son document de découverte.",
+    "samlMetadata": "URL des métadonnées de l’IdP",
+    "samlMetadataDesc": "Facultatif. Collez l’URL des métadonnées du fournisseur d’identité et appuyez sur Remplir à partir des métadonnées.",
+    "samlEntryPoint": "URL de connexion",
+    "samlEntryPointDesc": "L’URL de connexion SAML du fournisseur d’identité pour la liaison HTTP-Redirect.",
+    "samlIdpIssuer": "ID d’entité de l’IdP",
+    "samlIdpIssuerDesc": "Facultatif. Les réponses provenant d’un autre émetteur sont refusées.",
+    "samlIdpCert": "Certificat de signature de l’IdP",
+    "samlIdpCertDesc": "PEM. Collez plusieurs certificats lors d’un renouvellement de certificat.",
+    "samlSpEntityId": "ID d’entité",
+    "samlNameIdFormat": "Format NameID",
+    "samlNameIdFormatDesc": "Facultatif. Laissez vide pour laisser le fournisseur d’identité choisir.",
+    "samlIdentifierAttr": "Attribut d’identifiant utilisateur",
+    "samlIdentifierAttrDesc": "Laissez vide pour utiliser le NameID.",
+    "samlEmailAttr": "Attribut d’adresse e-mail",
+    "samlNameAttr": "Attribut de nom d’utilisateur",
+    "samlGroupsAttr": "Attribut de groupes",
+    "samlAttrDesc": "Laissez vide pour essayer les noms usuels. Séparez plusieurs valeurs par des virgules.",
+    "samlWantResponseSigned": "Exiger la signature de la réponse complète",
+    "samlWantResponseSignedDesc": "Désactivé : seule l’assertion doit être signée, ce que tous les fournisseurs d’identité font.",
+    "samlSpKey": "Clé de signature des requêtes",
+    "samlSpKeyDesc": "Facultatif. Une clé privée PEM pour signer les requêtes de connexion, pour les fournisseurs qui l’exigent.",
+    "samlSpKeyKeep": "Une clé est enregistrée. Laissez ce champ vide pour la conserver.",
+    "samlSpCert": "Certificat de signature des requêtes",
+    "samlSpCertDesc": "Le certificat correspondant à la clé ci-dessus. Il est inclus dans les métadonnées."
   },
   "links": {
     "description": "Liez un compte d'authentification unique pour vous connecter à ce compte Termix. Vos hôtes et paramètres restent inchangés.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Connexion unique",
-    "description": "Connectez-vous avec n'importe quel fournisseur OpenID Connect, GitHub ou Google."
+    "description": "Connectez-vous avec n’importe quel fournisseur OpenID Connect ou SAML, GitHub ou Google."
   }
 }

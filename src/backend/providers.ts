@@ -21,7 +21,7 @@ export const ENV_PROVIDER_ID = "legacy-oidc";
 /** The login instance id of the env-configured provider. */
 export const ENV_INSTANCE_ID = "0";
 
-const SECRET_FIELDS = ["client_secret"] as const;
+const SECRET_FIELDS = ["client_secret", "saml_sp_private_key"] as const;
 const LEGACY_PREFIXES = ["encoded:", "encrypted:"];
 
 export function isSsoType(type: unknown): type is SsoProviderType {
@@ -57,6 +57,9 @@ export function getOidcConfigFromEnv(): OidcConfig | null {
     admin_group: process.env.OIDC_ADMIN_GROUP || "",
     group_claim: process.env.OIDC_GROUP_CLAIM || "",
     role_map: process.env.OIDC_ROLE_MAP || "",
+    sign_out_at_provider:
+      process.env.OIDC_SIGN_OUT_AT_PROVIDER === "true" ? "1" : "",
+    end_session_url: process.env.OIDC_END_SESSION_URL || "",
   };
 }
 

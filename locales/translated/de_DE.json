@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registrieren Sie diese URL als Weiterleitungs- oder Callback-URL bei Ihrem Identitätsanbieter.",
     "legacyCallback": "Alte Weiterleitungs-URI beibehalten",
     "legacyCallbackDesc": "Dieser Anbieter wurde vor Termix 2.9 eingerichtet und verwendet weiterhin die alte Weiterleitungs-URI, die weiterhin funktioniert. Um zur neuen zu wechseln, fügen Sie zuerst {{uri}} bei Ihrem Identitätsanbieter hinzu und deaktivieren Sie diese Option dann.",
-    "authorizationUrl": "Autorisierungs-URL: {{url}}"
+    "authorizationUrl": "Autorisierungs-URL: {{url}}",
+    "sectionSignOut": "Abmelden",
+    "acsUrl": "ACS-URL",
+    "acsUrlDesc": "Registrieren Sie diese URL als Assertion Consumer Service (Antwort-)URL bei Ihrem Identitätsanbieter.",
+    "entityId": "Entity-ID",
+    "entityIdDesc": "Die Kennung von Termix, auch als Audience- oder Relying-Party-Kennung bezeichnet.",
+    "metadataUrl": "Metadaten-URL",
+    "metadataUrlDesc": "Einige Identitätsanbieter können die Konfiguration von dieser URL aus lesen.",
+    "metadataAfterSave": "Die Metadaten-URL wird hier angezeigt, nachdem Sie gespeichert haben.",
+    "sectionIdp": "Identitätsanbieter",
+    "sectionServer": "Dieser Server",
+    "sectionAttributes": "Attribute",
+    "readMetadata": "Aus Metadaten füllen",
+    "readMetadataDone": "Aus den Metadaten ausgefüllt",
+    "readMetadataFailed": "Metadaten konnten nicht gelesen werden"
   },
   "fields": {
     "clientId": "Client-ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Admin-Gruppe",
     "adminGroupDesc": "Bei jeder Anmeldung erhalten Benutzer in dieser Gruppe Administratorrechte, alle anderen verlieren sie – auch wenn sie in Termix befördert wurden. Lassen Sie das Feld leer, um Administratoren in Termix zu verwalten.",
     "caCert": "Benutzerdefiniertes CA-Zertifikat",
-    "caCertDesc": "Optional. PEM-codiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte CA verwenden. Leer lassen, um den System-Truststore zu verwenden."
+    "caCertDesc": "Optional. PEM-codiertes CA-Zertifikat für OIDC-Anbieter, die eine private oder selbstsignierte CA verwenden. Leer lassen, um den System-Truststore zu verwenden.",
+    "signOutAtProvider": "Auch beim Anbieter abmelden",
+    "signOutAtProviderDesc": "Wenn sich jemand von Termix abmeldet, wird er zur Abmelde-Seite des Anbieters weitergeleitet, sodass er sich auch dort abmeldet. Fügen Sie diese Termix-Adresse als erlaubte Weiterleitungs-URL für die Abmeldung beim Anbieter hinzu. Erfordert Termix 26.11.3 und funktioniert nur im Browser.",
+    "endSessionUrl": "Abmelde-URL",
+    "endSessionUrlDesc": "Leer lassen, um das end_session_endpoint zu verwenden, das der Anbieter in seinem Discovery-Dokument auflistet.",
+    "samlMetadata": "IdP-Metadaten-URL",
+    "samlMetadataDesc": "Optional. Fügen Sie die Metadaten-URL des Identitätsanbieters ein und drücken Sie Aus Metadaten füllen.",
+    "samlEntryPoint": "Anmelde-URL",
+    "samlEntryPointDesc": "Die SAML-Anmelde-URL des Identitätsanbieters für die HTTP-Redirect-Bindung.",
+    "samlIdpIssuer": "IdP-Entity-ID",
+    "samlIdpIssuerDesc": "Optional. Antworten von anderen Ausstellern werden abgelehnt.",
+    "samlIdpCert": "IdP-Signaturzertifikat",
+    "samlIdpCertDesc": "PEM. Fügen Sie während eines Zertifikatswechsels mehrere ein.",
+    "samlSpEntityId": "Entity-ID",
+    "samlNameIdFormat": "NameID-Format",
+    "samlNameIdFormatDesc": "Optional. Leer lassen, damit der Identitätsanbieter die Wahl trifft.",
+    "samlIdentifierAttr": "Attribut für Benutzerkennung",
+    "samlIdentifierAttrDesc": "Leer lassen, um die NameID zu verwenden.",
+    "samlEmailAttr": "E-Mail-Attribut",
+    "samlNameAttr": "Benutzername-Attribut",
+    "samlGroupsAttr": "Gruppen-Attribut",
+    "samlAttrDesc": "Leer lassen, um die üblichen Namen zu versuchen. Trennen Sie mehrere durch Kommas.",
+    "samlWantResponseSigned": "Gesamte Antwort muss signiert sein",
+    "samlWantResponseSignedDesc": "Aus: Nur die Assertion muss signiert sein, was jeder Identitätsanbieter tut.",
+    "samlSpKey": "Schlüssel für Anforderungssignatur",
+    "samlSpKeyDesc": "Optional. Ein PEM-Privatschlüssel zum Signieren von Anmeldeanforderungen, für Anbieter, die dies benötigen.",
+    "samlSpKeyKeep": "Ein Schlüssel ist gespeichert. Lassen Sie dies leer, um ihn zu behalten.",
+    "samlSpCert": "Zertifikat für Anforderungssignatur",
+    "samlSpCertDesc": "Das Zertifikat für den oben genannten Schlüssel. Es wird in die Metadaten aufgenommen."
   },
   "links": {
     "description": "Verknüpfen Sie ein Single-Sign-On-Konto, um sich damit bei diesem Termix-Konto anzumelden. Ihre Hosts und Einstellungen bleiben unverändert.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single Sign-On",
-    "description": "Melden Sie sich mit einem beliebigen OpenID Connect-Anbieter, GitHub oder Google an."
+    "description": "Anmeldung mit jedem OpenID Connect- oder SAML-Anbieter, GitHub oder Google."
   }
 }

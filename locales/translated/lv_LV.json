@@ -38,7 +38,21 @@
     "redirectUriDesc": "Reģistrējiet šo URL kā pārvirzīšanas vai atgriešanās URL savā identitātes pakalpojumu sniedzējā.",
     "legacyCallback": "Atstāt veco pārvirzīšanas URI",
     "legacyCallbackDesc": "Šis pakalpojumu sniedzējs tika iestatīts pirms Termix 2.9 un joprojām izmanto veco pārvirzīšanas URI, kas joprojām darbojas. Lai pārietu uz jauno, vispirms pievienojiet {{uri}} savā identitātes pakalpojumu sniedzējā, pēc tam izslēdziet šo opciju.",
-    "authorizationUrl": "Autorizācijas URL: {{url}}"
+    "authorizationUrl": "Autorizācijas URL: {{url}}",
+    "sectionSignOut": "Izrakstīties",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Reģistrējiet šo URL kā Assertion Consumer Service (atbildes) URL savā identitātes pakalpojumu sniedzējā.",
+    "entityId": "Entitātes ID",
+    "entityIdDesc": "Termix identifikators, ko sauc arī par auditoriju vai uzticības puses identifikatoru.",
+    "metadataUrl": "Metadatu URL",
+    "metadataUrlDesc": "Daži identitātes pakalpojumu sniedzēji var nolasīt iestatījumus no šī URL.",
+    "metadataAfterSave": "Metadatu URL tiks parādīts šeit pēc saglabāšanas.",
+    "sectionIdp": "Identitātes pakalpojumu sniedzējs",
+    "sectionServer": "Šis serveris",
+    "sectionAttributes": "Atribūti",
+    "readMetadata": "Aizpildīt no metadatām",
+    "readMetadataDone": "Aizpildīts no metadatām",
+    "readMetadataFailed": "Neizdevās nolasīt metadatas"
   },
   "fields": {
     "clientId": "Klienta ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Administratoru grupa",
     "adminGroupDesc": "Katru reizi, kad lietotāji šajā grupā pieslēdzas, viņi iegūst administratora tiesības, bet visi pārējie tās zaudē, pat ja Termix tos ir paaugstinājuši. Atstājiet tukšu, lai administratorus pārvaldītu Termix.",
     "caCert": "Pielāgots CA sertifikāts",
-    "caCertDesc": "Neobligāts. PEM kodēts CA sertifikāts OIDC pakalpojumu sniedzējiem, kas izmanto privātu vai pašparakstītu CA. Atstājiet tukšu, lai izmantotu sistēmas uzticības krātuvi."
+    "caCertDesc": "Neobligāts. PEM kodēts CA sertifikāts OIDC pakalpojumu sniedzējiem, kas izmanto privātu vai pašparakstītu CA. Atstājiet tukšu, lai izmantotu sistēmas uzticības krātuvi.",
+    "signOutAtProvider": "Izrakstīties arī no pakalpojumu sniedzēja",
+    "signOutAtProviderDesc": "Kad kāds izrakstās no Termix, nosūtiet viņu uz pakalpojumu sniedzēja izrakstīšanās lapu, lai viņš izrakstītos arī tur. Pievienojiet šo Termix adresi kā atļautu izrakstīšanās pāradresāciju pakalpojumu sniedzējā. Nepieciešams Termix 26.11.3 un strādā tikai pārlūkprogrammā.",
+    "endSessionUrl": "Izrakstīšanās URL",
+    "endSessionUrlDesc": "Atstājiet tukšu, lai izmantotu end_session_endpoint, ko pakalpojumu sniedzējs norāda sava atklāšanas dokumentā.",
+    "samlMetadata": "IdP Metadatu URL",
+    "samlMetadataDesc": "Neobligāts. Ielīmējiet identitātes pakalpojumu sniedzēja metadatu URL un nospiediet Aizpildīt no metadatām.",
+    "samlEntryPoint": "Pieslēgšanās URL",
+    "samlEntryPointDesc": "Identitātes pakalpojumu sniedzēja SAML pieslēgšanās URL HTTP-Redirect saistībai.",
+    "samlIdpIssuer": "IdP Entitātes ID",
+    "samlIdpIssuerDesc": "Neobligāts. Atbildes no jebkura cita izdevēja tiek noraidītas.",
+    "samlIdpCert": "IdP Parakstīšanas sertifikāts",
+    "samlIdpCertDesc": "PEM. Ielīmējiet vairāk nekā vienu sertifikāta maiņas laikā.",
+    "samlSpEntityId": "Entitātes ID",
+    "samlNameIdFormat": "NameID formāts",
+    "samlNameIdFormatDesc": "Neobligāts. Atstājiet tukšu, lai ļautu identitātes pakalpojumu sniedzējam izvēlēties.",
+    "samlIdentifierAttr": "Lietotāja identifikatora atribūts",
+    "samlIdentifierAttrDesc": "Atstājiet tukšu, lai izmantotu NameID.",
+    "samlEmailAttr": "E-pasta atribūts",
+    "samlNameAttr": "Lietotājvārda atribūts",
+    "samlGroupsAttr": "Grupu atribūts",
+    "samlAttrDesc": "Atstājiet tukšu, lai mēģinātu izmantot parastos nosaukumus. Vairākus atdaliet ar komatiem.",
+    "samlWantResponseSigned": "Nepieciešams parakstīt visu atbildi",
+    "samlWantResponseSignedDesc": "Izslēgts, jāparaksta tikai apgalvojums, ko dara katrs identitātes pakalpojumu sniedzējs.",
+    "samlSpKey": "Pieprasījuma parakstīšanas atslēga",
+    "samlSpKeyDesc": "Neobligāts. PEM privātā atslēga, lai parakstītu pieslēgšanās pieprasījumus, tiem pakalpojumu sniedzējiem, kuriem tas ir nepieciešams.",
+    "samlSpKeyKeep": "Atslēga ir saglabāta. Atstājiet tukšu, lai to saglabātu.",
+    "samlSpCert": "Pieprasījuma parakstīšanas sertifikāts",
+    "samlSpCertDesc": "Sertifikāts iepriekš minētajai atslēgai. Tas tiek iekļauts metadatos."
   },
   "links": {
     "description": "Sasaistiet vienas pierakstīšanās kontu, lai ar to pierakstītos šajā Termix kontā. Jūsu hosti un iestatījumi paliks nemainīgi.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Vienreizēja pieteikšanās",
-    "description": "Pieslēdzieties, izmantojot jebkuru OpenID Connect pakalpojumu sniedzēju, GitHub vai Google."
+    "description": "Pieslēdzieties ar jebkuru OpenID Connect vai SAML pakalpojumu sniedzēju, GitHub vai Google."
   }
 }

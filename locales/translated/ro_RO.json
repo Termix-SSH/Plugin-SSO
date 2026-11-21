@@ -38,7 +38,21 @@
     "redirectUriDesc": "Înregistrați această adresă URL ca URL de redirecționare sau callback în furnizorul dvs. de identitate.",
     "legacyCallback": "Păstrarea vechiului URI de redirecționare",
     "legacyCallbackDesc": "Acest furnizor a fost configurat înainte de Termix 2.9 și folosește încă vechiul URI de redirecționare, care funcționează. Pentru a trece la cel nou, adăugați mai întâi {{uri}} în furnizorul dvs. de identitate, apoi dezactivați această opțiune.",
-    "authorizationUrl": "URL de autorizare: {{url}}"
+    "authorizationUrl": "URL de autorizare: {{url}}",
+    "sectionSignOut": "Deconectare",
+    "acsUrl": "URL ACS",
+    "acsUrlDesc": "Înregistrați acest URL ca URL-ul Assertion Consumer Service (răspuns) în furnizorul dvs. de identitate.",
+    "entityId": "ID Entitate",
+    "entityIdDesc": "Identificatorul Termix, numit și identificator de audiență sau de parte încrezătoare.",
+    "metadataUrl": "URL Metadate",
+    "metadataUrlDesc": "Unii furnizori de identitate pot citi configurația de la acest URL.",
+    "metadataAfterSave": "URL-ul metadatelor va apărea aici după ce salvați.",
+    "sectionIdp": "Furnizor de identitate",
+    "sectionServer": "Acest server",
+    "sectionAttributes": "Atribute",
+    "readMetadata": "Completează din metadate",
+    "readMetadataDone": "Completat din metadate",
+    "readMetadataFailed": "Nu s-au putut citi metadatele"
   },
   "fields": {
     "clientId": "ID client",
@@ -58,7 +72,35 @@
     "adminGroup": "Grup de administratori",
     "adminGroupDesc": "La fiecare autentificare, utilizatorii din acest grup primesc drepturi de administrator, iar ceilalți le pierd, chiar dacă au fost promovați în Termix. Lăsați gol pentru a gestiona administratorii în Termix.",
     "caCert": "Certificat CA personalizat",
-    "caCertDesc": "Opțional. Certificat CA codificat PEM pentru furnizorii OIDC care folosesc o CA privată sau autosemnată. Lăsați gol pentru a utiliza stocul de încredere al sistemului."
+    "caCertDesc": "Opțional. Certificat CA codificat PEM pentru furnizorii OIDC care folosesc o CA privată sau autosemnată. Lăsați gol pentru a utiliza stocul de încredere al sistemului.",
+    "signOutAtProvider": "Deconectează și de la furnizor",
+    "signOutAtProviderDesc": "Când cineva se deconectează de la Termix, trimiteți-l la pagina de deconectare a furnizorului, astfel încât să fie deconectat și acolo. Adăugați această adresă Termix ca redirecționare de deconectare permisă la furnizor. Necesită Termix 26.11.3 și funcționează doar în browser.",
+    "endSessionUrl": "URL de deconectare",
+    "endSessionUrlDesc": "Lăsați gol pentru a folosi endpoint-ul end_session listat de furnizor în documentul său de descoperire.",
+    "samlMetadata": "URL Metadate IdP",
+    "samlMetadataDesc": "Opțional. Lipiți URL-ul metadatelor furnizorului de identitate și apăsați Completează din metadate.",
+    "samlEntryPoint": "URL de autentificare",
+    "samlEntryPointDesc": "URL-ul SAML de autentificare al furnizorului de identitate pentru legarea HTTP-Redirect.",
+    "samlIdpIssuer": "ID Entitate IdP",
+    "samlIdpIssuerDesc": "Opțional. Răspunsurile de la orice alt emitent sunt refuzate.",
+    "samlIdpCert": "Certificat de semnare IdP",
+    "samlIdpCertDesc": "PEM. Lipiți mai multe în timpul unei schimbări de certificat.",
+    "samlSpEntityId": "ID Entitate",
+    "samlNameIdFormat": "Format NameID",
+    "samlNameIdFormatDesc": "Opțional. Lăsați gol pentru a lăsa furnizorul de identitate să aleagă.",
+    "samlIdentifierAttr": "Atribut Identificator Utilizator",
+    "samlIdentifierAttrDesc": "Lăsați gol pentru a folosi NameID.",
+    "samlEmailAttr": "Atribut Email",
+    "samlNameAttr": "Atribut Nume Utilizator",
+    "samlGroupsAttr": "Atribut Grupuri",
+    "samlAttrDesc": "Lăsați gol pentru a încerca numele obișnuite. Separați mai multe prin virgule.",
+    "samlWantResponseSigned": "Este necesară semnarea întregului răspuns",
+    "samlWantResponseSignedDesc": "Oprit, doar afirmația trebuie semnată, ceea ce face fiecare furnizor de identitate.",
+    "samlSpKey": "Cheie de semnare a cererii",
+    "samlSpKeyDesc": "Opțional. O cheie privată PEM pentru semnarea cererilor de autentificare, pentru furnizorii care o necesită.",
+    "samlSpKeyKeep": "O cheie este salvată. Lăsați acest câmp gol pentru a o păstra.",
+    "samlSpCert": "Certificat de semnare a cererii",
+    "samlSpCertDesc": "Certificatul pentru cheia de mai sus. Se include în metadate."
   },
   "links": {
     "description": "Asociați un cont de autentificare unică pentru a vă conecta la acest cont Termix. Gazdele și setările dvs. rămân neschimbate.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Autentificare unică",
-    "description": "Autentifică-te cu orice furnizor OpenID Connect, GitHub sau Google."
+    "description": "Autentificare cu orice furnizor OpenID Connect sau SAML, GitHub sau Google."
   }
 }

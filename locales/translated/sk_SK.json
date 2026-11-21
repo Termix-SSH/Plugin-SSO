@@ -38,7 +38,21 @@
     "redirectUriDesc": "Zaregistrujte túto URL ako adresu presmerovania alebo spätného volania vo vašom poskytovateľovi identity.",
     "legacyCallback": "Ponechať starý URI presmerovania",
     "legacyCallbackDesc": "Tento poskytovateľ bol nastavený pred Termix 2.9 a stále používa starý URI presmerovania, ktorý stále funguje. Pre prechod na nový najprv pridajte {{uri}} vo vašom poskytovateľovi identity a potom túto možnosť vypnite.",
-    "authorizationUrl": "URL autorizácie: {{url}}"
+    "authorizationUrl": "URL autorizácie: {{url}}",
+    "sectionSignOut": "Odhlásiť sa",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Zaregistrujte túto adresu URL ako adresu URL služby Assertion Consumer Service (odpoveď) vo svojom poskytovateli identity.",
+    "entityId": "Entity ID",
+    "entityIdDesc": "Identifikátor Termix, nazývaný aj audience alebo identifikátor relying party.",
+    "metadataUrl": "Metadata URL",
+    "metadataUrlDesc": "Niektorí poskytovatelia identity si môžu nastavenie načítať z tejto adresy URL.",
+    "metadataAfterSave": "Adresa URL metadát sa zobrazí po uložení.",
+    "sectionIdp": "Poskytovateľ identity",
+    "sectionServer": "Tento server",
+    "sectionAttributes": "Atribúty",
+    "readMetadata": "Vyplniť z metadát",
+    "readMetadataDone": "Vyplnené z metadát",
+    "readMetadataFailed": "Nepodarilo sa načítať metadáta"
   },
   "fields": {
     "clientId": "ID klienta",
@@ -58,7 +72,35 @@
     "adminGroup": "Skupina administrátorov",
     "adminGroupDesc": "Pri každom prihlásení získajú používatelia v tejto skupine práva správcu a všetci ostatní ich stratia, aj ak boli povýšení v Termix. Ak chcete spravovať správcov v Termix, nechajte toto pole prázdne.",
     "caCert": "Vlastný certifikát CA",
-    "caCertDesc": "Voliteľné. Certifikát CA v kódovaní PEM pre poskytovateľov OIDC používajúcich súkromnú alebo samopodpísanú CA. Ak chcete použiť systémový úložník dôveryhodných certifikátov, nechajte prázdne."
+    "caCertDesc": "Voliteľné. Certifikát CA v kódovaní PEM pre poskytovateľov OIDC používajúcich súkromnú alebo samopodpísanú CA. Ak chcete použiť systémový úložník dôveryhodných certifikátov, nechajte prázdne.",
+    "signOutAtProvider": "Odhlásiť aj z poskytovateľa",
+    "signOutAtProviderDesc": "Keď sa niekto odhlási z Termix, presmerujte ho na stránku odhlásenia poskytovateľa, aby sa odhlásil aj tam. Pridajte túto adresu Termix ako povolené presmerovanie pri odhlásení u poskytovateľa. Vyžaduje Termix 26.11.3 a funguje iba v prehliadači.",
+    "endSessionUrl": "URL odhlásenia",
+    "endSessionUrlDesc": "Nechajte prázdne, ak chcete použiť end_session_endpoint, ktorý poskytovateľ uvádza vo svojom discovery dokumente.",
+    "samlMetadata": "IdP Metadata URL",
+    "samlMetadataDesc": "Voliteľné. Vložte adresu URL metadát poskytovateľa identity a stlačte Vyplniť z metadát.",
+    "samlEntryPoint": "URL prihlásenia",
+    "samlEntryPointDesc": "Adresa URL SAML prihlásenia poskytovateľa identity pre väzbu HTTP-Redirect.",
+    "samlIdpIssuer": "IdP Entity ID",
+    "samlIdpIssuerDesc": "Voliteľné. Odpovede od akéhokoľvek iného vydavateľa budú zamietnuté.",
+    "samlIdpCert": "IdP podpisový certifikát",
+    "samlIdpCertDesc": "PEM. Pri výmene certifikátu vložte viacero.",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "Formát NameID",
+    "samlNameIdFormatDesc": "Voliteľné. Nechajte prázdne, aby si to vybral poskytovateľ identity.",
+    "samlIdentifierAttr": "Atribút identifikátora používateľa",
+    "samlIdentifierAttrDesc": "Nechajte prázdne, ak chcete použiť NameID.",
+    "samlEmailAttr": "Atribút e-mailu",
+    "samlNameAttr": "Atribút používateľského mena",
+    "samlGroupsAttr": "Atribút skupín",
+    "samlAttrDesc": "Nechajte prázdne, aby sa skúsili bežné názvy. Viacero oddelte čiarkami.",
+    "samlWantResponseSigned": "Vyžadovať podpis celej odpovede",
+    "samlWantResponseSignedDesc": "Vypnuté, podpísaná musí byť iba asercia, čo robí každý poskytovateľ identity.",
+    "samlSpKey": "Kľúč na podpis žiadostí",
+    "samlSpKeyDesc": "Voliteľné. Súkromný kľúč PEM na podpisovanie žiadostí o prihlásenie, pre poskytovateľov, ktorí to vyžadujú.",
+    "samlSpKeyKeep": "Kľúč je uložený. Nechajte toto prázdne, aby ste ho zachovali.",
+    "samlSpCert": "Certifikát na podpis žiadostí",
+    "samlSpCertDesc": "Certifikát pre vyššie uvedený kľúč. Je súčasťou metadát."
   },
   "links": {
     "description": "Prepojte účet jednorazového prihlásenia, aby ste sa mohli do tohto účtu Termix prihlásiť pomocou neho. Vaše hostiteľské servery a nastavenia zostanú nezmenené.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Jednorazové prihlásenie",
-    "description": "Prihláste sa pomocou akéhokoľvek poskytovateľa OpenID Connect, GitHubu alebo Google."
+    "description": "Prihláste sa pomocou akéhokoľvek poskytovateľa OpenID Connect alebo SAML, GitHubu alebo Google."
   }
 }

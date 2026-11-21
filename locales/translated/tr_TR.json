@@ -38,7 +38,21 @@
     "redirectUriDesc": "Bu URL'yi kimlik sağlayıcınızda yönlendirme veya geri çağırma URL'si olarak kaydedin.",
     "legacyCallback": "Eski yönlendirme URI'sini koru",
     "legacyCallbackDesc": "Bu sağlayıcı Termix 2.9'dan önce yapılandırıldı ve hala eski yönlendirme URI'sini kullanıyor, bu da çalışmaya devam ediyor. Yeni URI'ye geçmek için önce kimlik sağlayıcınıza {{uri}} ekleyin, ardından bunu kapatın.",
-    "authorizationUrl": "Yetkilendirme URL'si: {{url}}"
+    "authorizationUrl": "Yetkilendirme URL'si: {{url}}",
+    "sectionSignOut": "Çıkış yap",
+    "acsUrl": "ACS URL'si",
+    "acsUrlDesc": "Bu URL'yi kimlik sağlayıcınızda Assertion Consumer Service (yanıt) URL'si olarak kaydedin.",
+    "entityId": "Varlık Kimliği",
+    "entityIdDesc": "Termix'in tanımlayıcısı, aynı zamanda izleyici veya güvenilen taraf tanımlayıcısı olarak da adlandırılır.",
+    "metadataUrl": "Meta Veri URL'si",
+    "metadataUrlDesc": "Bazı kimlik sağlayıcıları yapılandırmayı bu URL'den okuyabilir.",
+    "metadataAfterSave": "Meta veri URL'si kaydettikten sonra burada gösterilir.",
+    "sectionIdp": "Kimlik sağlayıcısı",
+    "sectionServer": "Bu sunucu",
+    "sectionAttributes": "Öznitelikler",
+    "readMetadata": "Meta verilerden doldur",
+    "readMetadataDone": "Meta verilerden dolduruldu",
+    "readMetadataFailed": "Meta veriler okunamadı"
   },
   "fields": {
     "clientId": "İstemci Kimliği",
@@ -58,7 +72,35 @@
     "adminGroup": "Yönetici Grubu",
     "adminGroupDesc": "Bu gruptaki kullanıcılar her oturum açışında yönetici olur, diğerleri ise Termix'te yükseltilmiş olsa bile yönetici yetkisini kaybeder. Yöneticileri Termix içinde yönetmek için boş bırakın.",
     "caCert": "Özel CA Sertifikası",
-    "caCertDesc": "İsteğe bağlı. Özel veya kendi kendine imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın."
+    "caCertDesc": "İsteğe bağlı. Özel veya kendi kendine imzalı CA kullanan OIDC sağlayıcıları için PEM kodlu CA sertifikası. Sistem güven deposunu kullanmak için boş bırakın.",
+    "signOutAtProvider": "Sağlayıcıdan da çıkış yap",
+    "signOutAtProviderDesc": "Birisi Termix'ten çıkış yaptığında, onları sağlayıcının çıkış sayfasına yönlendirin ki oradan da çıkış yapmış olsunlar. Bu Termix adresini sağlayıcıda izin verilen çıkış yönlendirmesi olarak ekleyin. Termix 26.11.3 gerektirir ve yalnızca tarayıcıda çalışır.",
+    "endSessionUrl": "Çıkış URL'si",
+    "endSessionUrlDesc": "Sağlayıcının keşif belgesinde listelediği end_session_endpoint'i kullanmak için boş bırakın.",
+    "samlMetadata": "IdP Meta Veri URL'si",
+    "samlMetadataDesc": "İsteğe bağlı. Kimlik sağlayıcısının meta veri URL'sini yapıştırın ve Meta verilerden doldur'a basın.",
+    "samlEntryPoint": "Giriş URL'si",
+    "samlEntryPointDesc": "HTTP-Redirect bağlaması için kimlik sağlayıcısının SAML giriş URL'si.",
+    "samlIdpIssuer": "IdP Varlık Kimliği",
+    "samlIdpIssuerDesc": "İsteğe bağlı. Başka bir yayıncıdan gelen yanıtlar reddedilir.",
+    "samlIdpCert": "IdP İmzalama Sertifikası",
+    "samlIdpCertDesc": "PEM. Sertifika değişikliği sırasında birden fazla yapıştırın.",
+    "samlSpEntityId": "Varlık Kimliği",
+    "samlNameIdFormat": "NameID Biçimi",
+    "samlNameIdFormatDesc": "İsteğe bağlı. Kimlik sağlayıcısının seçmesine izin vermek için boş bırakın.",
+    "samlIdentifierAttr": "Kullanıcı Tanımlayıcı Özniteliği",
+    "samlIdentifierAttrDesc": "NameID'yi kullanmak için boş bırakın.",
+    "samlEmailAttr": "E-posta Özniteliği",
+    "samlNameAttr": "Kullanıcı Adı Özniteliği",
+    "samlGroupsAttr": "Gruplar Özniteliği",
+    "samlAttrDesc": "Yaygın isimleri denemek için boş bırakın. Birden fazlasını virgülle ayırın.",
+    "samlWantResponseSigned": "Tüm yanıtın imzalanması gerekiyor",
+    "samlWantResponseSignedDesc": "Kapalıyken, yalnızca iddia imzalanmış olmalıdır, bunu her kimlik sağlayıcısı yapar.",
+    "samlSpKey": "İstek İmzalama Anahtarı",
+    "samlSpKeyDesc": "İsteğe bağlı. Bunu gerektiren sağlayıcılar için giriş isteklerini imzalamak üzere bir PEM özel anahtarı.",
+    "samlSpKeyKeep": "Bir anahtar kaydedildi. Saklamak için bunu boş bırakın.",
+    "samlSpCert": "İstek İmzalama Sertifikası",
+    "samlSpCertDesc": "Yukarıdaki anahtar için sertifika. Meta verilere eklenir."
   },
   "links": {
     "description": "Bu Termix hesabına tek oturum açma hesabıyla giriş yapmak için onu bağlayın. Sunucularınız ve ayarlarınız olduğu gibi kalır.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Tek oturum açma",
-    "description": "Herhangi bir OpenID Connect sağlayıcısı, GitHub veya Google ile oturum açın."
+    "description": "Herhangi bir OpenID Connect veya SAML sağlayıcısı, GitHub veya Google ile giriş yapın."
   }
 }

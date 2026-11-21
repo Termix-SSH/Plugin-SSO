@@ -38,7 +38,21 @@
     "redirectUriDesc": "Registrer denne URL som omdirigerings- eller callback-URL i din identitetsleverandør.",
     "legacyCallback": "Behold den gamle omdirigerings-URI",
     "legacyCallbackDesc": "Denne leverandør blev opsat før Termix 2.9 og bruger stadig den gamle omdirigerings-URI, som fortsat fungerer. For at skifte til den nye, skal du først tilføje {{uri}} i din identitetsleverandør, og derefter deaktivere dette.",
-    "authorizationUrl": "Autorisations-URL: {{url}}"
+    "authorizationUrl": "Autorisations-URL: {{url}}",
+    "sectionSignOut": "Log ud",
+    "acsUrl": "ACS-URL",
+    "acsUrlDesc": "Registrer denne URL som Assertion Consumer Service (reply)-URL hos din identitetsudbyder.",
+    "entityId": "Entity ID",
+    "entityIdDesc": "Termix' identifikator, også kaldet audience eller relying party-identifikator.",
+    "metadataUrl": "Metadata-URL",
+    "metadataUrlDesc": "Nogle identitetsudbydere kan læse opsætningen fra denne URL.",
+    "metadataAfterSave": "Metadata-URL'en vises her, når du gemmer.",
+    "sectionIdp": "Identitetsudbyder",
+    "sectionServer": "Denne server",
+    "sectionAttributes": "Attributter",
+    "readMetadata": "Udfyld fra metadata",
+    "readMetadataDone": "Udfyldt fra metadata",
+    "readMetadataFailed": "Kunne ikke læse metadata"
   },
   "fields": {
     "clientId": "Klient-ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Admin-gruppe",
     "adminGroupDesc": "Ved hver login får brugere i denne gruppe admin-rettigheder, og alle andre mister dem, selvom de er blevet forfremmet i Termix. Lad feltet være tomt for at administrere administratorer i Termix.",
     "caCert": "Tilpasset CA-certifikat",
-    "caCertDesc": "Valgfrit. PEM-kodet CA-certifikat til OIDC-leverandører, der bruger en privat eller selvsigneret CA. Lad være tomt for at bruge systemets tillidslager."
+    "caCertDesc": "Valgfrit. PEM-kodet CA-certifikat til OIDC-leverandører, der bruger en privat eller selvsigneret CA. Lad være tomt for at bruge systemets tillidslager.",
+    "signOutAtProvider": "Log også ud af udbyderen",
+    "signOutAtProviderDesc": "Når nogen logger ud af Termix, send dem til udbyderens logud-side, så de også logger ud der. Tilføj denne Termix-adresse som en tilladt logud-omdirigering hos udbyderen. Kræver Termix 26.11.3 og fungerer kun i browseren.",
+    "endSessionUrl": "Logud-URL",
+    "endSessionUrlDesc": "Lad være tomt for at bruge end_session_endpoint, som udbyderen angiver i sit opdagelsesdokument.",
+    "samlMetadata": "IdP-metadata-URL",
+    "samlMetadataDesc": "Valgfrit. Indsæt identitetsudbyderens metadata-URL og tryk på Udfyld fra metadata.",
+    "samlEntryPoint": "Login-URL",
+    "samlEntryPointDesc": "Identitetsudbyderens SAML-login-URL til HTTP-Redirect-bindingen.",
+    "samlIdpIssuer": "IdP Entity ID",
+    "samlIdpIssuerDesc": "Valgfrit. Svar fra andre udstedere afvises.",
+    "samlIdpCert": "IdP-signeringscertifikat",
+    "samlIdpCertDesc": "PEM. Indsæt flere end ét under en certifikatudskiftning.",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "NameID-format",
+    "samlNameIdFormatDesc": "Valgfrit. Lad være tomt for at lade identitetsudbyderen vælge.",
+    "samlIdentifierAttr": "Attribut for brugeridentifikator",
+    "samlIdentifierAttrDesc": "Lad være tomt for at bruge NameID.",
+    "samlEmailAttr": "E-mail-attribut",
+    "samlNameAttr": "Brugernavn-attribut",
+    "samlGroupsAttr": "Grupper-attribut",
+    "samlAttrDesc": "Lad være tomt for at prøve de sædvanlige navne. Adskil flere med kommaer.",
+    "samlWantResponseSigned": "Hele svaret skal være signeret",
+    "samlWantResponseSignedDesc": "Slukket: Kun assertionen skal være signeret, hvilket alle identitetsudbydere gør.",
+    "samlSpKey": "Nøgle til signering af anmodninger",
+    "samlSpKeyDesc": "Valgfrit. En PEM-private nøgle til at signere loginanmodninger med, til udbydere, der kræver det.",
+    "samlSpKeyKeep": "En nøgle er gemt. Lad dette felt være tomt for at beholde den.",
+    "samlSpCert": "Certifikat til signering af anmodninger",
+    "samlSpCertDesc": "Certifikatet til nøglen ovenfor. Det indgår i metadata."
   },
   "links": {
     "description": "Kob en single sign-on-konto til for at logge ind på denne Termix-konto med den. Dine værter og indstillinger forbliver uændrede.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single sign-on",
-    "description": "Log på med enhver OpenID Connect-udbyder, GitHub eller Google."
+    "description": "Log ind med enhver OpenID Connect- eller SAML-udbyder, GitHub eller Google."
   }
 }

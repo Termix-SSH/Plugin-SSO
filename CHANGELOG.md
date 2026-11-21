@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0
+
+### Added
+
+- SAML 2.0 providers, like ADFS, Shibboleth, Okta and Entra ID, with signed assertions, attribute and group mapping, a metadata URL for the identity provider and a way to fill the form from the identity provider's metadata
+- Sign out of the provider too: signing out of Termix also signs you out of an OIDC provider, through its sign out page (needs Termix 26.11.3)
+
 ## 1.2.0
 
 ### Changed

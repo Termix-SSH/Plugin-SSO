@@ -38,7 +38,21 @@
     "redirectUriDesc": "Regisztrálja ezt a URL-t mint átirányítási vagy visszahívási URL-t az identitásszolgáltatójánál.",
     "legacyCallback": "Régi átirányítási URI megtartása",
     "legacyCallbackDesc": "Ezt a szolgáltatót a Termix 2.9 előtt állították be, és még mindig a régi átirányítási URI-t használja, amely továbbra is működik. Az újra váltáshoz először adja hozzá a(z) {{uri}} URL-t az identitásszolgáltatójánál, majd kapcsolja ki ezt az opciót.",
-    "authorizationUrl": "Hitelesítési URL: {{url}}"
+    "authorizationUrl": "Hitelesítési URL: {{url}}",
+    "sectionSignOut": "Kijelentkezés",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Regisztrálja ezt az URL-t mint Assertion Consumer Service (válasz) URL-t a hitelesítési szolgáltatójánál.",
+    "entityId": "Entitásazonosító",
+    "entityIdDesc": "A Termix azonosítója, amelyet közönségnek vagy megbízó fél azonosítójának is neveznek.",
+    "metadataUrl": "Metaadat-URL",
+    "metadataUrlDesc": "Egyes hitelesítési szolgáltatók képesek beolvasni a beállításokat ebből az URL-ből.",
+    "metadataAfterSave": "A metaadat-URL a mentés után jelenik meg itt.",
+    "sectionIdp": "Hitelesítési szolgáltató",
+    "sectionServer": "Ez a szerver",
+    "sectionAttributes": "Attribútumok",
+    "readMetadata": "Kitöltés metaadatokból",
+    "readMetadataDone": "Kitöltve a metaadatokból",
+    "readMetadataFailed": "A metaadatok nem olvashatók"
   },
   "fields": {
     "clientId": "Kliensazonosító",
@@ -58,7 +72,35 @@
     "adminGroup": "Adminisztrátor csoport",
     "adminGroupDesc": "Bejelentkezéskor a csoport tagjai rendszergazdai jogosultságot kapnak, mindenki más pedig elveszíti azt, még akkor is, ha Termixben előléptették őket. Hagyja üresen, ha a rendszergazdákat Termixben szeretné kezelni.",
     "caCert": "Egyéni CA tanúsítvány",
-    "caCertDesc": "Opcionális. PEM-kódolású CA tanúsítvány olyan OIDC szolgáltatókhoz, amelyek privát vagy önállóan aláírt CA-t használnak. Hagyja üresen a rendszer megbízhatósági tárolójának használatához."
+    "caCertDesc": "Opcionális. PEM-kódolású CA tanúsítvány olyan OIDC szolgáltatókhoz, amelyek privát vagy önállóan aláírt CA-t használnak. Hagyja üresen a rendszer megbízhatósági tárolójának használatához.",
+    "signOutAtProvider": "Kijelentkezés a szolgáltatótól is",
+    "signOutAtProviderDesc": "Amikor valaki kijelentkezik a Termixből, irányítsa át a szolgáltató kijelentkező oldalára, hogy ott is kijelentkezzen. Adja hozzá ezt a Termix-címet a szolgáltató engedélyezett kijelentkezési átirányításai közé. Termix 26.11.3 vagy újabb szükséges, és csak böngészőben működik.",
+    "endSessionUrl": "Kijelentkezési URL",
+    "endSessionUrlDesc": "Hagyja üresen, ha a szolgáltató felfedező dokumentumában szereplő end_session_endpoint használatát szeretné.",
+    "samlMetadata": "IdP metaadat-URL",
+    "samlMetadataDesc": "Opcionális. Illessze be a hitelesítési szolgáltató metaadat-URL-jét, majd nyomja meg a Kitöltés metaadatokból gombot.",
+    "samlEntryPoint": "Bejelentkezési URL",
+    "samlEntryPointDesc": "A hitelesítési szolgáltató SAML bejelentkezési URL-je HTTP-Redirect kötéshez.",
+    "samlIdpIssuer": "IdP entitásazonosító",
+    "samlIdpIssuerDesc": "Opcionális. Bármely más kibocsátótól érkező válaszokat elutasít.",
+    "samlIdpCert": "IdP aláíró tanúsítvány",
+    "samlIdpCertDesc": "PEM. Tanúsítványváltás során többet is illeszthet be.",
+    "samlSpEntityId": "Entitásazonosító",
+    "samlNameIdFormat": "NameID formátum",
+    "samlNameIdFormatDesc": "Opcionális. Hagyja üresen, hogy a hitelesítési szolgáltató válasszon.",
+    "samlIdentifierAttr": "Felhasználó-azonosító attribútum",
+    "samlIdentifierAttrDesc": "Hagyja üresen a NameID használatához.",
+    "samlEmailAttr": "E-mail attribútum",
+    "samlNameAttr": "Felhasználónév attribútum",
+    "samlGroupsAttr": "Csoportok attribútuma",
+    "samlAttrDesc": "Hagyja üresen a szokásos nevek kipróbálásához. Több attribútumot vesszővel válasszon el.",
+    "samlWantResponseSigned": "Az egész válasz aláírása szükséges",
+    "samlWantResponseSignedDesc": "Kikapcsolva, csak az állításnak kell aláírt lennie, amit minden hitelesítési szolgáltató meg is tesz.",
+    "samlSpKey": "Kérés aláíró kulcsa",
+    "samlSpKeyDesc": "Opcionális. Egy PEM privát kulcs a bejelentkezési kérések aláírásához, azoknak a szolgáltatóknak, amelyek igénylik.",
+    "samlSpKeyKeep": "Egy kulcs van mentve. Hagyja üresen, hogy megmaradjon.",
+    "samlSpCert": "Kérés aláíró tanúsítványa",
+    "samlSpCertDesc": "A fenti kulcs tanúsítványa. Ez kerül a metaadatokba."
   },
   "links": {
     "description": "Csatlakoztasson egy egységes bejelentkezési fiókot, hogy ezzel tudjon bejelentkezni ebbe a Termix-fiókba. A gazdagépei és beállításai változatlanok maradnak.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Egyszerű bejelentkezés",
-    "description": "Jelentkezzen be bármely OpenID Connect szolgáltatóval, GitHubbal vagy Google-fiókkal."
+    "description": "Bejelentkezés bármely OpenID Connect vagy SAML szolgáltatóval, GitHubbal vagy Google-lal."
   }
 }

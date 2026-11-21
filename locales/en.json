@@ -38,7 +38,21 @@
     "redirectUriDesc": "Register this URL as the redirect or callback URL in your identity provider.",
     "legacyCallback": "Keep the old redirect URI",
     "legacyCallbackDesc": "This provider was set up before Termix 2.9 and still uses the old redirect URI, which keeps working. To move to the new one, add {{uri}} in your identity provider first, then turn this off.",
-    "authorizationUrl": "Authorization URL: {{url}}"
+    "authorizationUrl": "Authorization URL: {{url}}",
+    "sectionSignOut": "Sign out",
+    "acsUrl": "ACS URL",
+    "acsUrlDesc": "Register this URL as the Assertion Consumer Service (reply) URL in your identity provider.",
+    "entityId": "Entity ID",
+    "entityIdDesc": "The identifier of Termix, also called the audience or relying party identifier.",
+    "metadataUrl": "Metadata URL",
+    "metadataUrlDesc": "Some identity providers can read the setup from this URL.",
+    "metadataAfterSave": "The metadata URL shows here after you save.",
+    "sectionIdp": "Identity provider",
+    "sectionServer": "This server",
+    "sectionAttributes": "Attributes",
+    "readMetadata": "Fill from metadata",
+    "readMetadataDone": "Filled in from the metadata",
+    "readMetadataFailed": "Could not read the metadata"
   },
   "fields": {
     "clientId": "Client ID",
@@ -58,7 +72,35 @@
     "adminGroup": "Admin Group",
     "adminGroupDesc": "At every sign in, users in this group get admin and everyone else loses it, even if promoted in Termix. Leave empty to manage admins in Termix.",
     "caCert": "Custom CA Certificate",
-    "caCertDesc": "Optional. PEM-encoded CA certificate for OIDC providers using a private or self-signed CA. Leave empty to use the system trust store."
+    "caCertDesc": "Optional. PEM-encoded CA certificate for OIDC providers using a private or self-signed CA. Leave empty to use the system trust store.",
+    "signOutAtProvider": "Sign out of the provider too",
+    "signOutAtProviderDesc": "When someone signs out of Termix, send them to the provider's sign out page so they are signed out there as well. Add this Termix address as an allowed sign out redirect at the provider. Needs Termix 26.11.3 and only works in the browser.",
+    "endSessionUrl": "Sign out URL",
+    "endSessionUrlDesc": "Leave empty to use the end_session_endpoint the provider lists in its discovery document.",
+    "samlMetadata": "IdP Metadata URL",
+    "samlMetadataDesc": "Optional. Paste the identity provider's metadata URL and press Fill from metadata.",
+    "samlEntryPoint": "Sign In URL",
+    "samlEntryPointDesc": "The identity provider's SAML sign in URL for the HTTP-Redirect binding.",
+    "samlIdpIssuer": "IdP Entity ID",
+    "samlIdpIssuerDesc": "Optional. Answers from any other issuer are refused.",
+    "samlIdpCert": "IdP Signing Certificate",
+    "samlIdpCertDesc": "PEM. Paste more than one during a certificate change.",
+    "samlSpEntityId": "Entity ID",
+    "samlNameIdFormat": "NameID Format",
+    "samlNameIdFormatDesc": "Optional. Leave empty to let the identity provider pick.",
+    "samlIdentifierAttr": "User Identifier Attribute",
+    "samlIdentifierAttrDesc": "Leave empty to use the NameID.",
+    "samlEmailAttr": "Email Attribute",
+    "samlNameAttr": "Username Attribute",
+    "samlGroupsAttr": "Groups Attribute",
+    "samlAttrDesc": "Leave empty to try the usual names. Separate more than one with commas.",
+    "samlWantResponseSigned": "Need the whole answer signed",
+    "samlWantResponseSignedDesc": "Off, only the assertion has to be signed, which every identity provider does.",
+    "samlSpKey": "Request Signing Key",
+    "samlSpKeyDesc": "Optional. A PEM private key to sign sign in requests with, for providers that need it.",
+    "samlSpKeyKeep": "A key is saved. Leave this empty to keep it.",
+    "samlSpCert": "Request Signing Certificate",
+    "samlSpCertDesc": "The certificate for the key above. It goes in the metadata."
   },
   "links": {
     "description": "Link a single sign-on account to sign in to this Termix account with it. Your hosts and settings stay as they are.",
@@ -86,6 +128,6 @@
   },
   "plugin": {
     "name": "Single sign-on",
-    "description": "Sign in with any OpenID Connect provider, GitHub or Google."
+    "description": "Sign in with any OpenID Connect or SAML provider, GitHub or Google."
   }
 }
